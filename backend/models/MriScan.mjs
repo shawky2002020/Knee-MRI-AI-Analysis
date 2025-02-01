@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const MriScanSchema = new mongoose.Schema({
   patientId: {
@@ -23,4 +23,4 @@ const MriScanSchema = new mongoose.Schema({
 
 const MriScan = mongoose.model('MriScan', MriScanSchema);
 
-module.exports = MriScan;
+export default MriScan;

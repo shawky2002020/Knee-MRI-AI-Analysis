@@ -1,12 +1,10 @@
-import express from 'express';
+import { Router } from "express";
+import * as authController from '../controllers/authController.mjs';
 
 
-const router = express.Router();
-router.use(express.json());
+const router = Router();
 
-// Define your routes here
-router.get('/', (req, res) => {
-  res.send('Admin route');
-});
+router.get('/login', authController.login); 
+router.post('/register', authController.register);
 
 export default router;

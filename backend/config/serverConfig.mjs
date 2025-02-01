@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
-// import connectDB from './db.mjs';
 
 const app = express();
 dotenv.config();
