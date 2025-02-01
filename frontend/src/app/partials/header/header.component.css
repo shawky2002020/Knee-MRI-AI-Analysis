@@ -1,0 +1,35 @@
+#nav-bar{
+  font-size: larger;
+}
+#logo{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  color: black;
+}
+
+#ul-head{
+  list-style:none;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#ul-sub{
+  margin: 0 2rem;
+}
+
+a{
+  color: #3D3D3D;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+ul{
+  display: flex;
+}
+
+li{
+  padding: 1rem;
+}

@@ -1,0 +1,22 @@
+Authentication:
+
+POST /auth/register – User registration
+POST /auth/login – User login
+POST /auth/reset-password – Password reset
+--------------------------------------
+MRI Scan Management:
+
+POST /mri/upload – Upload MRI scan
+GET /mri/:id – View uploaded MRI scan
+DELETE /mri/:id – Delete MRI scan
+----------------------------------
+AI Analysis:
+
+POST /mri/analyze – Trigger AI analysis for an MRI scan
+GET /report/:id – Fetch diagnostic report (PDF)
+
+-----------------------------------
+Admin:
+
+GET /admin/users – List all users (for admin)
+POST /admin/create-user – Create new user (admin only)
