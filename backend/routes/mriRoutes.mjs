@@ -1,12 +1,9 @@
-import express from 'express';
-
-
+import express from "express";
+import * as mriController from '../controllers/mriController.mjs'
+import upload from "../middleware/uploadMiddleware.mjs";
 const router = express.Router();
-router.use(express.json());
 
-// Define your routes here
-router.get('/', (req, res) => {
-  res.send('Admin route');
-});
+router.post("/upload",upload.single("image"),mriController.uploadMri );
+
 
 export default router;

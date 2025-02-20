@@ -1,12 +1,10 @@
-import express from 'express';
+import { Router } from "express";
+import * as reportController from '../controllers/reportController.mjs';
+import * as authMiddleware from "../middleware/authMiddleware.mjs";
 
 
-const router = express.Router();
-router.use(express.json());
 
-// Define your routes here
-router.get('/', (req, res) => {
-  res.send('Admin route');
-});
+const router = Router();
+router.use(authMiddleware.authorize)
 
 export default router;

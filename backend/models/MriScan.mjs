@@ -6,14 +6,14 @@ const MriScanSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  scanData: {
-    type: Buffer,
-    required: true
-  },
   metadata: {
     type: Map,
     of: String,
     required: true
+  },
+  imageUrl:{
+    type:String,
+    required:true
   },
   createdAt: {
     type: Date,

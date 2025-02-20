@@ -1,0 +1,48 @@
+// Backend API Structure for MRI Analysis System
+
+/backend
+│
+├── /config                 // Configuration files (DB, server settings, etc.)
+│   ├── db.mjs               // Database connection
+│   ├── server.mjs           // Server and app setup (Express)
+│   └── authConfig.mjs       // JWT and Auth setup
+│
+├── /controllers            // Controllers for each feature (API logic)
+│   ├── authController.mjs   // User registration, login, password recovery
+│   ├── mriController.mjs    // Handle MRI file uploads and AI analysis
+│   ├── reportController.mjs // Handle report generation, download
+│   ├── adminController.mjs  // Admin user management, logging
+│   ├── notificationController.mjs // Handle email and in-app notifications
+│
+├── /models                 // Mongoose models (MongoDB schema)
+│   ├── User.mjs             // User schema (roles, credentials)
+│   ├── MriScan.mjs          // MRI scan schema (file data, metadata)
+│   ├── Report.mjs           // Report schema (diagnostic data)
+│   ├── Notification.mjs     // Schema for managing notifications
+│
+├── /routes                 // API routes
+│   ├── authRoutes.mjs       // Routes for authentication (login, signup)
+│   ├── mriRoutes.mjs        // Routes for uploading MRI scans
+│   ├── reportRoutes.mjs     // Routes for retrieving reports
+│   ├── adminRoutes.mjs      // Routes for admin features
+│   ├── notificationRoutes.mjs // Routes for handling notifications
+│
+├── /middleware             // Middlewares (e.g., JWT authentication, file validation)
+│   ├── authMiddleware.mjs   // JWT validation, role-based access control (RBAC)
+│   ├── uploadMiddleware.mjs // Handle file upload and validation (size, type)
+│   ├── errorMiddleware.mjs  // Centralized error handling
+│
+├── /services               // Business logic (separates pure logic from controllers)
+│   ├── aiService.mjs        // AI analysis logic (interface with Python API or library)
+│   ├── emailService.mjs     // Send email notifications for reports, registration
+│   ├── fileService.mjs      // Logic for file handling (upload, download, storage)
+│   ├── notificationService.mjs // Logic for notification handling
+│
+├── /utils                  // Utility functions
+│   └── helpers.mjs          // Helper functions for data processing
+│
+├── /public                 // Static files (optional, for frontend assets)
+│
+├── server.mjs               // Main entry point for Node.mjs/Express app
+├── .env                    // Environment variables
+└── package.mjson  

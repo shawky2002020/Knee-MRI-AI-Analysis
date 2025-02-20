@@ -1,12 +1,11 @@
-import express from 'express';
-import * as adminController from '../controllers/adminController.mjs';
+import { Router } from "express";
+import * as adminController from "../controllers/adminController.mjs";
+import * as authMiddleware from "../middleware/authMiddleware.mjs";
 
-const router = express.Router();
-router.use(express.json());
-
-// Define your routes here
-router.get('/', (req, res) => {
-  res.send('Admin route');
-});
+const router = Router();
+router.use(authMiddleware.authorize, authMiddleware.authorizeAdmin);
+router.get("/allusers", adminController.getAllUsers);
+router.get("/user", adminController.getUser);
+router.delete("/delete", adminController.deleteUser);
 
 export default router;
