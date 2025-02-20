@@ -1,22 +1,22 @@
-Authentication:
-
+// Authentication APIs
 POST /auth/register – User registration
 POST /auth/login – User login
 POST /auth/reset-password – Password reset
---------------------------------------
-MRI Scan Management:
 
+// MRI Scan Management APIs
 POST /mri/upload – Upload MRI scan
 GET /mri/:id – View uploaded MRI scan
 DELETE /mri/:id – Delete MRI scan
-----------------------------------
-AI Analysis:
 
+// AI Analysis APIs
 POST /mri/analyze – Trigger AI analysis for an MRI scan
 GET /report/:id – Fetch diagnostic report (PDF)
 
------------------------------------
-Admin:
+// Notification APIs
+GET /notifications – Fetch user notifications
+POST /notifications/mark-read – Mark notifications as read
 
+// Admin APIs
 GET /admin/users – List all users (for admin)
 POST /admin/create-user – Create new user (admin only)
+GET /admin/system-logs – View system logs

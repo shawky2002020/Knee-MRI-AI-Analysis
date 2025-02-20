@@ -1,0 +1,37 @@
+/src
+│── /app
+│   │── /core                # Core services (singleton services)
+│   │   ├── auth.service.ts  # Authentication & JWT handling
+│   │   ├── api.service.ts   # Generic API service for HTTP requests
+│   │   ├── user.service.ts  # User-related actions
+│   │   ├── ai.service.ts    # AI analysis API calls
+│   │   ├── notification.service.ts  # Notification handling
+│   │── /shared              # Reusable components, pipes, directives
+│   │   ├── components/
+│   │   │   ├── navbar/
+│   │   │   ├── sidebar/
+│   │   │   ├── file-uploader/
+│   │   │   ├── modal/
+│   │   ├── directives/
+│   │   ├── pipes/
+│   │── /features            # Feature-based modules
+│   │   ├── /auth            # Login, Register, Forgot Password
+│   │   │   ├── login/
+│   │   │   ├── register/
+│   │   │   ├── reset-password/
+│   │   ├── /dashboard       # Main user dashboard (after login)
+│   │   ├── /mri             # MRI scan upload, analysis, and reports
+│   │   │   ├── upload/
+│   │   │   ├── history/
+│   │   │   ├── report/
+│   │   ├── /admin           # Admin dashboard & user management
+│   │── /layout              # Main layout components
+│   │   ├── header.component.ts
+│   │   ├── sidebar.component.ts
+│   │   ├── footer.component.ts
+│   │── /app-routing.module.ts  # Centralized routing
+│   │── /app.module.ts
+│── /assets                 # Static assets (images, icons, styles)
+│── /environments           # Environment-specific configurations
+│── main.ts
+│── index.html

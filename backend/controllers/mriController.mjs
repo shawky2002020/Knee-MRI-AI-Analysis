@@ -5,7 +5,8 @@ export const uploadMri =async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
     }
-    const {name,id} = req.body
+    const id = req.user.id
+    const {name} = req.body
     
     // Convert buffer to base64 string
     const base64Image = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;

@@ -1,0 +1,66 @@
+// User Model
+export class User {
+  _id: string;
+  name: string;
+  email: string;
+  password: string; // Hashed
+  role: 'radiologist' | 'doctor' | 'admin';
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// MRI Scan Model
+export class MriScan {
+  _id: string;
+  userId: string; // Reference to User
+  filename: string;
+  fileUrl: string; // Cloud storage link
+  fileType: 'DICOM' | 'JPEG' | 'PNG';
+  uploadedAt: Date;
+  status: 'pending' | 'analyzed' | 'failed'; // Processing status
+}
+
+// AI Analysis Model
+export class AiAnalysis {
+  _id: string;
+  scanId: string; // Reference to MriScan
+  detectedInjuries: {
+    type: 'ACL Tear' | 'Meniscus Tear';
+    severity: 'mild' | 'moderate' | 'severe';
+    confidence: number; // AI confidence percentage
+    region: string; // Annotated image link
+  }[];
+  createdAt: Date;
+}
+
+// Report Model
+export class Report {
+  _id: string;
+  userId: string;
+  scanId: string;
+  analysisId: string;
+  diagnosis: string; // Summary of findings
+  confidenceLevel: number; // Average confidence
+  reportUrl: string; // PDF report link
+  createdAt: Date;
+}
+
+// Notification Model
+export class Notification {
+  _id: string;
+  userId: string;
+  type: 'analysis_complete' | 'new_report' | 'system_alert';
+  message: string;
+  isRead: boolean;
+  createdAt: Date;
+}
+
+// Admin Log Model
+export class AdminLog {
+  _id: string;
+  action: string;
+  userId: string; // Admin user who performed the action
+  details: string;
+  createdAt: Date;
+}
+```
