@@ -1,0 +1,39 @@
+
+ul{
+  display: flex;
+}
+
+li{
+  padding: 0 1rem;
+  font-family: var(--font-family);
+  list-style:none;
+  cursor: pointer;
+}
+
+#nav-bar{
+  background: #000;
+  font-size: larger;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  height: 5rem;
+
+}
+
+#logo-container{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+
+#links-wrapper{
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+
+

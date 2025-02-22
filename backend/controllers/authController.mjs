@@ -44,7 +44,7 @@ export const register = async (req, res) => {
     );
 
 
-    res.status(201).json({ message: "User registered and Email sent successfully", token });
+    res.status(201).json({ message: "User registered and Email sent successfully", token ,user:newUser });
   } catch (error) {
     res.status(500).json({ message: "Error registering user", error });
   }
@@ -68,7 +68,7 @@ export const login = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRE,
     });
-    res.status(200).json({ message: "User logged in successfully", token });
+    res.status(200).json({ message: "User logged in successfully", token , user });
   } catch (error) {
     res.status(500).json({ message: "Error logging in", error });
   }

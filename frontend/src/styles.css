@@ -5,12 +5,81 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+html{
+  overflow-x: hidden;
+  font-family: var(--font-family);
+  background: #000;
+}
+:root {
+  --primary-color: #00175e;  /* Medical Blue */
+  --secondary-color: #1565c0; /* Darker Blue */
+  --accent-color: #42a5f5;   /* Light Blue */
+  --background-color: #dfdf; /* Light Gray */
+  --card-background: #ffffff;  /* White */
+  --text-color: #212121;       /* Dark Gray */
+  --text-secondary: #757575;   /* Light Gray Text */
+  
+  --success-color: #4caf50;  /* Green */
+  --error-color: #e53935;    /* Red */
+  --warning-color: #ffb300;  /* Yellow */
+  
+  /* 🏥 Medical-Specific Colors */
+  --ai-highlight: #00e5ff;    /* Neon Cyan for AI animations */
+  --heatmap-high: #d32f2f;    /* Red for MRI heatmaps */
+  --heatmap-low: #ffeb3b;     /* Yellow for lower intensity */
+  
+  --border-radius: 12px;
+  --padding: 16px;
+  --margin: 16px;
+  --box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.3);
+  
+  /* 🖋 Typography */
+  --font-family: 'Inter', sans-serif;
+  --md: 16px;
+  --lg: 18px;
+  --sm: 14px;
+  
+}
+
 
 ul,li{
   list-style: unset;
 }
+li{
+  padding: 0 1rem;
+  font-family: var(--font-family);
+  list-style:none;
+}
+
 
 ::-webkit-scrollbar {  
   width: 0px;  
 
 }  
+
+#logo{
+  span{
+    color: rgb(51, 113, 188);
+  }
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  color: whitesmoke;
+}
+
+
+#links-wrapper{
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+#nav-bar,footer{
+a{
+  text-decoration: none;
+  font-weight: 700;
+  background-image: linear-gradient(-90deg,var(--accent-color) ,whitesmoke);
+  background-clip: text;
+  color: transparent;
+}}
+
+

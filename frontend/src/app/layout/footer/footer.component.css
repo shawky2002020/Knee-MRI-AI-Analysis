@@ -1,0 +1,18 @@
+.footer {
+  position: absolute;
+  width: 100vw;
+  display: flex;
+  background: black;
+  overflow: hidden; 
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  .sub1{
+    display: flex;
+    flex-flow: column nowrap;
+  }
+  .sub2{
+    display: flex;
+    align-items: center;
+  }
+}

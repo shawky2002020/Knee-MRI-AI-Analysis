@@ -1,0 +1,89 @@
+import { Injectable } from '@angular/core';
+import { User, userResponse } from '../models/user.model';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import * as url from '../../data/url';
+
+//Store Key for LocalStorage
+const USER_KEY = 'user';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class UserService {
+  private userSubject = new BehaviorSubject<User>(
+    this.getUserFromLocalStorage()
+  );
+  public userObservable: Observable<User>;
+
+  constructor(private http: HttpClient) {
+    this.userObservable = this.userSubject.asObservable();
+  }
+
+  public get currentUser(): User {
+    return this.userSubject.value;
+  }
+
+  login(user: User): Observable<userResponse> {
+    return this.http.post<userResponse>(url.USERS_LOGIN, user).pipe(
+      tap({
+        next: (res) => {
+          const newUser = {
+            ...res.user,
+            token: res.token,
+          };
+          this.setUserToLocalStorage(newUser);
+          this.userSubject.next(newUser);
+        },
+        error: (err) => {
+          alert(err.error.message);
+        },
+      })
+    );
+  }
+
+  register(user: User): Observable<userResponse> {
+    return this.http.post<userResponse>(url.USERS_REGISTER, user).pipe(
+      tap({
+        next: (res) => {
+          const newUser = {
+            ...res.user,
+            token: res.token,
+          };
+          this.setUserToLocalStorage(newUser);
+          this.userSubject.next(newUser);
+        },
+        error: (err) => {
+          alert(err.error.message);
+        },
+      })
+    );
+  }
+
+  logout() {
+    this.userSubject.next(new User());
+    localStorage.removeItem(USER_KEY);
+    window.location.reload();
+  }
+
+  private setUserToLocalStorage(user: User) {
+    console.log('from local', user);
+
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
+  }
+
+  public getUserFromLocalStorage(): User {
+    if (typeof window !== 'undefined' && localStorage) {
+      const userJson = localStorage.getItem(USER_KEY);
+      if (userJson) {
+        try {
+          return JSON.parse(userJson) as User;
+        } catch (error) {
+          console.error('Error parsing user data from localStorage:', error);
+          localStorage.removeItem(USER_KEY);
+        }
+      }
+    }
+    return new User();
+  }
+}

@@ -1,0 +1,16 @@
+<div id="nav-bar">
+  <ul id="logo-container" routerLink="home">
+    <li id="logo" >
+      <img height="91" width="81" src="../../../assets/Logo.png" alt="Logo">
+      <h1> <span>ACL</span>yze</h1>
+    </li>
+  </ul>
+
+    <ul id="links-wrapper">
+      <li><a routerLink="home">Home</a></li>
+      <li *ngIf="!user.token"><a routerLink="login">Login</a></li>
+      <li><a href="">Profile</a></li>
+      <li *ngIf="user.token"><a (click)="logout()">Logout</a></li>
+
+    </ul>
+</div>

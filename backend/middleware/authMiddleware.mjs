@@ -13,13 +13,13 @@ export const authorize = async (req, res, next) => {
     
   } catch (error) {
     if (error.name === "TokenExpiredError") {
-      return res.status(404).send("Token expired");
+      return res.status(450).send("Token expired");
     } else if (error.name === "JsonWebTokenError") {
-      return res.status(404).send("Invalid token");
+      return res.status(450).send("Invalid token");
     } else {
       console.log(error);
 
-      return res.status(404).send("Token verification failed");
+      return res.status(450).send("Token verification failed");
     }
   }
 

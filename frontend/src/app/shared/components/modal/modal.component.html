@@ -1,0 +1,7 @@
+<div class="modal-overlay" *ngIf="show">
+  <div class="modal">
+    <h2>{{ title }}</h2>
+    <ng-content></ng-content> <!-- Slot for dynamic content -->
+    <button (click)="closeModal()">Close</button>
+  </div>
+</div>
