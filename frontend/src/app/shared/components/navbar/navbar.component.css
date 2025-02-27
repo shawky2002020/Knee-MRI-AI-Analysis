@@ -11,7 +11,8 @@ li{
 }
 
 #nav-bar{
-  background: #000;
+  background:url('/assets/cover1.jpg');
+  background-position: top left;
   font-size: larger;
   display: flex;
   flex-flow: row nowrap;

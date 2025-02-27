@@ -11,6 +11,7 @@ import { User } from '../../../core/models/user.model';
 export class NavbarComponent {
   user!:User;
   constructor(router: Router, private userService: UserService) {
+    
     userService.userObservable.subscribe((newUser)=>{
       this.user = newUser;
     });

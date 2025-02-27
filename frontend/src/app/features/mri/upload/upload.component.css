@@ -1,0 +1,26 @@
+.upload-page {
+  height: 80vh;
+  width: 100vw;
+  text-align: center;
+  
+  padding: 20px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+h2 {
+  color: cornflowerblue;
+  margin-bottom: 20px;
+}
+
+.uploaded-preview {
+  margin-top: 20px;
+}
+
+.uploaded-preview img {
+  max-width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

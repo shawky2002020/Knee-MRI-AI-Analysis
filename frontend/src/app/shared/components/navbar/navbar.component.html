@@ -7,9 +7,12 @@
   </ul>
 
     <ul id="links-wrapper">
-      <li><a routerLink="home">Home</a></li>
-      <li *ngIf="!user.token"><a routerLink="login">Login</a></li>
-      <li><a href="">Profile</a></li>
+      <li *ngIf="!user.token"><a routerLink="/login">Login</a></li>
+      <li *ngIf="user.token"><a routerLink="/mri/history">History</a></li>
+
+
+      <li *ngIf="user.token"><a routerLink="/mri/upload">Analysis</a></li>
+      <li *ngIf="user.token"><a routerLink='/mri/report'>Report</a></li>
       <li *ngIf="user.token"><a (click)="logout()">Logout</a></li>
 
     </ul>

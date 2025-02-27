@@ -22,6 +22,7 @@ import { RouterModule } from '@angular/router';
   exports:[
     NavbarComponent,
     SidebarComponent,
+    FileUploaderComponent
   ]
 })
 export class SharedModule { }

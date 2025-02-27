@@ -11,6 +11,7 @@ export const authorize = async (req, res, next) => {
     const decodedUser = await jwt.verify(token, process.env.JWT_SECRET);
     req.user = decodedUser;
     
+    
   } catch (error) {
     if (error.name === "TokenExpiredError") {
       return res.status(450).send("Token expired");

@@ -1,1 +1,25 @@
-<p>file-uploader works!</p>
+<div class="upload-container">
+  <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden accept=".jpg, .jpeg, .png, .dicom"  />
+
+  <label for="fileInput" class="upload-box">
+    <div *ngIf="!selectedFile" class="upload-placeholder">
+      <i class="fas fa-cloud-upload-alt"></i>
+      <p>Drag & drop or click to upload MRI scan</p>
+    </div>
+    <div *ngIf="selectedFile" class="file-preview">
+      <img [src]="previewUrl" />
+      <p>{{ selectedFile.name }}</p>
+      <button (click)="resetUpload()">Remove</button>
+    </div>
+  </label>
+
+  <button (click)="uploadFile()" [disabled]="!selectedFile || isUploading" class="upload-btn">
+    Upload
+  </button>
+
+  <!-- Progress Bar -->
+  <div class="progress-container" *ngIf="isUploading">
+    <div class="progress-bar" [style.width.%]="uploadProgress"></div>
+    <p>{{ uploadProgress }}%</p>
+  </div>
+</div>

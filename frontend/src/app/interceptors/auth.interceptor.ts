@@ -10,10 +10,11 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { User } from '../core/models/user.model';
 import { UserService } from '../core/services/user.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router,private toastr:ToastrService) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -27,14 +28,16 @@ export class AuthInterceptor implements HttpInterceptor {
         },
       });
     } else {
-      console.log('No token found');
+      // console.log('no token');
+      
     }
 
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 450) {
           this.userService.logout();
-          alert('Please log in again') //token expired
+          this.router.navigate(['/login'])
+          this.toastr.info('Please log in again','Session expired') //token expired
         }
         return throwError(error);
       })

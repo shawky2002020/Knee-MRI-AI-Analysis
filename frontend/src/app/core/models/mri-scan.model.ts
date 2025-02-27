@@ -1,9 +1,19 @@
 export class MriScan {
+  imageFile !:File
+  metadata!: MetaData;
+}
+
+export class MetaData {
+  type!: string;
+  view!: string;
+  fileType!: 'dicom' | 'jpeg' | 'png' | 'jpg';
+}
+
+export class MriResponse {
+  message!: string;
   _id!: string;
-  userId!: string; // Reference to User
-  filename!: string;
-  fileUrl!: string; // Cloud storage link
-  fileType!: 'DICOM' | 'JPEG' | 'PNG';
+  patientId!: string; // Reference to User
+  imageUrl!: string; // Cloud storage link
+  metadata!: MetaData;
   uploadedAt!: Date;
-  status!: 'pending' | 'analyzed' | 'failed'; // Processing status
 }

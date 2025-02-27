@@ -5,18 +5,20 @@ import { MriRoutingModule } from './mri-routing.module';
 import { UploadComponent } from './upload/upload.component';
 import { HistoryComponent } from './history/history.component';
 import { ReportComponent } from './report/report.component';
-import { FileUploaderComponent } from '../../shared/components/file-uploader/file-uploader.component';
+import { SharedModule } from '../../shared/shared.module';
+import { HeaderComponent } from '../../layout/header/header.component';
 
 @NgModule({
   declarations: [
     UploadComponent,
     HistoryComponent,
     ReportComponent,
-    FileUploaderComponent
+    HeaderComponent
   ],
   imports: [
     CommonModule,
-    MriRoutingModule
+    MriRoutingModule,
+    SharedModule
   ]
 })
 export class MriModule { }

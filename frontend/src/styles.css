@@ -8,7 +8,7 @@
 html{
   overflow-x: hidden;
   font-family: var(--font-family);
-  background: #000;
+  background: #000f3b;
 }
 :root {
   --primary-color: #00175e;  /* Medical Blue */
@@ -31,7 +31,7 @@ html{
   --border-radius: 12px;
   --padding: 16px;
   --margin: 16px;
-  --box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.3);
+  --box-shadow: 0px 2px 12px rgba(255, 255, 255, 0.3);
   
   /* 🖋 Typography */
   --font-family: 'Inter', sans-serif;

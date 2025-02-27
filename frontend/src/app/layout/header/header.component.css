@@ -1,0 +1,7 @@
+.container{
+  height: 20vh;
+  background: #fff;
+  color: var(--primary-color);
+  text-align: left;
+  font-size: 1.4rem;
+}

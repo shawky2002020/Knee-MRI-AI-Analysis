@@ -1,5 +1,23 @@
 import mongoose from 'mongoose';
 
+const metaData = new mongoose.Schema({
+  type:{
+    type:String,
+    required:true
+  },
+  view:{
+    type:String,
+    required:true
+  },
+  fileType: {
+    type: String,
+    enum: ['dicom', 'jpeg', 'png', 'jpg'], // Use `enum` to restrict values
+    required: true
+  }
+})
+
+
+
 const MriScanSchema = new mongoose.Schema({
   patientId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -7,7 +25,7 @@ const MriScanSchema = new mongoose.Schema({
     required: true
   },
   metadata: {
-    type: Map,
+    type: metaData,
     of: String,
     required: true
   },
@@ -20,6 +38,7 @@ const MriScanSchema = new mongoose.Schema({
     default: Date.now
   }
 });
+
 
 const MriScan = mongoose.model('MriScan', MriScanSchema);
 
