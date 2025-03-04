@@ -1,15 +1,28 @@
-.page{
-  background-color: var(--background-color);
-  height: calc(100vh - 8rem);
+.page {
+  background-position: right;
+  height: calc(100vh - 5rem);
   width: 100vw;
   display: flex;
   align-items: center;
 }
+
+img {
+  width: 100%;
+  height: 100%;
+  object-position: right bottom;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
 .register-container {
-  max-width: 400px;
+  backdrop-filter: blur(10px);
+  background: rgba(247, 179, 247, 0.086);
+  width: min(500px, 90%);
   margin: auto;
   padding: 20px;
-  background: #ffffff;
   box-shadow: var(--box-shadow);
   border-radius: 8px;
   text-align: center;
@@ -17,25 +30,28 @@
 
 h2 {
   margin-bottom: 20px;
-  color: #333;
+  color: var(--white);
+  font-size: var(--xlarge) !important;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin: 1.5rem 1rem;
   text-align: left;
 }
 
 label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: var(--large);
+  color: var(--white-70);
 }
 
 input {
   width: 100%;
-  padding: 8px;
+  padding: 0.5rem 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+  background: var(--white-30);
 }
 
 small {
@@ -44,29 +60,40 @@ small {
 }
 
 button {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
+  width: 10rem;
+  height: 3rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
+  font-weight: bold;
+  background: var(--purple-dark);
+  color: var(--white);
+  font-size: var(--medium);
 }
 
 button:disabled {
   background-color: #ccc;
+  color: var(--purple-light);
 }
 
 p {
-  margin-top: 10px;
+  margin-top: 1rem;
+  color: var(--white-70);
+  font-size: var(--normal);
 }
 
 a {
-  color: #007bff;
+  color: var(--white);
+  background: var(--purple-medium);
   text-decoration: none;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  transition: background 0.1s ease-in-out;
 }
 
 a:hover {
-  text-decoration: underline;
+  background: var(--purple-dark);
+}
+hr{
+  margin: 1rem 0 2rem 0;
 }

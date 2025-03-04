@@ -1,15 +1,22 @@
-import { Component } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, ViewChild, viewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { userResponse } from '../../../core/models/user.model';
+import gsap from 'gsap';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
-export class RegisterComponent {
+export class RegisterComponent implements AfterViewInit {
+  @ViewChild('bgEl') bg!: ElementRef;
+  @ViewChild('formEl') form!: ElementRef;
+  @ViewChild('containerEl') container!: ElementRef;
+  t1 = gsap.timeline();
+
+
   registerForm!: FormGroup;
   returnUrl!: string;
 
@@ -19,6 +26,30 @@ export class RegisterComponent {
     private router: Router,
     private activeRoute: ActivatedRoute
   ) {}
+  ngAfterViewInit(): void {
+    this.t1
+    .from(this.bg.nativeElement, {
+      duration: 1,
+      opacity: 0,
+      y: 50,
+      ease: 'power2.inOut',
+  })
+  .from(this.container.nativeElement, {
+      duration: 1,
+      opacity: 0,
+      ease: 'power2.inOut',
+  },'>-.5')
+  .from(this.form.nativeElement.children, {
+      duration: 1,
+      opacity: 0,
+      y: 50,
+      stagger:{
+        amount:1
+      },
+      ease: 'power2.inOut', 
+  },'>-.5')
+}
+
 
   ngOnInit() {
     this.registerForm = this.fb.group(

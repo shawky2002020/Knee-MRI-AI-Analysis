@@ -1,4 +1,4 @@
-<div class="upload-container">
+<div class="upload-container" >
   <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden accept=".jpg, .jpeg, .png, .dicom"  />
 
   <label for="fileInput" class="upload-box">
@@ -9,17 +9,19 @@
     <div *ngIf="selectedFile" class="file-preview">
       <img [src]="previewUrl" />
       <p>{{ selectedFile.name }}</p>
-      <button (click)="resetUpload()">Remove</button>
+      <button class="remove-btn"  (click)="resetUpload()">Remove</button>
     </div>
-  </label>
-
-  <button (click)="uploadFile()" [disabled]="!selectedFile || isUploading" class="upload-btn">
-    Upload
-  </button>
-
-  <!-- Progress Bar -->
+    <button (click)="uploadFile()" [disabled]="!selectedFile || isUploading" class="upload-btn">
+      Upload
+    </button>
+      <!-- Progress Bar -->
   <div class="progress-container" *ngIf="isUploading">
     <div class="progress-bar" [style.width.%]="uploadProgress"></div>
     <p>{{ uploadProgress }}%</p>
   </div>
+  </label>
+
+
+
+
 </div>

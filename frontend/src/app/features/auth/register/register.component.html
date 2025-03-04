@@ -1,8 +1,9 @@
 <div class="page">
-<div class="register-container">
+  <img src="/assets/cover/i1.avif" alt="bg" #bgEl>
+<div class="register-container" #containerEl>
   <h2>Register</h2>
   
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" #formEl>
     <div class="form-group">
       <label for="name">Full Name</label>
       <input id="name" formControlName="name" type="text" placeholder="Enter your full name" />
@@ -36,8 +37,8 @@
     </div>
 
     <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    <hr>
+    <p>Already have an account? <a routerLink="/login">Login</a></p>
   </form>
-
-  <p>Already have an account? <a routerLink="/login">Login</a></p>
 </div>
 </div>

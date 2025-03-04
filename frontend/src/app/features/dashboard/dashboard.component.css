@@ -1,0 +1,137 @@
+
+
+.dashboard {
+  width: 99.5%;
+  height: 99.5%;
+  border-radius: 1rem;
+  position: absolute;
+  background: radial-gradient(circle at center, var(--cyan-light), var(--blue) 50%, var(--blue-dark),var(--white));
+  background-size: 300% 300%;
+  overflow: hidden;
+  animation: scanEffect 10s infinite linear;
+  z-index: -1;
+}
+
+
+.bg {
+  height: 100%;
+  width: calc(100vw - 10rem);
+  object-fit: contain;
+  position: absolute;
+  z-index: -1;
+  animation: move 10s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+.content {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr 4fr 5fr;
+  height: 100vh;
+  width: 100%;
+  font-weight: bold;
+}
+
+header {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+header h1 {
+  flex: 1;
+  padding: 1rem;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+  max-width: 50rem;
+  margin: auto;
+  padding: 1rem;
+  height: 100%;
+}
+
+.card:nth-child(1){
+  grid-column: span  2;
+}
+.card {
+  display: flex;
+  padding: 1rem;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.1); /* Transparent White */
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  color: var(--white);
+  h3 {
+    color: var(--white-70);
+    font-size: var(--xlarge);
+    text-align: center;
+  }
+  p {
+    font-size: var(--large);
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+
+.recent-analysis{
+  background: rgba(255, 255, 255, 0.575);
+  border-radius: 1rem;
+  margin: 3rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: start;
+  gap: 1rem;
+  align-items: start;
+  padding:1.5rem 2rem;
+  h2{
+    font-size: var(--xlarge);
+    color: var(--black-70);
+  }
+  ul{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: .5rem;
+    font-size: var(--medium);
+    color: var(--black-50);
+  }
+  span{
+    color: var(--black-light);
+  }
+}
+
+@keyframes move {
+  0% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleX(1.1)  translateY(-20px);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+@keyframes scanEffect {
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 40%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
+}

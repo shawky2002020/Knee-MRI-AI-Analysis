@@ -1,1 +1,43 @@
-<p>dashboard works!</p>
+<div class="page-light">
+  <div class="dashboard">
+    <!-- <img class="bg" src="/assets/cover/whitebg.webp" alt="bg" > -->
+     
+    <img class="bg" src="/assets/cb.svg" alt="bg" #bgEl> 
+    <div class="scan-line"></div>
+    <div class="scan-overlay"></div>
+  
+  
+      <main class="content">
+        <div #headerEl>
+          <app-header [title]=" 'Dashboard' " ></app-header>
+        </div>
+    
+        <section class="stats" #cardcontainerEl>
+          <div class="card ai-status" >
+            <h3>AI Status</h3>
+            <p><strong>Active</strong></p>
+          </div>
+          <div class="card patients">
+            <h3>Patients</h3>
+            <p>120</p>
+          </div>
+          <div class="card reports">
+            <h3>Reports</h3>
+            <p>45</p>
+          </div>
+        </section>
+    
+        <section class="recent-analysis" #recentEl>
+          <h2>Recent MRI Scans</h2>
+          <ul>
+            <li>Patient #1045 - <span>
+              ACL Tear Detected 
+            </span></li>
+            <li>Patient #1046 - <span>No Issues Found </span> </li>
+            <li>Patient #1047 - <span>Possible Meniscus Tear</span> </li>
+          </ul>
+        </section>
+      </main>
+    </div>
+
+</div>

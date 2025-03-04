@@ -1,65 +1,25 @@
-<app-navbar></app-navbar>
+<div class="page">
 
-<div id="page">
-  <section class="sec0">
-    <figure>
-      <figcaption>
-        <h1>Detailed Knee MRI Analysis</h1>
-        <p>Get your knee checked now!</p>
-        <button routerLink="/mri/upload" id="btn-check">Check</button>
-      </figcaption>
-    </figure>
-  </section>
-  <section class="intro">
-    <div class="container">
-      <h1>Free Powered <span><img src="/assets/ai.png" alt="ai" ></span> MRI Analysis</h1>
+  <section class="sec1">
 
+  <video #video autoplay muted loop playsinline id="myVideo">
+    <source src="/assets/laser.mp4" type="video/mp4" />
+    <source src="/assets/laser.webm" type="video/webm" />
+    Your browser does not support the video tag.
+  </video>
+
+    <div class="text-container" #textEl>
+      <h1>Check Your Knee Immediately <br> With Our AI Powered Analysis
+      </h1>
       <p>
-        Discover what's beneath the surface! Get free MRI analysis with cutting-edge technology. Upload your scans and receive accurate insights in minutes. Fast, secure, and easy to use—start now for
-         <span>Free !</span>
-      </p>
-      <button>Get Results</button>
+        
+        Upload Your Scan & Get the results in minutes 
+    </div>
+    <div id="check" #btnEl>
+      <button>
+        <a routerLink="/mri/upload">Check Now</a>
+
+      </button>
+
     </div>
   </section>
-  <!-- <section class="sec1">
-    <div class="sub-sec1">
-      <h1>Choose Your Plan</h1>
-      <p>
-        Find the right plan for generating MRI reports with options for
-        individuals, clinics, and hospitals, each offering different features
-        and support.
-        <span> Try our free trial to see which plan works best for you. </span>
-      </p>
-    </div>
-    <img src="/assets/logo$.png" alt="Cover" />
-  </section> -->
-  <!-- <section class="sec2">
-    <div class="sub-sec2">
-      <h1>Knee Conditions</h1>
-      <p>
-        Explore common knee conditions that can impact your mobility and
-        comfort, from ligament injuries to cartilage damage, and learn about
-        their symptoms, causes, and treatment options.
-      </p>
-    </div>
-    <div id="imageknee"></div>
-  </section>
-  <section class="sec3">
-    <h1>Top Diagnosis</h1>
-    <div class="sub-sec3">
-      <figure>
-        <img src="/assets/ACL.webp" alt="img" />
-        <figcaption>Acl</figcaption>
-      </figure>
-      <figure>
-        <img src="/assets/cartilage.png" alt="img" />
-        <figcaption>Cartilage</figcaption>
-      </figure>
-      <figure>
-        <img src="/assets/Meniscus.png" alt="img" />
-        <figcaption>Meniscus</figcaption>
-      </figure>
-    </div>
-  </section>
--->
-</div>

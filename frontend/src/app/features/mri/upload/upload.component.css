@@ -1,18 +1,36 @@
-.upload-page {
-  height: 80vh;
-  width: 100vw;
-  text-align: center;
+.page{
+  position: relative;
+  width: calc( 100vw - 10rem );
+  margin-left: 10rem;
+}
+#myVideo{
+  position: absolute;
+  left: 50%;
+  width: 100%;
+  max-width: 40rem;
+  transform: translateY(-10%)  translateX(-50%);
+  z-index: -1;
+  height: 100vh;
+  filter: contrast(1.5);
   
-  padding: 20px;
+}
+
+.upload-page {
+  height: 100vh;
+  text-align: center;
+  width: calc( 100vw - 10rem );
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 h2 {
-  color: cornflowerblue;
-  margin-bottom: 20px;
+  font-size: var(--xlarge);
+  padding: 2rem ;
+  background: linear-gradient(45deg, var(--blue), var(--cyan));
+  background-clip: text;
+  color: transparent;
 }
 
 .uploaded-preview {
@@ -20,7 +38,9 @@ h2 {
 }
 
 .uploaded-preview img {
-  max-width: 300px;
+  border: solid;
+  max-width: 400px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+

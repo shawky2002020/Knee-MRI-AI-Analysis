@@ -1,9 +1,17 @@
 <div class="page">
-  <app-header [title]="'Upload Page'"></app-header>
-<div class="upload-page">
-  <h2>Upload MRI Scan</h2>
   
-  <app-file-uploader (uploadSuccess)="onUploadSuccess($event)"></app-file-uploader>
+  <video #video autoplay muted loop playsinline id="myVideo">
+    <source src="/assets/light/ball.mp4" type="video/mp4" />
+    <source src="/assets/light/ball.webm" type="video/webm" />
+    Your browser does not support the video tag.
+  </video>
+
+<div class="upload-page">
+  <h2 #textEl>Instant AI-Powered MRI Analysis<br>Upload & Discover in Seconds!</h2>
+  <div #uploadEl >
+
+    <app-file-uploader (uploadSuccess)="onUploadSuccess($event)"></app-file-uploader>
+  </div>
 
   <div *ngIf="uploadedFileUrl" class="uploaded-preview">
     <h3>Uploaded File:</h3>
@@ -11,5 +19,4 @@
   </div>
 </div>
 
-<app-history></app-history>
 </div>

@@ -31,7 +31,7 @@ import { ToastrModule } from 'ngx-toastr';
       closeButton: true, // Show close button
       newestOnTop: true, // New toasts appear on top
       progressBar: true, // Show progress bar
-      positionClass: 'toast-top-right', // Toast position
+      positionClass: 'toast-bottom-right', // Toast position
       preventDuplicates: true, // Prevent duplicate toasts
       timeOut: 5000, // Timeout for the toast
       extendedTimeOut: 1000, // Additional time on hover
@@ -45,5 +45,6 @@ import { ToastrModule } from 'ngx-toastr';
     },
   ],
   bootstrap: [AppComponent],
+  
 })
 export class AppModule {}

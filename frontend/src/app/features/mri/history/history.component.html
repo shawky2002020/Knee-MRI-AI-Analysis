@@ -3,7 +3,7 @@
     <div class="card" *ngFor="let scan of mriScans">
       <div class="sub-card">
         <figure>
-          <img [src]="scan.imageUrl" alt="scan">
+          <img loading="lazy" [src]="scan.imageUrl" alt="scan">
         </figure>
         <div class="type">{{ scan.metadata.type }}</div>
         <div class="view">{{ scan.metadata.view }}</div>

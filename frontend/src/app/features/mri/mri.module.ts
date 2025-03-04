@@ -13,7 +13,6 @@ import { HeaderComponent } from '../../layout/header/header.component';
     UploadComponent,
     HistoryComponent,
     ReportComponent,
-    HeaderComponent
   ],
   imports: [
     CommonModule,
