@@ -2,8 +2,9 @@ import { AfterViewChecked, AfterViewInit, Component, ElementRef, ViewChild, view
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { userResponse } from '../../../core/models/user.model';
+import { User, userResponse } from '../../../core/models/user.model';
 import gsap from 'gsap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -19,13 +20,21 @@ export class RegisterComponent implements AfterViewInit {
 
   registerForm!: FormGroup;
   returnUrl!: string;
-
+  user!:User;
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private router: Router,
+    private toast : ToastrService,
     private activeRoute: ActivatedRoute
-  ) {}
+  ) {
+    userService.userObservable.subscribe({
+      next:(newuser)=>{
+        this.user=newuser;
+      }
+    })
+  }
+
   ngAfterViewInit(): void {
     this.t1
     .from(this.bg.nativeElement, {
@@ -74,8 +83,8 @@ export class RegisterComponent implements AfterViewInit {
     if (this.registerForm.valid) {
       this.userService.register(this.registerForm.value).subscribe({
         next : (res)=>{
-          console.log(`hello ${res.user.name}`);
-          this.router.navigateByUrl(this.returnUrl);
+          this.toast.success(`Hello ${this.user.name}`)
+          this.router.navigateByUrl('dashboard');
 
         }
       })

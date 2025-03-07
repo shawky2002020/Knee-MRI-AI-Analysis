@@ -1,9 +1,16 @@
+:root{
+  --rotate: 0deg
+}
+@property --angle {
+  syntax: "<angle>" ;
+  initial-value: 0deg;
+  inherits: false;
+}
+
 .upload-container {
-  width: calc( 100vw - 10rem );
-  height: 40vh;
-  padding: 20px;
-  margin-bottom: 10px;
-  border-radius: 12px;
+  width: calc( 100vw - 12rem );
+  margin-bottom: 1vh;
+  border-radius: 1rem;
   background: rgba(255, 255, 255, 0.038); /* Glass effect */
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
@@ -12,8 +19,8 @@
 }
 
 .upload-box {
+  position: relative;
   width: 100%;
-  height: 38vh;
   padding: 25px;
   border-radius: 10px;
   cursor: pointer;
@@ -22,19 +29,40 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  background: var(--white);
 }
 
-.upload-box:hover {
-  background: rgba(255, 255, 255, 0.2);
+.upload-container::after ,
+.upload-container::before {
+  content: '';
+  position: absolute;
+  inset: -4px; /* More glow */
+  border-radius: 1rem;
+  background-image: conic-gradient(from var(--angle),var(--cyan) ,var(--blue-dark),var(--cyan));
+  z-index: -1; /* Keeps glow behind the box */
+  animation: glow 4s linear infinite;
+}
+.upload-box::container{
+  inset: -6px;
+  filter: blur(10px);
 }
 
+@keyframes glow {
+ from {
+    --angle : 0deg
+  }
+  to {
+    --angle : 360deg
+  }
+
+}
 .upload-placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 90%;
-  width: 90%;
+  height: 100%;
+  width: 100%;
   border: 2px dashed var(--black-50);
   border-radius: 10px;
   transition: 0.3s ease;

@@ -5,12 +5,14 @@ import { BehaviorSubject, Subscriber } from 'rxjs';
   providedIn: 'root'
 })
 export class ThemeService {
+ 
   private renderer: Renderer2;
   private theme = new BehaviorSubject<string>(localStorage.getItem('theme') || 'dark');
   public themeObservable = this.theme.asObservable();
 
   constructor(rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
+    
   }
   public get themeValue(): string {
     return this.theme.getValue(); 

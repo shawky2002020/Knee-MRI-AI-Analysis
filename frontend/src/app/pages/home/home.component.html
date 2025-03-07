@@ -1,25 +1,72 @@
 <div class="page">
-
   <section class="sec1">
-
-  <video #video autoplay muted loop playsinline id="myVideo">
-    <source src="/assets/laser.mp4" type="video/mp4" />
-    <source src="/assets/laser.webm" type="video/webm" />
-    Your browser does not support the video tag.
-  </video>
+    <video #video autoplay muted loop playsinline id="myVideo">
+      <source src="/assets/laser.mp4" type="video/mp4" />
+      <source src="/assets/laser.webm" type="video/webm" />
+      Your browser does not support the video tag.
+    </video>
 
     <div class="text-container" #textEl>
-      <h1>Check Your Knee Immediately <br> With Our AI Powered Analysis
+      <h1>
+        Check Your Knee Immediately <br />
+        With Our AI Powered Analysis
       </h1>
-      <p>
-        
-        Upload Your Scan & Get the results in minutes 
+      <p>Upload Your Scan & Get the results in minutes</p>
     </div>
-    <div id="check" #btnEl>
-      <button>
-        <a routerLink="/mri/upload">Check Now</a>
 
-      </button>
+    <div id="check" #btnEl>
+      <button><a routerLink="/mri/upload">Check Now</a></button>
+    </div>
+  </section>
+
+  <section class="features sec2">
+    <div class="sub1">
+      <div class="h2-wrap">
+
+        <h2>Why Choose ACLyze AI?</h2>
+      </div>
+
+      <div class="content">
+        <div class="feature-item">
+          <h3>AI-Powered Analysis</h3>
+          <p>Get accurate results using advanced deep learning models.</p>
+        </div>
+        <div class="feature-item">
+          <h3>Fast & Reliable</h3>
+          <p>Receive results within minutes</p>
+        </div>
+        <div class="feature-item">
+          <h3>Expert Insights</h3>
+          <p>Ensure accuracy with AI-verified assessments.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sub2">
+      <img src="assets/dark/head.jpg" alt="" />
+    </div>
+  </section>
+
+  <section class="how sec3">
+    <div class="content">
+      <img #hand1El class="hand-1" src="assets/dark/righthand.png" alt="" />
+      <img #hand2El class="hand-2" src="assets/dark/lefthand.png" alt="" />
+
+      <div  class="h2-wrap">
+        <h2>How It Works</h2>
+
+      </div>
+      <div class="steps">
+        <div class="step"><span>1</span> Upload Your MRI Scan</div>
+        <div class="step"><span>2</span> AI Analyzes the Scan</div>
+        <div class="step"><span>3</span> Get Instant Results</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="h2-wrap">
+      <h2>Get Your Knee Checked Today!</h2>
 
     </div>
   </section>
+</div>

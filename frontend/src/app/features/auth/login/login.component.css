@@ -18,8 +18,8 @@ img {
 }
 
 .login-container {
-  backdrop-filter: blur(10px);
-  background: rgba(247, 179, 247, 0.086);
+  backdrop-filter: blur(50px);
+  background: rgba(247, 179, 247, 0.079);
   width: min(500px, 90%);
   margin: auto;
   padding: 20px;
@@ -37,6 +37,9 @@ h2 {
 .form-group {
   margin:1.5rem 1rem;
   text-align: left;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: .3rem;
 }
 
 label {
@@ -52,11 +55,23 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   background: var(--white-30);
+  color: var(--white);
+  font-size: var(--normal);
+}
+
+input:focus{
+  background: var(--gray);
 }
 
 small {
-  color: red;
-  font-size: 12px;
+  color: var(--red);
+  font-size: var(--normal);
+  font-weight: bold;
+  margin: .5rem 1rem;
+  display: flex;
+}
+small::before{
+  content: '*';
 }
 
 button {

@@ -13,36 +13,52 @@ export class DashboardComponent implements AfterViewInit {
   @ViewChild('bgEl') bg!: ElementRef;
   @ViewChild('headerEl') header!: ElementRef;
   @ViewChild('recentEl') recent!: ElementRef;
-  
 
-  t1 = gsap.timeline()
+  t1 = gsap.timeline();
 
   constructor(private userService: UserService) {}
   ngAfterViewInit(): void {
+   
+
+    const cards = document.querySelectorAll('.card');
+
+
     this.t1
-    .from(this.bg.nativeElement,{
-      opacity:0,
-      duration:1,
-      ease:'power3.inOut'
-    })
-    .from(this.header.nativeElement,{
-      opacity:0,
-      x:-20,
-      duration:1
-    },'>')
-    .from(this.cardContainer.nativeElement.children, {
-      opacity: 0,
-      y:-50,
-      stagger: {
-        amount:.5
-      },
-      ease:'back.Out'
-    },'>-.5')
-    .from(this.recent.nativeElement,{
-      opacity:0,
-      y:'30vh',
-      duration:1
-    },'>-.5')
+      .from(this.bg.nativeElement, {
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.inOut',
+      })
+      .from(
+        this.header.nativeElement,
+        {
+          opacity: 0,
+          x: -20,
+          duration: 1,
+        },
+        '>'
+      )
+      .from(
+        this.cardContainer.nativeElement.children,
+        {
+          opacity: 0,
+          y: -50,
+          stagger: {
+            amount: 0.5,
+          },
+          ease: 'back.Out',
+        },
+        '>-.5'
+      )
+      .from(
+        this.recent.nativeElement,
+        {
+          opacity: 0,
+          y: '30vh',
+          duration: 1,
+        },
+        '>-.5'
+      );
   }
 
   user: User = this.userService.currentUser;

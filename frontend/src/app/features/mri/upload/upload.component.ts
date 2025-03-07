@@ -38,7 +38,7 @@ export class UploadComponent implements AfterViewInit {
       )
       .from(
         this.upload.nativeElement,
-        { opacity: 0,y:'40vh', duration: 2, ease: 'power3.inOut' },
+        { opacity: 0,scale:1.5,y:'40vh', duration: 2, ease: 'power3.inOut' },
         '>-1'
       );
   }

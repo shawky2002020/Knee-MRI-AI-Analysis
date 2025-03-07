@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ThemeService } from './core/services/theme.service';
@@ -8,7 +8,8 @@ import { ThemeService } from './core/services/theme.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit   {
-  constructor(private themeService: ThemeService) {}
+  constructor(private themeService: ThemeService ) {}
+
 
   ngOnInit() {
     this.themeService.applySavedTheme();
