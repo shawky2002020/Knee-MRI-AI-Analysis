@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class RegisterComponent implements AfterViewInit {
   @ViewChild('bgEl') bg!: ElementRef;
   @ViewChild('formEl') form!: ElementRef;
-  @ViewChild('containerEl') container!: ElementRef;
+  // @ViewChild('containerEl') container!: ElementRef;
   t1 = gsap.timeline();
 
 
@@ -36,6 +36,7 @@ export class RegisterComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    const container = document.querySelector('.container') as HTMLElement
     this.t1
     .from(this.bg.nativeElement, {
       duration: 1,
@@ -43,7 +44,7 @@ export class RegisterComponent implements AfterViewInit {
       y: 50,
       ease: 'power2.inOut',
   })
-  .from(this.container.nativeElement, {
+  .from(container, {
       duration: 1,
       opacity: 0,
       ease: 'power2.inOut',

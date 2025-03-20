@@ -1,5 +1,5 @@
 .page{
-  min-height: calc(100vh - 5rem);
+  height: calc(100vh - 5rem);
   width: 100vw;
   display: flex;
   align-items: center;
@@ -17,15 +17,20 @@ img {
   z-index: -1;
 }
 
-.register-container {
+.container {
   backdrop-filter: blur(50px);
   background: rgba(247, 179, 247, 0.079);
   width: min(500px, 90%);
-  margin: 1rem auto;
+  margin: auto;
   padding: 20px;
   box-shadow: var(--box-shadow);
   border-radius: 8px;
   text-align: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
 
 h2 {
@@ -33,9 +38,17 @@ h2 {
   color: var(--white);
   font-size: var(--xlarge) !important;
 }
+form{
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  gap:  1rem;
+  justify-content: center;
+  align-items: center;
+}
 
 .form-group {
-  margin:1.5rem 1rem;
+  width: 100%;
   text-align: left;
   display: flex;
   flex-flow: column nowrap;
@@ -91,11 +104,21 @@ button:disabled {
   color: var(--purple-medium);
 }
 
+.new{
+  display: flex;
+  width: 100%;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  hr{
+    width: 100%;
+  }
+}
+
 p {
-  margin-top: 1rem;
   color: var(--white-70);
   font-size: var(--normal);
-
 }
 
 a {
@@ -111,5 +134,6 @@ a:hover {
   background: var(--purple-dark);
 }
 hr{
-  margin: 1rem 0 2rem 0;
+  position: relative;
+  display: block;
 }

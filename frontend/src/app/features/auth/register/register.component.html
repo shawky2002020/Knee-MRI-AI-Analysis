@@ -1,6 +1,6 @@
 <div class="page">
   <img src="/assets/cover/i1.avif" alt="bg" #bgEl>
-<div class="register-container" #containerEl>
+<div class="container" #containerEl>
   <h2>Register</h2>
   
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" #formEl>
@@ -36,9 +36,15 @@
       </small>
     </div>
 
-    <button type="submit" [disabled]="registerForm.invalid">Register</button>
-    <hr>
-    <p>Already have an account? <a routerLink="/login">Login</a></p>
+    <div class="btn-container">
+  
+      <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    </div>
+    
+    <div class="new">
+      <hr>
+      <p>Already have an account? <a routerLink="/login">Login</a></p>
+    </div>
   </form>
 </div>
 </div>

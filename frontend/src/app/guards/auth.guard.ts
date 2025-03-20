@@ -21,10 +21,17 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate(): boolean {
+    this.userService.userObservable.subscribe({
+      next:(user)=>{
+        this.user = user
+      }
+    })
 
     if (this.user.token) {
       return true;
     } else {
+      console.log(this.user);
+      
       this.themeService.switchToDarkTheme()
       this.toast.info('Login to proceed please')
       this.router.navigate(['/login']); // Redirect if not logged in

@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 import gsap from 'gsap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -33,11 +34,11 @@ export class LoginComponent implements AfterViewInit {
       ease: 'power2.inOut',
   },'>-.5')
   .from(this.form.nativeElement.children, {
-      duration: 1,
+      duration: .7,
       opacity: 0,
       y: 50,
       stagger:{
-        amount:1
+        amount:.1
       },
       ease: 'power2.inOut', 
   },'>-.5')
@@ -48,7 +49,8 @@ export class LoginComponent implements AfterViewInit {
     private fb: FormBuilder,
     private router: Router,
     private userService : UserService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private toast : ToastrService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -61,7 +63,8 @@ export class LoginComponent implements AfterViewInit {
       this.userService.login(this.loginForm.value).subscribe({
         next:(res)=>{
           this.router.navigateByUrl('dashboard');
-          alert(`hello ${res.user.name}`)
+          this.toast.clear()
+          this.toast.success(`hello ${res.user.name}`)
         },
        
       });

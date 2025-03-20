@@ -1,34 +1,61 @@
 <div class="page">
-  <img src="/assets/cover/i1.avif" alt="bg" #bgEl>
-  
-  <div class="login-container" #containerEl>
+  <img src="/assets/cover/i1.avif" alt="bg" #bgEl />
+  <div class="container" #containerEl>
     <h2>Login</h2>
-
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" #formEl>
       <div class="form-group">
         <label for="email">Email</label>
-        <input id="email" formControlName="email" type="email" placeholder="Enter your email" />
-        <small *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
-          <span *ngIf="loginForm.controls['email'].errors?.['required']">Email is required.</span>
-          <span *ngIf="loginForm.controls['email'].errors?.['email']">Invalid email format.</span>
+        <input
+          id="email"
+          formControlName="email"
+          type="email"
+          placeholder="Enter your email"
+        />
+        <small
+          *ngIf="
+            loginForm.controls['email'].invalid &&
+            loginForm.controls['email'].touched
+          "
+        >
+          <span *ngIf="loginForm.controls['email'].errors?.['required']"
+            >Email is required.</span
+          >
+          <span *ngIf="loginForm.controls['email'].errors?.['email']"
+            >Invalid email format.</span
+          >
         </small>
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input id="password" formControlName="password" type="password" placeholder="Enter password" />
-        <small *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
-          <span *ngIf="loginForm.controls['password'].errors?.['required']">Password is required.</span>
-          <span *ngIf="loginForm.controls['password'].errors?.['minlength']">Password must be at least 6 characters.</span>
+        <input
+          id="password"
+          formControlName="password"
+          type="password"
+          placeholder="Enter password"
+        />
+        <small
+          *ngIf="
+            loginForm.controls['password'].invalid &&
+            loginForm.controls['password'].touched
+          "
+        >
+          <span *ngIf="loginForm.controls['password'].errors?.['required']"
+            >Password is required.</span
+          >
+          <span *ngIf="loginForm.controls['password'].errors?.['minlength']"
+            >Password must be at least 6 characters.</span
+          >
         </small>
       </div>
-
-      <button type="submit" [disabled]="loginForm.invalid">Login</button>
-      <hr>
-      <div class="new">
-        <p>New User? <a routerLink="/register">Register</a></p>
+      <div class="btn-container">
+        <button type="submit" [disabled]="loginForm.invalid">Login</button>
 
       </div>
+        <div class="new">
+          <hr>
+          <p>New User? <a  routerLink="/register">Register</a></p>
+        </div>
     </form>
   </div>
 </div>

@@ -11,6 +11,7 @@ import {
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { UserService } from '../../core/services/user.service';
+import { ThemeService } from '../../core/services/theme.service';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,9 +24,11 @@ export class HomeComponent implements AfterViewInit {
   constructor(
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document,
-    userService: UserService
+    userService: UserService,
+    private themeService : ThemeService
   ) {
-    userService.logout();
+    userService.logout()
+    themeService.switchToDarkTheme()
   }
 
   @ViewChild('textEl') text!: ElementRef;
@@ -37,13 +40,14 @@ export class HomeComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     let h2Elemnts = this.document.querySelectorAll('.h2-wrap');
-
+    let stepElemnts = this.document.querySelectorAll('.step');
+    const cta = this.document.querySelector('.cta') as HTMLElement
     //LIGHTENING EFFECT
-    const text1 = document.querySelector('.text-container h1') as HTMLElement;
-    const words = text1?.textContent?.split(' ');
-    text1.innerHTML =
+    const quote = document.querySelector('.quote .text') as HTMLElement;
+    const words = quote?.textContent?.split(' ');
+    quote.innerHTML =
       words?.map((word) => `<span>${word}</span>`).join(' ') || '';
-    const spans = document.querySelectorAll('.text-container h1 span');
+    const spans = document.querySelectorAll('.quote .text span');
 
     const video = this.videoElement.nativeElement;
 
@@ -73,6 +77,30 @@ export class HomeComponent implements AfterViewInit {
 
     });
 
+    const lighttwine = gsap.timeline({
+      scrollTrigger:{
+        trigger: quote,
+        toggleActions:'play reset play restart'
+      },
+    })
+    lighttwine
+    .from(quote,{
+      opacity:0,
+      duration:1,
+      y:100
+    })
+    .fromTo(
+        spans,
+        { opacity: 0.1, delay: .2 },
+        {
+          y: '0%',
+          opacity: 1,
+          duration: 2,
+          stagger: { amount: 5 },
+          ease: 'power4.out',
+        }
+       )
+
     //HERO SECTION
     this.t1
       .fromTo(
@@ -85,19 +113,19 @@ export class HomeComponent implements AfterViewInit {
         '.text-container h1',
         { opacity: 0, y: 50 },
         { opacity: 1, y: 0, ease: 'power1' },
-        '>-1'
+        '>-2'
       )
       .fromTo(
         '.text-container p',
-        { opacity: 0, y: 50 },
+        { opacity: 0},
         { opacity: 1, duration: 1, y: 0, ease: 'power2.out' },
-        '-=0.5'
+        '>'
       )
       .fromTo(
         this.btn.nativeElement,
-        { opacity: 0, y: 50 },
+        { opacity: 0},
         { opacity: 1, duration: 1, y: 0, ease: 'power2.out' },
-        '-=0.5'
+        '>'
       );
 
     //HOW IT WORKS SECTION
@@ -149,66 +177,69 @@ export class HomeComponent implements AfterViewInit {
       // Moves out at the same time as hand1
     );
 
-    gsap.from('.step', {
-      x: -400,
-      stagger: {
-        amount: 0.5,
-      },
-      opacity: 0,
-      ease: 'power4.inOut',
-      duration: 2,
-      scrollTrigger: {
-        trigger: '.steps',
-        end: 'top',
-        scrub: true,
-
-        // scrub:1
-      },
-    });
+    stepElemnts.forEach((step)=>{
+      
+      gsap.from(step, {
+        x: -400,
+        stagger: {
+          amount: 0.5,
+        },
+        opacity: 0,
+        ease: 'power4.inOut',
+        duration: 1,
+        scrollTrigger: {
+          trigger: step,
+          toggleActions:'play resume resume reset'
+        },
+      });
+    })
 
     //FEATURES SECTION
-    gsap.from('.features img', {
-      opacity: 0.5,
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: '.features',
+        start: 'top 80%', 
+        toggleActions: 'play none none reverse',
+      },
+    })
+      .from('.features img', {
+        x: 1000,
+        opacity: 0.6,
+        duration: 2.5,
+        ease: 'power3.out',
+      })
+      .from('.feature-item', {
+        opacity: 0,
+        duration: 1,
+        stagger: { amount: 1 },
+        ease: 'power3.out',
+      });
+    
+    // Apply the infinite animation separately
+    gsap.to('.features img', {
+      opacity: 1,
       y: 50,
-      duration: 4,
-      repeat:-1,
-      yoyo:true,
-      ease:'power2.inOut',
-      scrollTrigger: {
-        trigger: '.features img',
-        toggleActions: 'play reverse play reverse',
-      },
+      duration: 3,
+      repeat: -1,
+      yoyo: true,
+      ease: 'power2.inOut',
     });
-    gsap.from('.feature-item', {
-      stagger: {
-        amount: 2,
-      },
-      scrollTrigger: {
-        trigger: '.feature-item',
-        toggleActions: 'play reverse play reverse',
-      },
-      opacity: 0,
-      duration: 2,
-      ease: 'power3.out',
-    });
-
-    video.play().catch(() => {
+            video.play().catch(() => {
       console.log('Autoplay prevented, attempting to play manually.');
       video.muted = true;
       video.play();
       video.play();
     });
 
-    // .fromTo(
-    //   spans,
-    //   { opacity: 0.1, delay: .2 },
-    //   {
-    //     y: '0%',
-    //     opacity: 1,
-    //     duration: 1,
-    //     stagger: { amount: 3 },
-    //     ease: 'power4.out',
-    //   }
-    // )
+    gsap.from(cta.children,{
+      opacity:0,
+      stagger:.3,
+      duration:1,
+      scrollTrigger:{
+        trigger:'.cta button',
+        toggleActions:'play reverse play reverse',
+      }
+    })
   }
+  
 }

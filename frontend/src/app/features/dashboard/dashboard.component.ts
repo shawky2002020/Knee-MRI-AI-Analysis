@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { UserService } from '../../core/services/user.service';
 import { User } from '../../core/models/user.model';
 import gsap from 'gsap';
+import { ThemeService } from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,9 @@ export class DashboardComponent implements AfterViewInit {
 
   t1 = gsap.timeline();
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,private themeService : ThemeService) {
+    themeService.switchToLightTheme()
+  }
   ngAfterViewInit(): void {
    
 

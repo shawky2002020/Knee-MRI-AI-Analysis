@@ -19,7 +19,6 @@ export class NavbarComponent {
     });
     themeService.themeObservable.subscribe((newTheme)=>{
       this.isLight = newTheme === 'light';
-      console.log(this.isLight);
 
     })
     
