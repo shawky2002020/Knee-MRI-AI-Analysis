@@ -59,7 +59,7 @@ export class FileUploaderComponent {
     const fileExtension = this.getFileExtension(this.selectedFile);
     const mriscan : MriScan= {
       imageFile:this.selectedFile,
-      metadata:{type:'MRI',view:'Axial',fileType:fileExtension as 'jpg' | 'jpeg' | 'png' | 'dicom'}
+      metadata:{type:'MRI',view_type:'axial',fileType:fileExtension as 'jpg' | 'jpeg' | 'png' | 'dicom'}
 
     }
 

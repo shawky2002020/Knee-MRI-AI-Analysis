@@ -1,7 +1,7 @@
 .container{
   margin-left: 10rem;
   width: calc(100vw - 10rem);
-  background-image: url('/assets/gradient/bw.jpg');
+  /* background-image: url('/assets/gradient/bw.jpg'); */
   background-size: cover;
 }
 .cards-wrapper{

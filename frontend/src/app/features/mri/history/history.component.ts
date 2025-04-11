@@ -16,9 +16,9 @@ export class HistoryComponent implements OnInit {
       next:(res)=>{
         this.mriScans =Object.values(res) 
       },
-      // error:(err)=>{
-      //   this.toast.warning(err.error,'failed to load')
-      // }
+      error:(err)=>{
+        this.toast.warning(err.error,'failed to load')
+      }
     })
   }
 

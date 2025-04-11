@@ -5,7 +5,7 @@ import { sendEmail } from "../services/emailService.mjs";
 
 // Register a new user
 export const register = async (req, res) => {
-  let { name, email, role, password } = req.body;
+let { name, email, role, password } = req.body;
   email = email.toLowerCase();
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
