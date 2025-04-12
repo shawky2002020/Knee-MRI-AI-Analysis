@@ -1,27 +1,74 @@
-<div class="upload-container" >
-  <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden accept=".jpg, .jpeg, .png, .dicom"  />
+<div class="file-uploader">
+  <div class="upload-container">
+    <div class="upload-box">
 
-  <label for="fileInput" class="upload-box">
-    <div *ngIf="!selectedFile" class="upload-placeholder">
-      <i class="fas fa-cloud-upload-alt"></i>
-      <p>Drag & drop or click to upload MRI scan</p>
+      <input 
+      type="file" 
+      class="file-input" 
+      (change)="onFileSelected($event)" 
+      #fileInput
+      multiple
+      accept=".jpg,.jpeg,.png,.dicom"
+      >
+      <div class="drop-zone" (click)="fileInput.click()">
+        <div class="upload-prompt">
+          <i class="fa fa-cloud-upload"></i>
+          <p>Drag and drop files here or click to browse</p>
+          <p class="small">Supported formats: JPG, JPEG, PNG, DICOM</p>
+        </div>
+      </div>
     </div>
-    <div *ngIf="selectedFile" class="file-preview">
-      <img [src]="previewUrl" />
-      <p>{{ selectedFile.name }}</p>
-      <button class="remove-btn"  (click)="resetUpload()">Remove</button>
-    </div>
-    <button (click)="uploadFile()" [disabled]="!selectedFile || isUploading" class="upload-btn">
-      Upload
-    </button>
-      <!-- Progress Bar -->
-  <div class="progress-container" *ngIf="isUploading">
-    <div class="progress-bar" [style.width.%]="uploadProgress"></div>
-    <p>{{ uploadProgress }}%</p>
   </div>
-  </label>
 
-
-
-
+  <div class="preview-container" > 
+    <h3>Selected Files ({{selectedFiles.length}})</h3>
+  <!-- <div class="preview-container" *ngIf="selectedFiles.length > 0">
+    <h3>Selected Files ({{selectedFiles.length}})</h3> -->
+    
+    <div class="file-previews">
+      <div class="file-preview" *ngFor="let file of sampleImagePaths; let i = index">
+        <div class="preview-image">
+          <img [src]="file" alt="Preview">
+          <div *ngIf="!previewUrls[i]" class="loading-preview">Loading preview...</div>
+        </div>
+        <div class="file-info">
+          <!-- <p class="file-name">{{file.name}}</p>
+          <p class="file-size">{{(file.size / 1024).toFixed(2)}} KB</p> -->
+          <div class="progress-bar" *ngIf="isUploading">
+            <div class="progress" [style.width.%]="uploadProgress[i]"></div>
+            <span>{{uploadProgress[i]}}%</span>
+          </div>
+          <button class="remove-btn" (click)="removeFile(i)" *ngIf="!isUploading">
+            <i class="fa fa-times"></i> Remove
+          </button>
+        </div>
+      </div>
+      <!-- <div class="file-preview-item" *ngFor="let file of selectedFiles; let i = index">
+        <div class="preview-image">
+          <img *ngIf="previewUrls[i]" [src]="previewUrls[i]" alt="Preview">
+          <div *ngIf="!previewUrls[i]" class="loading-preview">Loading preview...</div>
+        </div>
+        <div class="file-info">
+          <p class="file-name">{{file.name}}</p>
+          <p class="file-size">{{(file.size / 1024).toFixed(2)}} KB</p>
+          <div class="progress-bar" *ngIf="isUploading">
+            <div class="progress" [style.width.%]="uploadProgress[i]"></div>
+            <span>{{uploadProgress[i]}}%</span>
+          </div>
+          <button class="remove-btn" (click)="removeFile(i)" *ngIf="!isUploading">
+            <i class="fa fa-times"></i> Remove
+          </button>
+        </div>
+      </div> -->
+    </div>
+    
+    <div class="upload-actions">
+      <button class="upload-btn" (click)="uploadFiles()" [disabled]="isUploading">
+        <i class="fa fa-upload"></i> Upload All Files
+      </button>
+      <button class="cancel-btn" (click)="resetUpload()" [disabled]="isUploading">
+        <i class="fa fa-times"></i> Cancel
+      </button>
+    </div>
+  </div>
 </div>

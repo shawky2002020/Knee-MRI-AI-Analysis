@@ -18,7 +18,7 @@ const MetadataSchema = new mongoose.Schema({
     required: true,
     lowercase: true
   }
-});
+}, { _id: false }); // Prevent creating ObjectId for this subdocument
 
 // Result schema definition
 const ResultSchema = new mongoose.Schema({
@@ -38,16 +38,18 @@ const ResultSchema = new mongoose.Schema({
     required: true,
     min: 0,
     max: 1
-  },
-  visualization: {
-    type: String,
-    required: true
   }
-});
+}, { _id: false }); // Prevent creating ObjectId for this subdocument
 
 // Main AI Analysis schema
 const AIAnalysisSchema = new mongoose.Schema({
-  patientId: {
+  // Use a single ObjectId for the document
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    default: () => new mongoose.Types.ObjectId(),
+    immutable: true
+  },
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
@@ -61,7 +63,17 @@ const AIAnalysisSchema = new mongoose.Schema({
     type: ResultSchema,
     required: true
   },
-  report_url: {
+  mri_scan: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  heat_map: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  report: {
     type: String,
     required: true,
     trim: true
@@ -76,7 +88,7 @@ const AIAnalysisSchema = new mongoose.Schema({
 });
 
 // Create indexes for frequently queried fields
-AIAnalysisSchema.index({ patientId: 1, createdAt: -1 });
+AIAnalysisSchema.index({ userId: 1, createdAt: -1 });
 
 const MriScan = mongoose.model('MriScan', AIAnalysisSchema);
 

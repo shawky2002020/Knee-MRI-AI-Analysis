@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { MriScanService } from '../../../core/services/mri-scan.service';
-import { MriResponse } from '../../../core/models/mri-scan.model';
+import { MriDiagnosticResponse } from '../../../core/models/mri-scan.model';
 
 @Component({
   selector: 'app-history',
@@ -9,7 +9,7 @@ import { MriResponse } from '../../../core/models/mri-scan.model';
   styleUrl: './history.component.css',
 })
 export class HistoryComponent implements OnInit {
-  mriScans : MriResponse[] =[]
+  mriScans : MriDiagnosticResponse[] =[]
   constructor(private toast: ToastrService, private mriService: MriScanService) {}
   ngOnInit(): void {
     this.mriService.getScans().subscribe({

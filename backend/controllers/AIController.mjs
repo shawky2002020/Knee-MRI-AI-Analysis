@@ -56,21 +56,14 @@ if (!modelResponse.ok) {
 const aiResults = await modelResponse.json();
 
 
-// Store AI model results
-metadata.ai_results = {
-  status: aiResults.result.status,
-  acl_probability: aiResults.result.acl_prob,
-  meniscus_probability: aiResults.result.meniscus_prob,
-  visualization_url: aiResults.result.visualization,
-  report_url: aiResults.report_url
-};
 
     const newMri = await new MriScan({
-      patientId: id,
-      imageUrl: aiResults.mri_scan,
+      userId: id,
       metadata: metadata,
-      result:aiResults.result,
-      report_url:aiResults.report_url
+      result: aiResults.result,
+      report: aiResults.report,
+      mri_scan: aiResults.mri_scan,
+      heat_map: aiResults.heat_map
     });
     newMri.save();
     console.log(newMri);
@@ -89,7 +82,7 @@ export const getMri = async (req, res) => {
     if (!id) {
       res.status(404).json({message:"User not found"})
     }
-    const patientScans = await MriScan.find({ patientId: id }).select('-patientId');
+    const patientScans = await MriScan.find({ userId: id }).select('-patientId');
     res.status(200).json({...patientScans})
   } catch (error) {
     res.status(400).json({message :'Failed to load the scans',err:error.message})

@@ -13,9 +13,9 @@
     <app-file-uploader (uploadSuccess)="onUploadSuccess($event)"></app-file-uploader>
   </div>
 
-  <div *ngIf="uploadedFileUrl" class="uploaded-preview">
+  <div *ngIf="uploadedFileUrls.length" class="uploaded-preview">
     <h3>Uploaded File:</h3>
-    <img [src]="uploadedFileUrl" alt="Uploaded MRI Scan">
+    <img [src]="uploadedFileUrls" alt="Uploaded MRI Scan">
   </div>
 </div>
 
