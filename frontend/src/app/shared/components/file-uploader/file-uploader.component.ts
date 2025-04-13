@@ -34,7 +34,7 @@ export class FileUploaderComponent implements OnInit {
 
   ngOnInit(): void {
     // Load sample images for testing CSS
-    this.loadSampleImages();
+    // this.loadSampleImages();
   }
 
   loadSampleImages(): void {
@@ -190,5 +190,50 @@ export class FileUploaderComponent implements OnInit {
       return parts[parts.length - 1].toLowerCase(); // Return the extension in lowercase
     }
     return ''; // No extension found
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    // Optionally add visual feedback for dragging
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      this.handleFileSelection(files);
+    }
+  }
+
+  handleFileSelection(files: FileList): void {
+    // Clear previous selections
+    this.selectedFiles = [];
+    this.previewUrls = [];
+    
+    const allowedExtensions = ['jpg', 'jpeg', 'png', 'dicom'];
+    
+    // Process each file
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const fileExtension = this.getFileExtension(file);
+      
+      if (!allowedExtensions.includes(fileExtension)) {
+        this.toastr.error(`File "${file.name}" has an invalid type. Please upload JPG, JPEG, PNG, or DICOM files.`);
+        continue;
+      }
+      
+      // Add to selected files
+      this.selectedFiles.push(file);
+      this.previewUrls.push(null); // Placeholder for preview
+      
+      // Generate preview for this file
+      this.previewFile(this.selectedFiles.length - 1);
+    }
+    
+    if (this.selectedFiles.length > 0) {
+      this.toastr.success(`${this.selectedFiles.length} file(s) selected`);
+    }
   }
 }

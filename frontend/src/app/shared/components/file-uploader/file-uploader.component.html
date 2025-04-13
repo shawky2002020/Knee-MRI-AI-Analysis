@@ -1,5 +1,5 @@
 <div class="file-uploader">
-  <div class="upload-container">
+  <div class="upload-container" *ngIf="!selectedFiles.length">
     <div class="upload-box">
 
       <input 
@@ -9,8 +9,12 @@
       #fileInput
       multiple
       accept=".jpg,.jpeg,.png,.dicom"
+      hidden
       >
-      <div class="drop-zone" (click)="fileInput.click()">
+      <div class="drop-zone" 
+           (click)="fileInput.click()"
+           (dragover)="onDragOver($event)"
+           (drop)="onDrop($event)">
         <div class="upload-prompt">
           <i class="fa fa-cloud-upload"></i>
           <p>Drag and drop files here or click to browse</p>
@@ -20,30 +24,11 @@
     </div>
   </div>
 
-  <div class="preview-container" > 
+  <div class="preview-container" *ngIf="selectedFiles.length > 0">
     <h3>Selected Files ({{selectedFiles.length}})</h3>
-  <!-- <div class="preview-container" *ngIf="selectedFiles.length > 0">
-    <h3>Selected Files ({{selectedFiles.length}})</h3> -->
     
     <div class="file-previews">
-      <div class="file-preview" *ngFor="let file of sampleImagePaths; let i = index">
-        <div class="preview-image">
-          <img [src]="file" alt="Preview">
-          <div *ngIf="!previewUrls[i]" class="loading-preview">Loading preview...</div>
-        </div>
-        <div class="file-info">
-          <!-- <p class="file-name">{{file.name}}</p>
-          <p class="file-size">{{(file.size / 1024).toFixed(2)}} KB</p> -->
-          <div class="progress-bar" *ngIf="isUploading">
-            <div class="progress" [style.width.%]="uploadProgress[i]"></div>
-            <span>{{uploadProgress[i]}}%</span>
-          </div>
-          <button class="remove-btn" (click)="removeFile(i)" *ngIf="!isUploading">
-            <i class="fa fa-times"></i> Remove
-          </button>
-        </div>
-      </div>
-      <!-- <div class="file-preview-item" *ngFor="let file of selectedFiles; let i = index">
+      <div class="file-preview" *ngFor="let file of selectedFiles; let i = index">
         <div class="preview-image">
           <img *ngIf="previewUrls[i]" [src]="previewUrls[i]" alt="Preview">
           <div *ngIf="!previewUrls[i]" class="loading-preview">Loading preview...</div>
@@ -56,10 +41,10 @@
             <span>{{uploadProgress[i]}}%</span>
           </div>
           <button class="remove-btn" (click)="removeFile(i)" *ngIf="!isUploading">
-            <i class="fa fa-times"></i> Remove
+             Remove
           </button>
         </div>
-      </div> -->
+      </div>
     </div>
     
     <div class="upload-actions">

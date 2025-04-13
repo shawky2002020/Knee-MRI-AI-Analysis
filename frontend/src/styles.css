@@ -51,7 +51,10 @@ body {
   --gray-light: #fafafa;
   --gray-dark: #b0b0b0;
 
-  --red: #cb154d;
+  --red: #cb1515;
+  --red-light: #ff4d4d;
+
+  --pink-dark: #a40051;
   --pink: #faa;
   --orange: #ffaa28;
   --cyan: #00dcc8;
@@ -72,13 +75,6 @@ body {
   --xxxlarge: 4rem;
 }
 
-/* Default Dark Theme */
-:root {
-  --text-color: var(--white);
-  --links-color: var(--purple-light);
-  --input-bg: var(--black-light);
-  --input-border: var(--gray-dark);
-}
 
 /*LIGHT THEME */
 :root {
@@ -93,7 +89,7 @@ body {
 
 button {
   transition: filter 0.5s, box-shadow 0.3s, background 0.2s, color 0.2s,
-    transform 0.1s;
+  transform 0.1s;
   transition-timing-function: ease-in;
   cursor: pointer;
   border: none;
@@ -108,7 +104,7 @@ button {
     justify-content: center;
   }
 }
-button:not(:disabled):hover {
+body:not(.light) button:not(:disabled):hover {
   filter: brightness(2);
   box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.3);
   background: linear-gradient(
@@ -174,13 +170,7 @@ footer {
   }
 }
 
-/* Light Theme (Applied After Login) */
-body.light {
-  --text-color: var(--blue);
-  --links-color: var(--blue);
-  --input-bg: var(--black-light);
-  --input-border: var(--gray-light);
-}
+
 
 body.light {
   background: #ffffff00;
@@ -231,9 +221,4 @@ body.light {
     color: transparent;
   }
 }
-.light button:not(:disabled):hover {
-  filter: brightness(2);
-  box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.3);
-  background: linear-gradient(to right, var(--blue), var(--cyan)) !important;
-  color: var(--white-70);
-}
+
