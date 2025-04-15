@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { MriScanService } from '../../../core/services/mri-scan.service';
-import { MriDiagnosticResponse } from '../../../core/models/mri-scan.model';
+import { MriDiagnosticResponse } from '../../../core/models/ai-result.model';
 
 @Component({
   selector: 'app-history',
@@ -17,9 +17,12 @@ export class HistoryComponent implements OnInit {
         this.mriScans =Object.values(res) 
       },
       error:(err)=>{
-        this.toast.warning(err.error,'failed to load')
+        this.toast.error('Failed to load')
       }
     })
+  }
+  viewDetails(scan:MriDiagnosticResponse){
+    this.mriService.updateMriScan(scan)
   }
 
 }

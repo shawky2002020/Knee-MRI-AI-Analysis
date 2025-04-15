@@ -18,7 +18,7 @@
       <li *ngIf="user.token"><a routerLink="/mri/history">History</a></li>
 
 
-      <li *ngIf="user.token"><a routerLink='/mri/report'>Report</a></li>
+      <!-- <li *ngIf="user.token"><a routerLink='/mri/report'>Report</a></li> -->
       <li *ngIf="user.token"><a (click)="logout()">Logout</a></li>
 
     </ul>

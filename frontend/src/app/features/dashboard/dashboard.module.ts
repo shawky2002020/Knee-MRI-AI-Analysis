@@ -5,6 +5,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../../shared/shared.module';
 import { HeaderComponent } from '../../layout/header/header.component';
+import { NotificationModule } from "../../shared/components/notification/notification.module";
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { HeaderComponent } from '../../layout/header/header.component';
   imports: [
     CommonModule,
     DashboardRoutingModule,
-  ]
+    NotificationModule
+]
 })
 export class DashboardModule { }

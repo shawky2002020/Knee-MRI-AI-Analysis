@@ -2,7 +2,8 @@ import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { MriScanService } from '../../../core/services/mri-scan.service';
-import { MriScan } from '../../../core/models/mri-scan.model';
+import { allowedExtensions, MriScan } from '../../../core/models/mri-scan.model';
+import { AiService } from '../../../core/services/ai.service';
 
 @Component({
   selector: 'app-file-uploader',
@@ -29,7 +30,7 @@ export class FileUploaderComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
-    private mriService: MriScanService
+    private aiService: AiService
   ) {}
 
   ngOnInit(): void {
@@ -68,7 +69,6 @@ export class FileUploaderComponent implements OnInit {
       this.selectedFiles = [];
       this.previewUrls = [];
       
-      const allowedExtensions = ['jpg', 'jpeg', 'png', 'dicom'];
       
       // Process each file
       for (let i = 0; i < files.length; i++) {
@@ -129,7 +129,7 @@ export class FileUploaderComponent implements OnInit {
       };
       
       const uploadPromise = new Promise<string>((resolve, reject) => {
-        this.mriService.uploadMri(mriscan).subscribe({
+        this.aiService.processMRI(mriscan).subscribe({
           next: (event: HttpEvent<any>) => {
             switch (event.type) {
               case HttpEventType.UploadProgress:

@@ -8,17 +8,15 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  gap: 1rem;
+  gap:3rem 1.5rem;
   padding: 3rem 0;
 }
 
 .card{
-  width: 20vw;
-  height: 30vw;
   backdrop-filter: blur(15px) , brightness(1.8);
   box-shadow: 2px 10px 10px rgba(0, 0, 0, 0.397);
   border-radius: 2rem 1rem 2rem 1rem;
-  color: black;
+  color:var(--blue-dark);
   font-size: var(--large);
   .sub-card{
     height: 100%;
@@ -48,4 +46,17 @@ img{
 }
 .sub-card > div{
 flex:0 1;
+}
+.view-btn{
+  padding: 0.5rem 1rem;
+  border-radius: 1rem 2rem 1rem 2rem;
+  font-size: var(--medium);
+  background: var(--blue-dark);
+  color: whitesmoke;
+  border: none;
+  transition: border-radius 0.3s ease-in-out , background 0.3s ease-in-out;
+}
+.view-btn:hover{
+  background: var(--blue-light);
+  border-radius: 2rem 1rem 2rem 1rem;
 }

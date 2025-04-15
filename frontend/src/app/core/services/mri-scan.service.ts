@@ -1,26 +1,27 @@
 import { HttpClient, HttpEvent, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
-import { MriDiagnosticResponse, MriScan } from '../models/mri-scan.model';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { DiagnosticResult, MriDiagnosticResponse } from '../models/ai-result.model';
 import * as url from '../../data/url';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
 export class MriScanService {
-  constructor(private http: HttpClient, private toastr: ToastrService) {}
+  constructor(private http: HttpClient, private toastr: ToastrService,private router:Router) {}
 
-  uploadMri(mriscan: MriScan): Observable<HttpEvent<any>> {
-    const form = new FormData();
-    form.append('scan', mriscan.imageFile);
-    form.append('metadata', JSON.stringify(mriscan.metadata));
+private mriScanSubject = new BehaviorSubject<MriDiagnosticResponse>(new MriDiagnosticResponse());
+public mriScan$ = this.mriScanSubject.asObservable();
 
-    return this.http.post<MriDiagnosticResponse>(url.MRI_UPLOAD, form, {
-      reportProgress: true,
-      observe: 'events',
-    });
-  }
+updateMriScan(scan: MriDiagnosticResponse) {
+  this.mriScanSubject.next(scan);
+  this.router.navigate(['/mri/report'])
+}
 
+getMriScan(): MriDiagnosticResponse {
+  return this.mriScanSubject.value;
+}
   getScans ():Observable<MriDiagnosticResponse[]>{
     return this.http.get<MriDiagnosticResponse[]>(url.MRI_GET_SCANS)
   }

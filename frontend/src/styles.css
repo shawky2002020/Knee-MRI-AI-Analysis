@@ -40,25 +40,31 @@ body {
   --white: #fff;
   --white-70: #ffffffb3;
   --white-50: #ffffff80;
-  --white-20: #fff3;
-  --white-smoke: #f2f2f2;
+  --white-20: rgba(255, 255, 255, 0.408);
+  --white-smoke: #f7f3f3;
 
   --purple-dark: #1e0a32;
   --purple-medium: #782396;
   --purple-light: #be82fa;
   --purple-bg: #f9f3ff;
 
-  --gray-light: #fafafa;
+  --gray-light: #d8d4d4;
   --gray-dark: #b0b0b0;
 
   --red: #cb1515;
-  --red-light: #ff4d4d;
+  --red-light: #ff4d4d5b;
 
   --pink-dark: #a40051;
   --pink: #faa;
-  --orange: #ffaa28;
   --cyan: #00dcc8;
   --green: #27ae60;
+  --green-dark: #006400;
+  --green-light: #73ff73;
+  --yellow: #ffd700;
+  --yellow-light: #ffff005e;
+
+
+  --blue-dark: #000a64;
   --blue: rgb(1, 1, 113);
 
   --box-shadow: 0px 2px 12px rgba(255, 255, 255, 0.3);
@@ -130,9 +136,7 @@ li {
   transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
   cursor: pointer;
 }
-li:hover {
-  transform: scale(1.1);
-}
+
 
 #logo {
   h1 {

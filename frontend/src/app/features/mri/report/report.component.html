@@ -1,0 +1,70 @@
+<div class="page">
+  <head class="header">
+    <div class="title">
+      <h1>Scan Report</h1>
+    </div>
+    <div class="actions">
+      <button class="download">Download PDF</button>
+      <button class="report">Share Report</button>
+    </div>
+  </head>
+  <div class="body">
+    <div class="visualisation">
+      <ul class="nav-items">
+        <li class="item" 
+            [ngClass]="{'active': activeItem === 'scan'}" 
+            (click)="setActiveItem('scan')" 
+            data-value="scan">Scan</li>
+        <li class="item" 
+            [ngClass]="{'active': activeItem === 'heatmap'}" 
+            (click)="setActiveItem('heatmap')" 
+            data-value="heatmap">Heatmap</li>
+        <li class="item" 
+            [ngClass]="{'active': activeItem === 'segmentation'}" 
+            (click)="setActiveItem('segmentation')" 
+            data-value="segmentation">Segmentation</li>
+        <li class="item" 
+            [ngClass]="{'active': activeItem === '3d view'}" 
+            (click)="setActiveItem('3d view')" 
+            data-value="3d view">3D View</li>
+      </ul>
+      <figure class="img-container">
+        <img [src]="visualisation_img" alt="Visualization Image" />
+      </figure>
+    </div>
+    <div class="analysis">
+      <div class="status">
+        <h3>Key Findings</h3>
+        <div class="finding">
+          <p id="status">{{ status }}</p>
+        </div>
+      </div>
+      <div class="confidence">
+        <p>AI Confidence Score</p>
+        <div class="score">
+          <p>{{ confidence }}</p>
+        </div>
+        <div class="confidence-bar bar">
+          <div class="progress" [ngClass]="{'good': confidence >= 80,'normal' : (confidence>40 && confidence<80), 'bad': confidence <= 40}" [style.width.%]="confidence"></div>
+        </div>
+      </div>
+      <div class="risk-factors">
+        <h3>Risk Factors</h3>
+        <div class="risk-items">
+          <div class="risk-item">
+            <div class="risk">ACL</div>
+            <div class="risk-bar bar">
+              <div class="progress" [ngClass]="{'bad': acl_prob >= 60,'normal' : (acl_prob>20 && acl_prob<60), 'good': acl_prob <= 20}" [style.width.%]="acl_prob"></div>
+            </div>
+          </div>
+          <div class="risk-item">
+            <div class="risk">Meniscus</div>
+            <div class="risk-bar bar">
+              <div class="progress" [ngClass]="{'bad': meniscus_prob >= 60,'normal' : (meniscus_prob>20 && meniscus_prob<60), 'good': meniscus_prob <= 20}" [style.width.%]="meniscus_prob"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,6 +14,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { MriModule } from './features/mri/mri.module';
 import { ToastrModule } from 'ngx-toastr';
+import { NotificationModule } from './shared/components/notification/notification.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { ToastrModule } from 'ngx-toastr';
     RouterModule,
     AuthModule,
     SharedModule,
+    NotificationModule,
     ToastrModule.forRoot({    // Global toastr configuration
       closeButton: true, // Show close button
       newestOnTop: true, // New toasts appear on top
