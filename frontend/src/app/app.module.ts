@@ -28,7 +28,6 @@ import { NotificationModule } from './shared/components/notification/notificatio
     RouterModule,
     AuthModule,
     SharedModule,
-    NotificationModule,
     ToastrModule.forRoot({    // Global toastr configuration
       closeButton: true, // Show close button
       newestOnTop: true, // New toasts appear on top

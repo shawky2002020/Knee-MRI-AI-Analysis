@@ -5,6 +5,7 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+
 element {
   touch-action: none;
 }
@@ -86,7 +87,7 @@ body {
 :root {
   --blue-dark: #000a64;
   --blue: #002b99;
-  --blue-light: #007bff;
+  --blue-light: #8b97a3;
   --cyan-dark: #008c8c;
   --cyan: #00bfbf;
   --cyan-light: #00e6e6;
@@ -195,10 +196,11 @@ body.light {
 
 .nav-bar.light {
   position: fixed;
-  border-right: var(--blue) 5px solid;
+  border: var(--blue) 5px solid;
   flex-flow: column nowrap;
   height: 99vh;
   margin: 0.5vh auto;
+  border-radius: 1rem;
   width: 10rem;
   #links-wrapper {
     margin-top: 3rem;
