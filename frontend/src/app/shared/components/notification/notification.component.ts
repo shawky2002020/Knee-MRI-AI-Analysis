@@ -1,25 +1,47 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NotificationSchema } from '../../../core/models/notification.model';
+import { NotificationService } from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css',
 })
-export class NotificationComponent {
-  notifications = [
-    { title: 'New Message', message: 'You have received a new message.' },
-    { title: 'System Update', message: 'A new system update is available.' },
-    { title: 'Reminder', message: 'Your appointment is scheduled for tomorrow.' }
-  ];
+//const notifications = [
+//   { title: 'New Message', message: 'You have received a new message.' },
+//   { title: 'System Update', message: 'A new system update is available.' },
+//   { title: 'Reminder', message: 'Your appointment is scheduled for tomorrow.' }
+// ];
+export class NotificationComponent implements OnInit {
+  constructor(private notificationService : NotificationService) {
+  }
+  ngOnInit(): void {
+    this.notificationService.getAllNotifications().subscribe({
+      next:(res)=>{
+        this.notifications=res;
+      }
+    })
+  }
 
+  notifications !: NotificationSchema[];
+
+
+
+  // Control visibility
   @Input () isVisible = true; // Property to control visibility
   @Output() VisibleEmitter = new EventEmitter<boolean>();
 
-
-  constructor() {}
-
   closeNotification(index: number): void {
-    this.notifications.splice(index, 1);
+    this.notificationService.deleteNotification(this.notifications[index]).subscribe({
+      next:()=>{
+        this.notifications = this.notifications.splice(index,1);
+        this.notifications = this.notificationService.notifications;
+      }
+    });
+    const notificationCloseBtns = document.querySelectorAll('.notification .close-btn');
+    notificationCloseBtns[index].classList.add('read');
+
+    
   }
 
   closeNotificationView(): void {
