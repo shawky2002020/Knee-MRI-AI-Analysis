@@ -12,7 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@studio-freight/lenis": "^1.0.42",
+    "lenis": "^1.0.42",
     "form-data": "^4.0.2"
   }
 }

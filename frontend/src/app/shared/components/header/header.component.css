@@ -4,13 +4,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-
+  color: var(--black-70);
 }
+
 h1{
-  font-size: var(--xxlarge);
-  color: var(--white);
+  font-size: var(--xlarge);
   padding: 1rem 2rem;
 }
+
 .links-wrapper {
   display: flex;
   justify-content: space-between;
@@ -19,6 +20,5 @@ h1{
 }
 i{
   font-size: var(--xlarge);
-  color: var(--white);
   cursor: pointer;
 }

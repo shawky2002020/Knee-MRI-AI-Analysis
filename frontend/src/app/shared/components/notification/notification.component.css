@@ -6,6 +6,7 @@
   min-width: 250px;
   max-width: 550px;
   min-height: 100vh;
+  border-radius: 1rem;
   background: var(--white);
   display: flex;
   flex-flow: column nowrap;
@@ -14,11 +15,13 @@
   z-index: 1000 !important; /* Ensure a high z-index */
 }
 .notification{
-  width: 100%;
+  width: 97%;
   height: 100%;
   display: flex;
   flex-flow: row nowrap;
-  background: var(--cyan);
+  background: var(--blue);
+  color: aliceblue;
+  border-radius: 1rem;
 }
 .notification-icon{
  display: flex;
@@ -50,9 +53,42 @@
   cursor: pointer;
 }
 .close-btn{
-  padding: 0.3rem;
+  position: relative;
+  padding: 0.3rem .5rem;
   border-radius: .2rem;
   margin-left: 4px;
   border: none;
+  overflow: hidden;
+  text-transform: capitalize;
 
+}
+.close-btn::before,.close-btn::after{
+  position: absolute;
+  inset: 0;
+  border-radius: .2rem;
+  padding: 0.3rem;
+  border: none;
+  content: 'Read';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .3s ease-in-out , background .3s ease-in-out ;
+}
+
+.close-btn::before{
+  background: var(--white);
+  color: var(--blue);
+  transform: translateX(-100%);
+}
+.close-btn::after{
+  content: "Read ✓";
+  background: var(--black);
+  color: var(--white-smoke);
+  transform: translateY(-100%);
+}
+.close-btn:hover::before {
+  transform: translateX(0);
+}
+.close-btn.read::after{
+  transform: translateY(0);
 }

@@ -1,12 +1,9 @@
-
-
 .dashboard {
-
   width: 99.5%;
   height: 99%;
   border-radius: 1rem;
   position: absolute;
-  background: radial-gradient(circle at center, var(--cyan-light), var(--blue) 50%, var(--blue-dark),var(--white));
+  background: radial-gradient(circle at center, var(--white), var(--blue-light) 50%,var(--white));
   background-size: 300% 300%;
   overflow: hidden;
   animation: scanEffect 10s infinite linear;
@@ -43,7 +40,6 @@ header h1 {
 }
 
 .stats {
-  z-index: -2 ; 
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;

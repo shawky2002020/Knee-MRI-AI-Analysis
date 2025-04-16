@@ -5,6 +5,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { RouterModule } from '@angular/router';
+import { HeaderComponent } from './components/header/header.component';
+import { NotificationModule } from "./components/notification/notification.module";
 
 
 
@@ -13,16 +15,19 @@ import { RouterModule } from '@angular/router';
     NavbarComponent,
     SidebarComponent,
     FileUploaderComponent,
-    ModalComponent
+    ModalComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-  ],
+    NotificationModule
+],
   exports:[
     NavbarComponent,
     SidebarComponent,
     FileUploaderComponent,
+    HeaderComponent
   ]
 })
 export class SharedModule { }

@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
@@ -19,8 +18,8 @@ import { NotificationModule } from './shared/components/notification/notificatio
   declarations: [
     AppComponent,
     HomeComponent,
-    SidebarComponent,
     FooterComponent,
+    
   ],
   imports: [
     BrowserModule,

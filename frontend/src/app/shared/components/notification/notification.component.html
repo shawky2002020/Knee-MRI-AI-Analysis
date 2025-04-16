@@ -1,12 +1,12 @@
 <div class="notifications" *ngIf="isVisible">
 <button class="close-view-btn" (click)="closeNotificationView()"><i class="fa fa-times"></i></button>
-  <div class="notification" *ngFor="let notification of notifications; let i = index">
+  <div class="notification"  *ngFor="let notification of notifications; let i = index">
     <div class="notification-icon">
       <i class="fa fa-bell" aria-hidden="true"></i>
     </div>
     <div class="notification-content">
       <div class="notification-title">
-        {{notification.title}}
+        {{notification.title}} 
       </div>
       <div class="notification-message">
         {{notification.message}}

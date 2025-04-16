@@ -3,6 +3,9 @@
   width: calc( 100vw - 10rem );
   margin-left: 10rem;
 }
+.header{
+  color: black !important;
+}
 #myVideo{
   position: absolute;
   left: 50%;

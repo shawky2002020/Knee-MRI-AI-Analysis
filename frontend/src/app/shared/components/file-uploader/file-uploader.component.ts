@@ -34,33 +34,9 @@ export class FileUploaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Load sample images for testing CSS
-    // this.loadSampleImages();
+   
   }
 
-  loadSampleImages(): void {
-    this.sampleImagePaths.forEach(path => {
-      this.http.get(path, { responseType: 'blob' }).subscribe({
-        next: (blob) => {
-          const fileName = path.split('/').pop() || 'sample.png';
-          const fileType = fileName.endsWith('.png') ? 'image/png' : 'image/jpeg';
-          const file = new File([blob], fileName, { type: fileType });
-          
-          this.selectedFiles.push(file);
-          
-          // Create preview URL
-          const reader = new FileReader();
-          reader.onload = () => {
-            this.previewUrls.push(reader.result);
-          };
-          reader.readAsDataURL(file);
-        },
-        error: (err) => {
-          console.error(`Failed to load sample image: ${path}`, err);
-        }
-      });
-    });
-  }
   
   onFileSelected(event: any): void {
     const files = event.target.files;
