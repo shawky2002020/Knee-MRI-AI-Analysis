@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { MriRoutingModule } from './mri-routing.module';
 import { UploadComponent } from './upload/upload.component';
 import { HistoryComponent } from './history/history.component';

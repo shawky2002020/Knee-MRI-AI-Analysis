@@ -5,9 +5,11 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
-import { NotificationComponent } from './components/notification/notification.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 import { NotificationModule } from './components/notification/notification.module';
+import { HomeLayoutComponent } from './components/layout/home-layout/home-layout.component';
+import { AppLayoutComponent } from './components/layout/app-layout/app-layout.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
 
 
 
@@ -18,7 +20,10 @@ import { NotificationModule } from './components/notification/notification.modul
     ModalComponent,
     FileUploaderComponent,
     HeaderComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeLayoutComponent,
+    AppLayoutComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,

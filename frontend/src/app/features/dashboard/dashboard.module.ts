@@ -5,6 +5,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../../shared/shared.module';
 import { NotificationModule } from "../../shared/components/notification/notification.module";
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -14,7 +15,10 @@ import { NotificationModule } from "../../shared/components/notification/notific
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    SharedModule
+    SharedModule,
+    RouterModule.forChild([
+      { path: '', component: DashboardComponent }
+    ])
   ]
 })
 export class DashboardModule { }

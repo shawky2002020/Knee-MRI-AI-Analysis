@@ -3,6 +3,7 @@
   width: 100vw;
   display: flex;
   background: black;
+  color: whitesmoke;
   overflow: hidden; 
   display: flex;
   flex-flow: row nowrap;

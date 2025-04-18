@@ -1,11 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './pages/home/home.component';
-import { SidebarComponent } from './layout/sidebar/sidebar.component';
-import { FooterComponent } from './layout/footer/footer.component';
 import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,18 +11,20 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { MriModule } from './features/mri/mri.module';
 import { ToastrModule } from 'ngx-toastr';
 import { NotificationModule } from './shared/components/notification/notification.module';
+import { FooterComponent } from './shared/components/layout/footer/footer.component';
+import { HomeModule } from './features/home/home.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    SidebarComponent,
-    FooterComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule, // Add this
     AppRoutingModule,
     RouterModule,
     AuthModule,
+    HomeModule,
     SharedModule,
     ToastrModule.forRoot({    // Global toastr configuration
       closeButton: true, // Show close button

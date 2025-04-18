@@ -1,0 +1,19 @@
+<div class="side-bar" [class.light]="isLight">
+    <ul id="logo-container" >
+      <li id="logo" routerLink="dashboard" *ngIf="user.token">
+        <span>ACLyze</span>
+      </li>
+    </ul>
+  
+      <ul id="links-wrapper">
+        
+        <li *ngIf="user.token"><a routerLink="/dashboard">Home</a></li>
+        <li *ngIf="user.token"><a routerLink="/mri/upload">Analyze</a></li>
+        <li *ngIf="user.token"><a routerLink="/mri/history">History</a></li>
+  
+  
+        <!-- <li *ngIf="user.token"><a routerLink='/mri/report'>Report</a></li> -->
+        <li *ngIf="user.token"><a (click)="logout()">Logout</a></li>
+  
+      </ul>
+  </div>
