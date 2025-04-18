@@ -8,6 +8,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 import { NotificationModule } from './components/notification/notification.module';
+import { AppLayoutComponent } from './components/layout/app-layout/app-layout.component';
+import { HomeLayoutComponent } from './components/layout/home-layout/home-layout.component';
 
 
 
@@ -18,7 +20,9 @@ import { NotificationModule } from './components/notification/notification.modul
     ModalComponent,
     FileUploaderComponent,
     HeaderComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeLayoutComponent,
+    AppLayoutComponent
   ],
   imports: [
     CommonModule,

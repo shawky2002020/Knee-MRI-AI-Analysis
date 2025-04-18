@@ -4,8 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { SidebarComponent } from './layout/sidebar/sidebar.component';
-import { FooterComponent } from './layout/footer/footer.component';
 import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +13,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { MriModule } from './features/mri/mri.module';
 import { ToastrModule } from 'ngx-toastr';
 import { NotificationModule } from './shared/components/notification/notification.module';
+import { SidebarComponent } from './shared/components/layout/sidebar/sidebar.component';
+import { FooterComponent } from './shared/components/layout/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
