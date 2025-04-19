@@ -10,11 +10,14 @@ const routes: Routes = [
     component: HomeLayoutComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule) }
+      { path: 'home', loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule) },
+      { path: 'auth', loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule) },
+
+
     ]
   },
   {
-    path: 'app', 
+    path: '', 
     component: AppLayoutComponent,
     canActivate: [AuthGuard],
     children: [
@@ -22,7 +25,6 @@ const routes: Routes = [
       { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule) }
     ]
   },
-  { path: 'auth', loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule) },
   { path: '**', redirectTo: 'home' } // Redirect unknown routes
 ];
 

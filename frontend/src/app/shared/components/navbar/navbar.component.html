@@ -11,7 +11,7 @@
   </ul>
 
     <ul id="links-wrapper">
-      <li *ngIf="!user.token"><a routerLink="/login">Login</a></li>
+      <li *ngIf="!user.token"><a routerLink="/auth/login">Login</a></li>
       
       <li *ngIf="user.token"><a routerLink="/dashboard">Home</a></li>
       <li *ngIf="user.token"><a routerLink="/mri/upload">Analyze</a></li>

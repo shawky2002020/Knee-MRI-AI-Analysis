@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from 'express';
-import { User } from '../../../../core/models/user.model';
-import { ThemeService } from '../../../../core/services/theme.service';
 import { UserService } from '../../../../core/services/user.service';
+import { ThemeService } from '../../../../core/services/theme.service';
+import { User } from '../../../../core/models/user.model';
 
 @Component({
   selector: 'app-sidebar',

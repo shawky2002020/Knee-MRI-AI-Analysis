@@ -10,8 +10,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { MriModule } from './features/mri/mri.module';
 import { ToastrModule } from 'ngx-toastr';
-import { NotificationModule } from './shared/components/notification/notification.module';
-import { FooterComponent } from './shared/components/layout/footer/footer.component';
 import { HomeModule } from './features/home/home.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
@@ -25,7 +23,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RouterModule,
     AuthModule,
     HomeModule,
-    SharedModule,
     ToastrModule.forRoot({    // Global toastr configuration
       closeButton: true, // Show close button
       newestOnTop: true, // New toasts appear on top

@@ -12,7 +12,7 @@ li{
   text-align: center;
 }
 
-.nav-bar:not(.light){
+.nav-bar{
   font-size: larger;
   display: flex;
   flex-flow: row nowrap;
