@@ -9,7 +9,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 import { NotificationModule } from './components/notification/notification.module';
 import { HomeLayoutComponent } from './components/layout/home-layout/home-layout.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
