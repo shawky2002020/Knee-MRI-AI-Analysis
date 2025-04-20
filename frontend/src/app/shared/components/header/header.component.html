@@ -5,7 +5,6 @@
     <ul class="links-wrapper">
       <li class="notification-bell" (click)="showNotifications()"><i class="fa-solid fa-bell"></i></li>
       <app-notification [isVisible]="showNotificationsMenu" (VisibleEmitter)="handleEmitter($event)" *ngIf="showNotificationsMenu"></app-notification>
-      <li><i class="fa-solid fa-circle-user"></i></li>
     </ul>
   </div>
   

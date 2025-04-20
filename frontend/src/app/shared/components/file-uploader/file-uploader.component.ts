@@ -1,5 +1,5 @@
 import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { MriScanService } from '../../../core/services/mri-scan.service';
 import { allowedExtensions, MriScan } from '../../../core/models/mri-scan.model';
@@ -21,6 +21,7 @@ export class FileUploaderComponent implements OnInit {
     'assets/sample/6.png',
     'assets/sample/7.png',
   ];
+  @Input() view_type !: string;
   
   previewUrls: (string | ArrayBuffer | null)[] = [];
   isUploading = false;
@@ -123,7 +124,7 @@ export class FileUploaderComponent implements OnInit {
         imageFile: file,
         metadata: {
           type: 'MRI',
-          view_type: 'axial',
+          view_type: this.view_type,
           fileType: fileExtension as 'jpg' | 'jpeg' | 'png' | 'dicom'
         }
       };

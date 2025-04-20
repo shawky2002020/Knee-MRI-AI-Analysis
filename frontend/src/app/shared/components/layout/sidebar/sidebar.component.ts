@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 export class SidebarComponent {
   user!:User;
   isLight !:boolean;
+  activeItem!: string ; // Default active item
+
   constructor(private router: Router, private userService: UserService,  private themeService:ThemeService) {
     
     userService.userObservable.subscribe((newUser)=>{
@@ -21,11 +23,18 @@ export class SidebarComponent {
       this.isLight = newTheme === 'light';
 
     })
+    this.activeItem = localStorage.getItem('activeItem') || 'dashboard'
     
   }
   logout(){
     this.userService.logout()  
   }
+
+  setActiveItem(item: string): void {
+    this.activeItem = item;
+    localStorage.setItem('activeItem', item);
+  }
+
 
 
 }

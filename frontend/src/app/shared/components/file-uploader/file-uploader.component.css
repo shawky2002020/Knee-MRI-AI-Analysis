@@ -11,12 +11,10 @@
   -webkit-overflow-scrolling: touch; /* For better scrolling on iOS */
 }
 
-
-
-
-
 .upload-container {
-  width: calc( 100vw - 12rem );
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem;
   margin-bottom: 1vh;
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.038); /* Glass effect */
@@ -29,7 +27,6 @@
 .upload-box {
   position: relative;
   width: 100%;
-  padding: 25px;
   border-radius: 10px;
   cursor: pointer;
   transition: 0.3s ease;
@@ -69,12 +66,28 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
   height: 100%;
   width: 100%;
-  border: 2px dashed var(--black-50);
   border-radius: 10px;
   transition: 0.3s ease;
   padding: 2rem;
+}
+
+.upload-prompt{
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 8px;
+  .view-title{
+    font-size: var(--large);
+    font-weight: bold;
+    
+  }
+}
+.choose-btn{
+  background: var(--black-50);
+  color: whitesmoke;
+  padding:.4rem 2rem;
 }
 
 .drop-zone:hover {
@@ -93,6 +106,8 @@
   font-weight: bold;
   text-transform: capitalize;
 }
+
+
 
 .preview-container{
   position: relative;

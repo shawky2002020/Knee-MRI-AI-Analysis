@@ -1,6 +1,7 @@
 .page{
   position: relative;
   width: calc( 100vw - 10rem );
+  height: 100%;
   margin-left: 10rem;
 }
 #myVideo{
@@ -16,22 +17,47 @@
 }
 
 .upload-page {
-  height: 100vh;
   text-align: center;
   width: calc( 100vw - 10rem );
+  height: calc( 100vh - 6.5rem );
+
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: space-between;
 }
 
-h2 {
+
+.main-text{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: start;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 .5rem;
+  background: rgba(245, 245, 245, 0.464);
+  backdrop-filter: blur(10px);
+}
+
+.title {
   font-size: var(--xlarge);
-  padding: 2rem ;
-  background: linear-gradient(45deg, var(--blue), var(--cyan));
+  font-weight: 600;
+  background: linear-gradient(45deg, var(--black-70), var(--purple-medium));
   background-clip: text;
   color: transparent;
+
 }
+.sub-title{
+  text-align: left;
+  font-size: var(--large);
+  color: var(--black-40);
+}
+
+.file-uploader{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+}
+
 
 .uploaded-preview {
   margin-top: 20px;

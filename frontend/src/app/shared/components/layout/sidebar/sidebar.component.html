@@ -1,19 +1,34 @@
 <div class="side-bar">
-  <ul id="logo-container" >
-    <li id="logo" routerLink="dashboard">
-      <span>ACLyze</span>
-    </li>
-  </ul>
+  <div class="container">
 
+    <ul id="logo-container">
+      <li id="logo" routerLink="dashboard">
+        <span>ACLyze</span>
+      </li>
+    </ul>
+  
     <ul id="links-wrapper">
-      
-      <li ><a routerLink="/dashboard">Home</a></li>
-      <li ><a routerLink="/mri/upload">Analyze</a></li>
-      <li ><a routerLink="/mri/history">History</a></li>
-
-
+      <li
+        [ngClass]="{ active: activeItem === 'dashboard' }"
+        (click)="setActiveItem('dashboard')"
+      >
+        <a routerLink="/dashboard">Home</a>
+      </li>
+      <li
+        [ngClass]="{ active: activeItem === 'analyze' }"
+        (click)="setActiveItem('analyze')"
+      >
+        <a routerLink="/mri/upload">Analyze</a>
+      </li>
+      <li
+        [ngClass]="{ active: activeItem === 'history' }"
+        (click)="setActiveItem('history')"
+      >
+        <a routerLink="/mri/history">History</a>
+      </li>
+  
       <!-- <li *ngIf="user.token"><a routerLink='/mri/report'>Report</a></li> -->
       <li><a (click)="logout()">Logout</a></li>
-
     </ul>
+  </div>
 </div>
