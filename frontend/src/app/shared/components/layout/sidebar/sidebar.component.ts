@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../../../../core/models/user.model';
 import { ThemeService } from '../../../../core/services/theme.service';
 import { UserService } from '../../../../core/services/user.service';
@@ -26,6 +26,7 @@ export class SidebarComponent {
     this.activeItem = localStorage.getItem('activeItem') || 'dashboard'
     
   }
+
   logout(){
     this.userService.logout()  
   }

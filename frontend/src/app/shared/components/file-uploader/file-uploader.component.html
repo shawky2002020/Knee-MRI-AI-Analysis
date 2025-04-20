@@ -19,13 +19,13 @@
         <div class="upload-prompt">
           <i class="fa fa-cloud-upload"></i>
           <p class="view-title">{{ view_type }} View</p>
-          <p *ngIf="view_type == 'axial'">Top-down view of the knee</p>
-          <p *ngIf="view_type == 'sagittal'">Side view of the knee</p>
-          <p *ngIf="view_type == 'coronal'">Front view of the knee</p>
-          <p class="small">Supported formats: JPG, JPEG, PNG, DICOM</p>
+          <p class="view-sub" *ngIf="view_type == 'axial'">Top View </p>
+          <p class="view-sub" *ngIf="view_type == 'sagittal'">Side View </p>
+          <p class="view-sub" *ngIf="view_type == 'coronal'">Front View </p>
         </div>
         <button class="choose-btn" (click)="fileInput.click()" > Choose files</button>
       </div>
+      
       <!-- <div class="drop-zone" 
            (click)="fileInput.click()"
            (dragover)="onDragOver($event)"
@@ -38,6 +38,8 @@
       </div> -->
     </div>
   </div>
+
+
 
   <div class="preview-container" *ngIf="selectedFiles.length > 0">
     <h3>Selected Files ({{ selectedFiles.length }})</h3>

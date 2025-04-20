@@ -7,34 +7,42 @@
   </video> -->
 
   <div class="upload-page">
-    <div class="main-text">
-      <p class="title">
-        Please upload all three required views of the knee MRI for analysis
-      </p>
-    </div>
     <div class="upload-container">
+      <div class="text">
+        <h3>
+          Please upload all three required <br> views of the knee MRI for analysis
+        </h3>
+        <div class="formats">
+          <p>
+            Supported formats: <br />
+            JPG, JPEG, PNG, DICOM
+          </p>
+        </div>
+      </div>
+      <div class="file-uploader-container" #uploadEl>
+        <div class="file-uploader">
+          <app-file-uploader
+            class="axial"
+            [view_type]="'axial'"
+            (uploadSuccess)="onUploadSuccess($event)"
+          ></app-file-uploader>
+          <app-file-uploader
+            class="coronal"
+            [view_type]="'coronal'"
+            (uploadSuccess)="onUploadSuccess($event)"
+          ></app-file-uploader>
+          <app-file-uploader
+            class="sagittal"
+            [view_type]="'sagittal'"
+            (uploadSuccess)="onUploadSuccess($event)"
+          ></app-file-uploader>
+        </div>
+      </div>
 
-
-    </div>
-
-    <div class="file-uploader" #uploadEl>
-      <app-file-uploader
-        [view_type]="'axial'"
-        (uploadSuccess)="onUploadSuccess($event)"
-      ></app-file-uploader>
-      <app-file-uploader
-        [view_type]="'coronal'"
-        (uploadSuccess)="onUploadSuccess($event)"
-      ></app-file-uploader>
-      <app-file-uploader
-        [view_type]="'sagittal'"
-        (uploadSuccess)="onUploadSuccess($event)"
-      ></app-file-uploader>
-    </div>
-
-    <div *ngIf="uploadedFileUrls.length" class="uploaded-preview">
-      <h3>Uploaded File:</h3>
-      <img [src]="uploadedFileUrls" alt="Uploaded MRI Scan" />
+      <div *ngIf="uploadedFileUrls.length" class="uploaded-preview">
+        <h3>Uploaded File:</h3>
+        <img [src]="uploadedFileUrls" alt="Uploaded MRI Scan" />
+      </div>
     </div>
   </div>
 </div>

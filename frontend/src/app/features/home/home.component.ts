@@ -29,6 +29,7 @@ export class HomeComponent implements AfterViewInit {
   ) {
     userService.logout()
     themeService.switchToDarkTheme()
+    localStorage.removeItem('activeItem')
   }
 
   @ViewChild('textEl') text!: ElementRef;
