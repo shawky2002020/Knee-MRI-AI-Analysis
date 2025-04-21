@@ -2,6 +2,20 @@ import mongoose from 'mongoose';
 
 // Metadata schema definition
 const MetadataSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  age: {
+    type: Number,
+    required: true,
+  },
+  gender: {
+    type: String,
+    required: true,
+    trim: true
+  },
   type: {
     type: String,
     required: true,
@@ -19,6 +33,7 @@ const MetadataSchema = new mongoose.Schema({
     lowercase: true
   }
 }, { _id: false }); // Prevent creating ObjectId for this subdocument
+
 
 // Result schema definition
 const ResultSchema = new mongoose.Schema({

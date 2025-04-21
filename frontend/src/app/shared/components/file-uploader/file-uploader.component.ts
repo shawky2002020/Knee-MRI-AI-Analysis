@@ -123,6 +123,9 @@ export class FileUploaderComponent implements OnInit {
       const mriscan: MriScan = {
         imageFile: file,
         metadata: {
+          name:'',
+          age:22,
+          gender: 'Male',
           type: 'MRI',
           view_type: this.view_type,
           fileType: fileExtension as 'jpg' | 'jpeg' | 'png' | 'dicom'

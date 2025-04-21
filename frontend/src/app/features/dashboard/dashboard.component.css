@@ -5,21 +5,25 @@
   height: 99%;
   border-radius: 1rem;
   position: absolute;
-  /* background: radial-gradient(circle at center, var(--white), var(--blue) 50%, var(--blue-dark),var(--white)); */
+  /* background: radial-gradient(circle at center, var(--white), var(--purple-light) 50%, var(--purple-bg),var(--white)); */
   background-size: 300% 300%;
   overflow: hidden;
   animation: scanEffect 10s infinite linear;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   
 }
 
 
 .bg {
   height: 100%;
-  width: calc(100vw - 10rem);
+  width: calc(100vw - 20rem);
+  margin:0 auto;
   object-fit: contain;
   position: absolute;
   animation: move 10s ease-in-out infinite;
-  mix-blend-mode: color-burn;
+  mix-blend-mode:color-burn;
 }
 
 .content {

@@ -1,17 +1,20 @@
-
 <div class="container">
-  <app-header [title]=" 'Previous Scans' "></app-header>
+  <app-header [title]="'Previous Scans'"></app-header>
   <div class="cards-wrapper">
-    <div class="card" *ngFor="let scan of mriScans" >
-      <div class="sub-card">
-        <figure>
-          <img loading="lazy" [src]="scan.mri_scan" alt="scan">
-        </figure>
-        <div class="status">{{ scan.result.status }}</div>
-      </div>
-      <div class="btn-container">
-        <button (click)="viewDetails(scan)" class="view-btn">View Report</button>
+    <div class="card" *ngFor="let scan of mriScans">
+      <div class="card-content">
+        <!-- <figure>
+          <img loading="lazy" [src]="scan.mri_scan" alt="scan" />
+        </figure> -->
+        <div class="id"> {{scan._id}} </div>
+        <div class="status">Key Finding : {{ scan.result.status }}</div>
+        <div class="btn-container">
+          <button (click)="viewDetails(scan)" class="view-btn">
+            View Report
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
+

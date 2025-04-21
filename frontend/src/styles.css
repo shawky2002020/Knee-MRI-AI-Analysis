@@ -50,11 +50,11 @@ body {
 
   --purple-dark: #1e0a32;
   --purple-medium: #782396;
-  --purple-light: #be82fa;
+  --purple-light: #ecbcf6;
   --purple-bg: #f9f3ff;
 
   --gray-light: #d8d4d4;
-  --gray-dark: #b0b0b0;
+  --gray-dark: #8d8d8d;
 
   --red: #cb1515;
   --red-light: #ff4d4d5b;
@@ -68,9 +68,16 @@ body {
   --yellow: #ffd700;
   --yellow-light: #ffff005e;
 
+  --blue-darkest: hsl(240, 94%, 20%);
+  --blue-darker: hsl(240, 91%, 29%);
+  --blue-dark: hsl(240, 99%, 30%);
+  --blue: hsl(240, 88%, 46%);
+  --blue-light: hsl(240, 65%, 62%);
+  --blue-lighter: hsl(240, 89%, 70%);
+  --blue-lightest: hsl(240, 90%, 84%);
+  --blue-glow: hsla(240, 98%, 22%, 0.6);
+  --blue-glow-light: hsla(240, 85%, 42%, 0.4);
 
-  --blue-dark: #000a64;
-  --blue: rgb(1, 1, 113);
 
   --box-shadow: 0px 2px 12px rgba(255, 255, 255, 0.3);
 
@@ -94,7 +101,6 @@ body {
 :root {
   --blue-dark: #000a64;
   --blue: #002b99;
-  --blue-light: #8b97a3;
   --cyan-dark: #008c8c;
   --cyan: #00bfbf;
   --cyan-light: #00e6e6;

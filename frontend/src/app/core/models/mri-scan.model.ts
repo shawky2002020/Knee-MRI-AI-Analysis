@@ -5,6 +5,9 @@ export class MriScan {
 
 export const allowedExtensions = ['jpg', 'jpeg', 'png', 'dicom'];
 export class MetaData {
+  name!:string;
+  age!: number;
+  gender!: string;
   type!: string;
   view_type!: string;
   fileType!: string;

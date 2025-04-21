@@ -48,7 +48,7 @@
   border-radius: 1rem;
   background-image: conic-gradient(
     from var(--angle),
-    var(--purple-medium) .5%,
+    var(--blue) .5%,
     transparent 10%
 
   );
@@ -97,23 +97,24 @@
   width: 120px;
   height: 30px;
   border-radius: 4px;
-  background: var(--purple-bg);
-  color: var(--purple-dark);
-  box-shadow: 2px 2px 7px var(--purple-medium);
-  transition: background 0.2s ease-in-out, color 0.4s ease-in-out;
+  background: var(--blue-light);
+  color: var(--white);
+  box-shadow: 2px 2px 7px var(--blue-glow);
+  transition: background 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 .choose-btn:hover {
-  color: whitesmoke;
-  background: var(--purple-dark);
+  color: var(--blue);
+  background: var(--white-glow);
+  box-shadow: 2px 2px 7px var(--blue);
 }
 
 .drop-zone:hover {
-  box-shadow: 2px 5px 10px var(--purple-medium);
+  box-shadow: 2px 5px 10px var(--blue-glow);
 }
 
 .drop-zone i {
   font-size: var(--xxxlarge);
-  color: var(--gray-light);
+  color: var(--blue-light);
 }
 .upload-placeholder p {
   font-size: var(--large);
