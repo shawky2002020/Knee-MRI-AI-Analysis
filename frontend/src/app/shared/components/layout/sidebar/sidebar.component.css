@@ -46,14 +46,16 @@
     }
   }
   #logo span {
-    background: linear-gradient(25deg, #2563eb, #9333ea);
+    background: var(--holographic-secondary);
+    /* background: linear-gradient(25deg, #2563eb, #9333ea); */
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
   }
   
 .active {
-  background: linear-gradient(25deg,rgb(209, 206, 206), #2564eb39, #9233ea32);
+  background: var(--holographic-shimmer);
+  /* background: linear-gradient(25deg,rgb(209, 206, 206), #2564eb39, #9233ea32); */
   border-radius: 1rem;
   backdrop-filter: blur(10px);
   position: relative;

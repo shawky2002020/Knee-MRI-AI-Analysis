@@ -37,28 +37,10 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  background: var(--white);
+
 }
 
-.upload-container::after,
-.upload-container::before {
-  content: "";
-  position: absolute;
-  inset: -4px; /* More glow */
-  border-radius: 1rem;
-  background-image: conic-gradient(
-    from var(--angle),
-    var(--blue) .5%,
-    transparent 10%
 
-  );
-  z-index: -1; /* Keeps glow behind the box */
-  animation: glow 6s linear infinite;
-}
-.upload-box::container {
-  inset: -6px;
-  filter: blur(10px);
-}
 
 @keyframes glow {
   0% {
@@ -93,14 +75,35 @@
   }
 }
 .choose-btn {
+  position: relative;
   font-weight: 600;
   width: 120px;
   height: 30px;
   border-radius: 4px;
-  background: var(--blue-light);
-  color: var(--white);
+  background: rgba(245, 245, 245, 0.74);
+  color: var(--black-70);
   box-shadow: 2px 2px 7px var(--blue-glow);
   transition: background 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.choose-btn::after,
+.choose-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0; 
+  border-radius: 4px;
+  background-image: conic-gradient(
+    from var(--angle),
+    #ff8ac5 0%,
+    #8ba6ed 40%,
+    #99ffff 80%,
+    transparent 90%
+  );
+  z-index: -1; /* Keeps glow behind the box */
+  animation: glow 3s linear infinite;
+}
+.choose-btn::container {
+  inset: -6px;
+  filter: blur(10px);
 }
 .choose-btn:hover {
   color: var(--blue);

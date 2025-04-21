@@ -59,6 +59,35 @@ body {
   --red: #cb1515;
   --red-light: #ff4d4d5b;
 
+  --holographic-primary: linear-gradient(45deg, #ff99ff, #99ffff, #ff99ff);
+  --holographic-secondary: linear-gradient(135deg, #ff8ac5, #8ba6ed, #99ffff);
+  --holographic-accent: linear-gradient(90deg, #ff99ff, #99ffff);
+  --holographic-rainbow: linear-gradient(
+    to right,
+    #ff0000,
+    #ff8000,
+    #ffff00,
+    #00ff00,
+    #00ffff,
+    #0000ff,
+    #8000ff,
+    #ff0080
+  );
+  --holographic-shimmer: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  --holographic-pearl: linear-gradient(
+    135deg,
+    #ffffff,
+    #ffe1e1,
+    #e1ffe1,
+    #e1e1ff,
+    #ffffff
+  );
+
   --pink-dark: #a40051;
   --pink: #faa;
   --cyan: #00dcc8;
@@ -171,7 +200,7 @@ li {
 }
 #logo span {
   font-size: var(--xlarge);
-  color: var(--text-color);
+  color: var(--white);
 }
 
 #links-wrapper {
