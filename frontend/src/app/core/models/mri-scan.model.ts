@@ -12,6 +12,7 @@ export class MetaData {
   view_type!: string;
   fileType!: string;
   _id?: string;
+  viewed?:boolean;
 }
 
 

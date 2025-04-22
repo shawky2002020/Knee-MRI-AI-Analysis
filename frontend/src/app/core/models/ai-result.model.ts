@@ -14,7 +14,18 @@ export interface DiagnosticResult {
     report!: string;
     mri_scan!: string;
     heat_map!: string;
+    createdAt!: Date;
+    updatedAt!: Date;
+    __v!: number;
   }
+
+export interface ScanResponse {
+  scans: MriDiagnosticResponse[];
+  page: number;
+  limit: number;
+  totalPages: number;
+  totalScans: number;
+}
   
   
   export const diagnosticResult = {

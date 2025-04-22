@@ -31,6 +31,10 @@ const MetadataSchema = new mongoose.Schema({
     enum: ['dicom', 'jpeg', 'png', 'jpg'],
     required: true,
     lowercase: true
+  },
+  viewed :{
+    type: Boolean,
+    default: false
   }
 }, { _id: false }); // Prevent creating ObjectId for this subdocument
 

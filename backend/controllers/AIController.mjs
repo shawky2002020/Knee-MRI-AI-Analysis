@@ -1,4 +1,3 @@
-import cloudinary from "../config/cloudinary.mjs";
 import MriScan from "../models/AIAnalysis.mjs";
 import dotenv from "dotenv";
 import FormData from "form-data";
@@ -39,11 +38,11 @@ export const process_Mri = async (req, res) => {
     );
 
     // Log request data for debugging
-    console.log("Sending to AI model:", {
-      url: `${process.env.BASE_AI_URL}/process_mri`,
-      view_type: metadata.view_type,
-      user_id: id,
-    });
+    // console.log("Sending to AI model:", {
+    //   url: `${process.env.BASE_AI_URL}/process_mri`,
+    //   view_type: metadata.view_type,
+    //   user_id: id,
+    // });
 
     // Enhanced error handling
     if (!modelResponse.ok) {
@@ -78,20 +77,3 @@ export const process_Mri = async (req, res) => {
   }
 };
 
-export const getMri = async (req, res) => {
-  try {
-    const id = req.user.id;
-    if (!id) {
-      res.status(404).json({ message: "User not found" });
-    }
-    const patientScans = await MriScan.find({ userId: id })
-      .select("-patientId")
-      .sort({ createdAt: -1 })
-      .limit(10);
-    res.status(200).json({ ...patientScans });
-  } catch (error) {
-    res
-      .status(400)
-      .json({ message: "Failed to load the scans", err: error.message });
-  }
-};
