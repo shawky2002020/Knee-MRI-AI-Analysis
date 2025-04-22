@@ -15,6 +15,14 @@ export interface DiagnosticResult {
     mri_scan!: string;
     heat_map!: string;
   }
+
+export interface ScanResponse {
+  scans: MriDiagnosticResponse[];
+  page: number;
+  limit: number;
+  totalPages: number;
+  totalScans: number;
+}
   
   
   export const diagnosticResult = {

@@ -5,6 +5,7 @@ import { UploadComponent } from './upload/upload.component';
 import { HistoryComponent } from './history/history.component';
 import { ReportComponent } from './report/report.component';
 import { SharedModule } from '../../shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SharedModule } from '../../shared/shared.module';
   imports: [
     CommonModule,
     MriRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ]
 })
 export class MriModule { }

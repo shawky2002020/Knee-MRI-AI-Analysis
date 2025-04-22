@@ -4,6 +4,13 @@
   /* background-image: url('/assets/gradient/bw.jpg'); */
   background-size: cover;
 }
+
+.search-bar{
+  display: flex;
+  background: #000;
+  flex-flow: row nowrap;
+  justify-content: center; 
+}
 .cards-wrapper{
   display: flex;
   flex-flow: row wrap;

@@ -1,7 +1,7 @@
 import { HttpClient, HttpEvent, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { DiagnosticResult, MriDiagnosticResponse } from '../models/ai-result.model';
+import { DiagnosticResult, MriDiagnosticResponse, ScanResponse } from '../models/ai-result.model';
 import * as url from '../../data/url';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -22,8 +22,18 @@ updateMriScan(scan: MriDiagnosticResponse) {
 getMriScan(): MriDiagnosticResponse {
   return this.mriScanSubject.value;
 }
-  getScans ():Observable<MriDiagnosticResponse[]>{
-    return this.http.get<MriDiagnosticResponse[]>(url.MRI_GET_SCANS)
+  getScans (page ?:number , limit ?: number):Observable<ScanResponse>{
+    let params = new HttpParams();
+    if(page){
+      params = params.append('page', page);
+    }
+    if(limit){
+      params = params.append('limit', limit);
+    }
+    return this.http.get<ScanResponse>(url.MRI_GET_SCANS, {params})
+  }
+  getScanByName(name:string):Observable<ScanResponse>{
+    return this.http.get<ScanResponse>(url.MRI_GET_SCANS + '/' + name)
   }
 }
 
