@@ -22,46 +22,59 @@ updateMriScan(scan: MriDiagnosticResponse) {
 getMriScan(): MriDiagnosticResponse {
   return this.mriScanSubject.value;
 }
-  getScans(page?: number, limit?: number, timeRange?: string): Observable<ScanResponse> {
+  getScans(filters: {  // Added all fillters here
+    page?: number,
+    limit?: number,
+    timeRange?: string,
+    name?: string,
+    status?: string
+  } = {}): Observable<ScanResponse> {
     let params = new HttpParams();
-    if (page) {
-      params = params.append('page', page);
-    }
-    if (limit) {
-      params = params.append('limit', limit);
-    }
-    if (timeRange) {
-      params = params.append('timeRange', timeRange);
-    }
-    return this.http.get<ScanResponse>(url.MRI_GET_SCANS, { params })
+    if (filters.page) params = params.append('page', filters.page);
+    if (filters.limit) params = params.append('limit', filters.limit);
+    if (filters.timeRange) params = params.append('timeRange', filters.timeRange);
+    if (filters.name) params = params.append('name', filters.name);
+    if (filters.status) params = params.append('status', filters.status);
+    return this.http.get<ScanResponse>(url.MRI_GET_SCANS, { params });
   }
 
-  getScanByName(name: string, page?: number, limit?: number, timeRange?: string): Observable<ScanResponse> {
-    let params = new HttpParams();
-    if (page) {
-      params = params.append('page', page);
-    }
-    if (limit) {
-      params = params.append('limit', limit);
-    }
-    if (timeRange) {
-      params = params.append('timeRange', timeRange);
-    }
-    return this.http.get<ScanResponse>(url.MRI_GET_SCANS_BY_STATUS + '/' + name, { params })
+  viewed(scanId: string): Observable<MriDiagnosticResponse> {
+    return this.http.patch<MriDiagnosticResponse>(url.MRI_VIEWED + '/' + scanId,{}).pipe(
+      tap((res: MriDiagnosticResponse) => {
+        this.updateMriScan(res);
+      })
+    )
   }
 
-  getScanByStatus(status: string, page?: number, limit?: number, timeRange?: string): Observable<ScanResponse> {
-    let params = new HttpParams();
-    if (page) {
-      params = params.append('page', page);
-    }
-    if (limit) {
-      params = params.append('limit', limit);
-    }
-    if (timeRange) {
-      params = params.append('timeRange', timeRange);
-    }
-    return this.http.get<ScanResponse>(url.MRI_GET_SCANS + '/' + status, { params })
-  }
+
+  
+
+  // getScanByName(name: string, page?: number, limit?: number, timeRange?: string): Observable<ScanResponse> {
+  //   let params = new HttpParams();
+  //   if (page) {
+  //     params = params.append('page', page);
+  //   }
+  //   if (limit) {
+  //     params = params.append('limit', limit);
+  //   }
+  //   if (timeRange) {
+  //     params = params.append('timeRange', timeRange);
+  //   }
+  //   return this.http.get<ScanResponse>(url.MRI_GET_SCANS + '/' + name, { params })
+  // }
+
+  // getScanByStatus(status: string, page?: number, limit?: number, timeRange?: string): Observable<ScanResponse> {
+  //   let params = new HttpParams();
+  //   if (page) {
+  //     params = params.append('page', page);
+  //   }
+  //   if (limit) {
+  //     params = params.append('limit', limit);
+  //   }
+  //   if (timeRange) {
+  //     params = params.append('timeRange', timeRange);
+  //   }
+  //   return this.http.get<ScanResponse>(url.MRI_GET_SCANS_BY_STATUS + '/' + status, { params })
+  // }
 }
 

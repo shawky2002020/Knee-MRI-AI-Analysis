@@ -10,6 +10,7 @@ export const MRI_BASE = BASEURL + '/v1/mri';
 export const MRI_UPLOAD = MRI_BASE + '/upload';
 export const MRI_GET_SCANS = MRI_BASE + '/scans';
 export const MRI_GET_SCANS_BY_STATUS = MRI_BASE + '/status';
+export const MRI_VIEWED = MRI_BASE + '/viewed';
 
 
 //NOTIFICATOINS

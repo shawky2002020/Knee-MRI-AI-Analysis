@@ -9,13 +9,13 @@ router.use(authorize)
 router.post("/upload",upload,AIController.process_Mri );
 
 router.get("/scans", scanHistoryController.getAllScans);
-router.get("/scans/:name", scanHistoryController.getScanByName);
 router.delete("/scans/:scanId", scanHistoryController.deleteMri);
 
 
-router.patch("/name", scanHistoryController.updateName);
-router.patch("/viewed", scanHistoryController.updateViewed);
+router.patch("/viewed/:scanId", scanHistoryController.updateViewed);
 router.patch("/status", scanHistoryController.lowercaseResultStatus);
 
 
+// router.patch("/name", scanHistoryController.updateName);
+// router.get("/scans/:name", scanHistoryController.getScanByName);
 export default router;

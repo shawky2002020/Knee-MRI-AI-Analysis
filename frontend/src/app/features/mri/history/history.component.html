@@ -1,23 +1,22 @@
 <div class="container">
   <img src="/assets/holo/holo1.jpg" alt="" class="bg back" />
 
-  <app-header [title]="'Previous Scans'"></app-header>
+  <app-header id="top" [title]="'Previous Scans'"></app-header>
   <header>
     <div class="search-bar">
       <div class="search-input-container">
-        <button class="search-btn" (click)="searchScans()">
+        <button class="search-btn" (click)="filterScans()">
           <i class="fas fa-search"></i>
         </button>
         <input
           type="text"
           [(ngModel)]="searchTerm"
           placeholder="Search by name"
-          (keyup.enter)="searchScans()"
+          (keyup.enter)="filterScans()"
         />
       </div>
       <div class="reset-container">
-
-        <button class="reset-btn" (click)="loadScans()" type="button">
+        <button class="reset-btn" (click)="reset()" type="button">
           <i class="fas fa-undo"></i>
           Reset
         </button>
@@ -26,36 +25,122 @@
 
     <div class="filters-container">
       <!-- Custom Status Dropdown -->
-      <div class="filter-options custom-dropdown" [class.open]="statusDropdownOpen">
-        <div class="dropdown-selected" (click)="statusDropdownOpen = !statusDropdownOpen">
-          {{ selectedStatus === 'Diagnostic status' || !selectedStatus ? 'Diagnostic status' : selectedStatus }}
+      <div
+        class="filter-options custom-dropdown"
+        [class.open]="statusDropdownOpen"
+      >
+        <div
+          class="dropdown-selected"
+          (click)="statusDropdownOpen = !statusDropdownOpen"
+        >
+          {{
+            selectedStatus === "Diagnostic status" || !selectedStatus
+              ? "Diagnostic status"
+              : selectedStatus
+          }}
           <i class="fa fa-chevron-down"></i>
         </div>
         <ul class="dropdown-list" *ngIf="statusDropdownOpen">
-          <li (click)="selectStatus('')" [class.selected]="selectedStatus === ''">All</li>
-          <li (click)="selectStatus('normal')" [class.selected]="selectedStatus === 'normal'">Normal</li>
-          <li (click)="selectStatus('acl')" [class.selected]="selectedStatus === 'acl'">ACL</li>
-          <li (click)="selectStatus('meniscus')" [class.selected]="selectedStatus === 'meniscus'">Meniscus</li>
-          <li (click)="selectStatus('acl and meniscus')" [class.selected]="selectedStatus === 'acl and meniscus'">ACL and Meniscus</li>
+          <li
+            (click)="selectStatus('')"
+            [class.selected]="selectedStatus === ''"
+          >
+            All
+          </li>
+          <li
+            (click)="selectStatus('normal')"
+            [class.selected]="selectedStatus === 'normal'"
+          >
+            Normal
+          </li>
+          <li
+            (click)="selectStatus('acl')"
+            [class.selected]="selectedStatus === 'acl'"
+          >
+            ACL
+          </li>
+          <li
+            (click)="selectStatus('meniscus')"
+            [class.selected]="selectedStatus === 'meniscus'"
+          >
+            Meniscus
+          </li>
+          <li
+            (click)="selectStatus('acl and meniscus')"
+            [class.selected]="selectedStatus === 'acl and meniscus'"
+          >
+            ACL and Meniscus
+          </li>
         </ul>
       </div>
 
       <!-- Custom Date Dropdown -->
-      <div class="filter-options custom-dropdown" [class.open]="dateDropdownOpen">
-        <div class="dropdown-selected" (click)="dateDropdownOpen = !dateDropdownOpen">
-          {{ selectedDate === 'Date' || !selectedDate ? 'Date' : selectedDate }}
+      <div
+        class="filter-options custom-dropdown"
+        [class.open]="dateDropdownOpen"
+      >
+        <div
+          class="dropdown-selected"
+          (click)="dateDropdownOpen = !dateDropdownOpen"
+        >
+          {{ selectedDate === "Date" || !selectedDate ? "Date" : selectedDate }}
           <i class="fa fa-chevron-down"></i>
         </div>
         <ul class="dropdown-list" *ngIf="dateDropdownOpen">
-          <li (click)="selectDate('24hours')" [class.selected]="selectedDate === '24hours'">Last 24 Hours</li>
-          <li (click)="selectDate('3days')" [class.selected]="selectedDate === '3days'">Last 3 Days</li>
-          <li (click)="selectDate('7days')" [class.selected]="selectedDate === '7days'">Last 7 Days</li>
-          <li (click)="selectDate('2weeks')" [class.selected]="selectedDate === '2weeks'">Last 2 Weeks</li>
-          <li (click)="selectDate('month')" [class.selected]="selectedDate === 'month'">Last Month</li>
-          <li (click)="selectDate('3months')" [class.selected]="selectedDate === '3months'">Last 3 Months</li>
-          <li (click)="selectDate('6months')" [class.selected]="selectedDate === '6months'">Last 6 Months</li>
-          <li (click)="selectDate('year')" [class.selected]="selectedDate === 'year'">Last Year</li>
-          <li (click)="selectDate('2years')" [class.selected]="selectedDate === '2years'">Last 2 Years</li>
+          <li
+            (click)="selectDate('24hours')"
+            [class.selected]="selectedDate === '24hours'"
+          >
+            Last 24 Hours
+          </li>
+          <li
+            (click)="selectDate('3days')"
+            [class.selected]="selectedDate === '3days'"
+          >
+            Last 3 Days
+          </li>
+          <li
+            (click)="selectDate('7days')"
+            [class.selected]="selectedDate === '7days'"
+          >
+            Last 7 Days
+          </li>
+          <li
+            (click)="selectDate('2weeks')"
+            [class.selected]="selectedDate === '2weeks'"
+          >
+            Last 2 Weeks
+          </li>
+          <li
+            (click)="selectDate('month')"
+            [class.selected]="selectedDate === 'month'"
+          >
+            Last Month
+          </li>
+          <li
+            (click)="selectDate('3months')"
+            [class.selected]="selectedDate === '3months'"
+          >
+            Last 3 Months
+          </li>
+          <li
+            (click)="selectDate('6months')"
+            [class.selected]="selectedDate === '6months'"
+          >
+            Last 6 Months
+          </li>
+          <li
+            (click)="selectDate('year')"
+            [class.selected]="selectedDate === 'year'"
+          >
+            Last Year
+          </li>
+          <li
+            (click)="selectDate('2years')"
+            [class.selected]="selectedDate === '2years'"
+          >
+            Last 2 Years
+          </li>
         </ul>
       </div>
 
@@ -79,7 +164,7 @@
           <span
             class="diagnosis-badge"
             [ngClass]="{ 
-              danger: scan.result.status === 'ACL' || scan.result.status === 'meniscus' || scan.result.status ==='ACL and meniscus',
+              danger: scan.result.status === 'acl' || scan.result.status === 'meniscus' || scan.result.status ==='acl and meniscus',
                }"
           >
             {{ scan.result.status }}
@@ -104,5 +189,57 @@
         </div>
       </div>
     </div>
+    <div *ngIf="!mriScans.length" class="not-found">
+      <div class="not-found-content">
+        <i class="fas fa-file-medical fa-4x"></i>
+        <div class="not-found-text">
+          <h3>No Scans Found</h3>
+          <p>There are currently no MRI scans available to display.</p>
+        </div>
+      </div>
+    </div>
   </div>
+  <!-- Pagination Controls -->
+  <nav
+    *ngIf="totalPages > 1"
+    class="pagination-container"
+    aria-label="MRI scan pagination"
+  >
+    <ul class="pagination-list">
+      <li>
+        <button
+          class="pagination-btn"
+          [disabled]="page === 1"
+          (click)="goToPage(page - 1)"
+          aria-label="Previous page"
+        >
+          &laquo;
+        </button>
+      </li>
+      <li *ngFor="let p of [].constructor(totalPages); let i = index">
+        <button
+          class="pagination-btn"
+          [class.active]="page === i + 1"
+          (click)="goToPage(i + 1)"
+        >
+          <span (click)="scrollToTop()">
+
+            {{ i + 1 }}
+          </span>
+        </button>
+      </li>
+      <li>
+        <button
+          class="pagination-btn"
+          [disabled]="page === totalPages"
+          (click)="goToPage(page + 1)"
+          href="#"
+          aria-label="Next page"
+        >
+          &raquo;
+        </button>
+      </li>
+    </ul>
+    <span class="pagination-info"> Page {{ page }} of {{ totalPages }} </span>
+  </nav>
 </div>
