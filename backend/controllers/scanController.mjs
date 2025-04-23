@@ -10,7 +10,19 @@ export const getAllScans = async (req, res) => {
 
     const { page, limit, skip } = helpers.getPaginationParams(req.query);
     const timeFilter = helpers.getTimeFilter(req.query.timeRange);
+
+    // Build dynamic filter
     const filter = { userId: id, ...timeFilter };
+
+    // Name filter (partial match, case-insensitive)
+    if (req.query.name && req.query.name.trim() !== "") {
+      filter["metadata.name"] = { $regex: req.query.name, $options: "i" };
+    }
+
+    // Status filter (case-insensitive, matches result.status)
+    if (req.query.status && req.query.status.trim() !== "") {
+      filter["result.status"] = req.query.status.toLowerCase();
+    }
 
     const total = await MriScan.countDocuments(filter);
     const patientScans = await MriScan.find(filter)
