@@ -34,7 +34,7 @@ export class AuthGuard implements CanActivate {
       
       this.themeService.switchToDarkTheme()
       this.toast.info('Login to proceed please')
-      this.router.navigate(['/login']); // Redirect if not logged in
+      this.router.navigate(['/auth/login']); // Redirect if not logged in
 
       return false;
     }

@@ -56,19 +56,65 @@ export class HistoryComponent implements OnInit {
         this.mriScans = Object.values(res.scans);
       },
       error: (err) => {
-        this.mriScans = []
-        this.toast.error(err.message.body);
+        this.mriScans = [];
+        if (err.error && err.error.message) {
+          this.toast.error(err.error.message);
+        } else {
+          this.toast.error('Scan not found');
+        }
       }
     });
   }
   filterScans() {
-    if (this.selectedDate === 'today' && this.selectedStatus === 'all') {
+    // If both filters are at their default, load all scans
+    if (
+      (this.selectedDate === 'Date' || !this.selectedDate) &&
+      (this.selectedStatus === 'Diagnostic status' || !this.selectedStatus)
+    ) {
       this.loadScans();
-      return; 
-    } 
+      return;
+    }
+
+    // Prepare query params
+    const params: any = {};
+    if (this.selectedDate !== 'Date' && this.selectedDate) {
+      params.timeRange = this.selectedDate;
+    }
+    if (
+      this.selectedStatus !== 'Diagnostic status' &&
+      this.selectedStatus !== '' &&
+      this.selectedStatus
+    ) {
+      params.status = this.selectedStatus.toLowerCase();
+    }
+
+    this.scansService.getScans(params).subscribe({
+      next: (res: ScanResponse) => {
+        this.mriScans = Object.values(res.scans);
+      },
+      error: (err) => {
+        this.mriScans = [];
+        this.toast.error('No scans found for the selected filters');
+      }
+    });
   }
 
   viewDetails(scan:MriDiagnosticResponse){
     this.scansService.updateMriScan(scan)
+  }
+
+  statusDropdownOpen = false;
+  dateDropdownOpen = false;
+
+  selectStatus(status: string) {
+    this.selectedStatus = status;
+    this.statusDropdownOpen = false;
+    this.filterScans();
+  }
+
+  selectDate(date: string) {
+    this.selectedDate = date;
+    this.dateDropdownOpen = false;
+    this.filterScans();
   }
 }

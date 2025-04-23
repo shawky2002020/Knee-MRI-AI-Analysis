@@ -44,7 +44,8 @@ const ResultSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    lowercase: true
   },
   acl_prob: {
     type: Number,

@@ -1,5 +1,5 @@
 <div class="container">
-  <img src="/assets/holo/holo1.jpg" alt="" class="bg back">
+  <img src="/assets/holo/holo1.jpg" alt="" class="bg back" />
 
   <app-header [title]="'Previous Scans'"></app-header>
   <header>
@@ -15,34 +15,48 @@
           (keyup.enter)="searchScans()"
         />
       </div>
+      <div class="reset-container">
 
-      <button class="reset-btn" (click)="loadScans()" type="button">
-        <i class="fas fa-undo"></i>
-        Reset
-      </button>
+        <button class="reset-btn" (click)="loadScans()" type="button">
+          <i class="fas fa-undo"></i>
+          Reset
+        </button>
+      </div>
     </div>
 
     <div class="filters-container">
-      <div class="filter-options">
-        <label>
-          <select [(ngModel)]="selectedStatus" (change)="filterScans()">
-            <option hidden selected>Diagnostic status</option>
-            <option value="">All</option>
-            <option value="Positive">Positive</option>
-            <option value="Negative">Negative</option>
-          </select>
-        </label>
+      <!-- Custom Status Dropdown -->
+      <div class="filter-options custom-dropdown" [class.open]="statusDropdownOpen">
+        <div class="dropdown-selected" (click)="statusDropdownOpen = !statusDropdownOpen">
+          {{ selectedStatus === 'Diagnostic status' || !selectedStatus ? 'Diagnostic status' : selectedStatus }}
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <ul class="dropdown-list" *ngIf="statusDropdownOpen">
+          <li (click)="selectStatus('')" [class.selected]="selectedStatus === ''">All</li>
+          <li (click)="selectStatus('normal')" [class.selected]="selectedStatus === 'normal'">Normal</li>
+          <li (click)="selectStatus('acl')" [class.selected]="selectedStatus === 'acl'">ACL</li>
+          <li (click)="selectStatus('meniscus')" [class.selected]="selectedStatus === 'meniscus'">Meniscus</li>
+          <li (click)="selectStatus('acl and meniscus')" [class.selected]="selectedStatus === 'acl and meniscus'">ACL and Meniscus</li>
+        </ul>
       </div>
 
-      <div class="filter-options">
-        <label>
-          <select [(ngModel)]="selectedDate" (change)="filterScans()">
-            <option hidden selected>Date</option>
-            <option value="today">Today</option>
-            <option value="last7">Last 7 Days</option>
-            <option value="last30">Last 30 Days</option>
-          </select>
-        </label>
+      <!-- Custom Date Dropdown -->
+      <div class="filter-options custom-dropdown" [class.open]="dateDropdownOpen">
+        <div class="dropdown-selected" (click)="dateDropdownOpen = !dateDropdownOpen">
+          {{ selectedDate === 'Date' || !selectedDate ? 'Date' : selectedDate }}
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <ul class="dropdown-list" *ngIf="dateDropdownOpen">
+          <li (click)="selectDate('24hours')" [class.selected]="selectedDate === '24hours'">Last 24 Hours</li>
+          <li (click)="selectDate('3days')" [class.selected]="selectedDate === '3days'">Last 3 Days</li>
+          <li (click)="selectDate('7days')" [class.selected]="selectedDate === '7days'">Last 7 Days</li>
+          <li (click)="selectDate('2weeks')" [class.selected]="selectedDate === '2weeks'">Last 2 Weeks</li>
+          <li (click)="selectDate('month')" [class.selected]="selectedDate === 'month'">Last Month</li>
+          <li (click)="selectDate('3months')" [class.selected]="selectedDate === '3months'">Last 3 Months</li>
+          <li (click)="selectDate('6months')" [class.selected]="selectedDate === '6months'">Last 6 Months</li>
+          <li (click)="selectDate('year')" [class.selected]="selectedDate === 'year'">Last Year</li>
+          <li (click)="selectDate('2years')" [class.selected]="selectedDate === '2years'">Last 2 Years</li>
+        </ul>
       </div>
 
       <div class="btn-container">
@@ -52,9 +66,9 @@
   </header>
 
   <div class="cards-wrapper">
-    <div class="card" *ngFor="let scan of mriScans,let i =index">
-      <img src="/assets/holo/holo2.jpg" alt="" class="bg">
-      <div class="card-content" [ngClass]="{big : i%2 === 0}">
+    <div class="card" *ngFor="let scan of mriScans; let i = index">
+      <img src="/assets/holo/holo2.jpg" alt="" class="bg" />
+      <div class="card-content" [ngClass]="{ big: i % 2 === 0 }">
         <div class="card-header">
           <div class="patient-details">
             <div class="patient-name">{{ scan.metadata.name }}</div>
@@ -70,8 +84,12 @@
           >
             {{ scan.result.status }}
           </span>
-            <span *ngIf="scan.metadata.viewed" class="reviewed-badge reviewed">Reviewed</span>
-            <span *ngIf="!scan.metadata.viewed" class="reviewed-badge pending">Pending</span>
+          <span *ngIf="scan.metadata.viewed" class="reviewed-badge reviewed"
+            >Reviewed</span
+          >
+          <span *ngIf="!scan.metadata.viewed" class="reviewed-badge pending"
+            >Pending</span
+          >
         </div>
         <div class="scan-date">{{ scan.createdAt | date : "d MMMM, y" }}</div>
 
