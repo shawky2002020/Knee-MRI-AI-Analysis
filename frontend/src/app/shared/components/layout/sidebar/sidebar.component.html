@@ -18,13 +18,13 @@
         [ngClass]="{ active: activeItem === 'analyze' }"
         (click)="setActiveItem('analyze')"
       >
-        <a routerLink="/mri/upload">Analyze</a>
+        <a routerLink="/mri/analyze">Analyze</a>
       </li>
       <li
         [ngClass]="{ active: activeItem === 'history' }"
         (click)="setActiveItem('history')"
       >
-        <a routerLink="/mri/history">History</a>
+        <a routerLink="/mri/history">Reports</a>
       </li>
   
       <!-- <li *ngIf="user.token"><a routerLink='/mri/report'>Report</a></li> -->

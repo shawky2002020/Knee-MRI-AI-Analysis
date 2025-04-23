@@ -4,9 +4,10 @@ import { UploadComponent } from './upload/upload.component';
 import { HistoryComponent } from './history/history.component';
 import { ReportComponent } from './report/report.component';
 import { AuthGuard } from '../../guards/auth.guard';
+import { AnalyzeComponent } from './analyze/analyze.component';
 
 const routes: Routes = [
-  { path: 'upload', component: UploadComponent },
+  { path: 'analyze', component: AnalyzeComponent },
   { path: 'history', component: HistoryComponent },
   { path: 'report', component: ReportComponent },
 

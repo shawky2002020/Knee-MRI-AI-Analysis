@@ -5,19 +5,22 @@ import { UploadComponent } from './upload/upload.component';
 import { HistoryComponent } from './history/history.component';
 import { ReportComponent } from './report/report.component';
 import { SharedModule } from '../../shared/shared.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AnalyzeComponent } from './analyze/analyze.component';
 
 @NgModule({
   declarations: [
     UploadComponent,
     HistoryComponent,
     ReportComponent,
+    AnalyzeComponent,
   ],
   imports: [
     CommonModule,
     MriRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MriModule { }

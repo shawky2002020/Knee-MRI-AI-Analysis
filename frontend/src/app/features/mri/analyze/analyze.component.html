@@ -1,0 +1,30 @@
+<div class="page">
+    <app-header [title]="'Analyze page'"></app-header>
+
+    <form [formGroup]="userForm" class="form" autocomplete="off" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" placeholder="Enter your name" required formControlName="name" />
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input id="age" name="age" type="number" min="0" max="120" placeholder="Enter your age" required formControlName="age" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required formControlName="gender">
+                    <option value="" disabled>Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="submit-btn" [disabled]="!userForm.valid">Continue</button>
+    </form>
+
+    <app-upload *ngIf="showUpload"></app-upload>
+</div>
