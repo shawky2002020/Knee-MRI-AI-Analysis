@@ -2,7 +2,6 @@ import MriScan from "../models/AIAnalysis.mjs";
 import * as helpers from "../utils/helper.mjs";
 
 
-
 export const getAllScans = async (req, res) => {
   try {
     const id = req.user.id;
