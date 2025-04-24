@@ -28,7 +28,7 @@ export class HistoryComponent implements OnInit {
       next: (res: ScanResponse) => {
         this.mriScans = Object.values(res.scans);
         this.page = res.page;
-        this.totalPages = res.totalPages;
+        this.totalPages =res.totalPages;
       },
       error: (err) => {
         this.toast.error('Failed to load');
@@ -117,5 +117,16 @@ export class HistoryComponent implements OnInit {
 
   scrollToTop(){
     window.scrollTo(0,0)
+  }
+
+  get paginationWindow(): number[] {
+    const windowSize = 5;
+    let start = Math.floor((this.page - 1) / windowSize) * windowSize + 1;
+    let end = Math.min(start + windowSize - 1, this.totalPages);
+    const pages = [];
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
   }
 }

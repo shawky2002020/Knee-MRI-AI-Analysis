@@ -16,7 +16,7 @@ public mriScan$ = this.mriScanSubject.asObservable();
 
 updateMriScan(scan: MriDiagnosticResponse) {
   this.mriScanSubject.next(scan);
-  this.router.navigate(['/mri/report'])
+  this.router.navigate(['/app/mri/report'])
 }
 
 getMriScan(): MriDiagnosticResponse {

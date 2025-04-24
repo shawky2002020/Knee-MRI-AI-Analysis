@@ -1,27 +1,35 @@
+.back{
+  width: 60% ;
+  filter:brightness(.8);
+}
 .notifications {
   position: fixed; /* Ensure position is set */
+  overflow-y: scroll; /* Enable vertical scrolling */;
+  background: #00000088;
   top: 0;
   right: 0;
   width: 60%;
   min-width: 250px;
   max-width: 550px;
-  height: 100vh;
+  height: 100%;
   border-radius: 1rem;
-  background: var(--white);
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  gap: 2px;
+  gap: 9px;
+  padding: 1rem 0 2rem 0;
   z-index: 1000 !important; /* Ensure a high z-index */
 }
 .notification{
-  width: 97%;
+  border-radius: 1rem;
+  width: 90%;
   height: 100px;
   display: flex;
   flex-flow: row nowrap;
-  background: var(--blue);
   color: aliceblue;
   border-radius: 1rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2) ;
 }
 .notification-icon{
  display: flex;
@@ -50,7 +58,7 @@
 }
 
 .close-view-btn{
-  background-color: var(--red);
+  background: var(--black-grad);
   color: var(--white);
   font-size: var(--medium);
   padding: 1rem;
@@ -59,20 +67,21 @@
   border-radius: 50%;
   cursor: pointer;
 }
-.close-btn{
+.read-btn{
+  width: 50%;
+  height: 30px;
+  border-radius: .2rem 1rem .2rem 1rem;
   position: relative;
-  padding: 0.3rem .5rem;
-  border-radius: .2rem;
   margin-left: 4px;
   border: none;
   overflow: hidden;
   text-transform: capitalize;
 
 }
-.close-btn::before,.close-btn::after{
+.read-btn::before,.read-btn::after{
   position: absolute;
   inset: 0;
-  border-radius: .2rem;
+  border-radius: .2rem 1rem .2rem 1rem;
   padding: 0.3rem;
   border: none;
   content: 'Read';
@@ -82,20 +91,20 @@
   transition: transform .3s ease-in-out , background .3s ease-in-out ;
 }
 
-.close-btn::before{
-  background: var(--white);
-  color: var(--blue);
+.read-btn::before{
+  background: var(--holographic-secondary);
+  color: var(--white);
   transform: translateX(-100%);
 }
-.close-btn::after{
+.read-btn::after{
   content: "Read ✓";
-  background: var(--black);
-  color: var(--white-smoke);
+  background: var(--holographic-accent);
+  color: var(--black-70);
   transform: translateY(-100%);
 }
-.close-btn:hover::before {
+.read-btn:hover::before {
   transform: translateX(0);
 }
-.close-btn.read::after{
+.read-btn.read::after{
   transform: translateY(0);
 }

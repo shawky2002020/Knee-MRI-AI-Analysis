@@ -1,9 +1,6 @@
 .page {
-  position: absolute;
-  right: 0;
-  width: calc(100% - 10rem);
+  width: 100%;
   min-height: 100vh;
-  background: var(--white);
   color: var(--black);
   padding: 1rem 2rem;
 }

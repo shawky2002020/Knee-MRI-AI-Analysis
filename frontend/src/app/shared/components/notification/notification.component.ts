@@ -38,7 +38,7 @@ export class NotificationComponent implements OnInit {
         this.notifications = this.notificationService.notifications;
       }
     });
-    const notificationCloseBtns = document.querySelectorAll('.notification .close-btn');
+    const notificationCloseBtns = document.querySelectorAll('.notification .read-btn');
     notificationCloseBtns[index].classList.add('read');
 
     

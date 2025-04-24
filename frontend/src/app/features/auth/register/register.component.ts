@@ -85,7 +85,7 @@ export class RegisterComponent implements AfterViewInit {
       this.userService.register(this.registerForm.value).subscribe({
         next : (res)=>{
           this.toast.success(`Hello ${this.user.name}`)
-          this.router.navigateByUrl('dashboard');
+          this.router.navigateByUrl('app/dashboard');
 
         }
       })

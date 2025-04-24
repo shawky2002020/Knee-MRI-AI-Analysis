@@ -1,6 +1,6 @@
 .page {
   min-height: 100vh;
-  width: calc(100% - 10rem);
+  width: 100%;
   position: absolute;
   right: 0;
 

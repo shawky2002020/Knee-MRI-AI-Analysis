@@ -5,6 +5,14 @@
       <li id="logo" routerLink="dashboard">
         <span>ACLyze</span>
       </li>
+      <li>
+        <figure class="user-img">
+          <img *ngIf="user" src="assets/holo/ai4.jpg" alt="" />
+        </figure>
+        <span class="name">
+          {{ user.name }} 
+        </span>
+      </li>
     </ul>
   
     <ul id="links-wrapper">
@@ -12,19 +20,19 @@
         [ngClass]="{ active: activeItem === 'dashboard' }"
         (click)="setActiveItem('dashboard')"
       >
-        <a routerLink="/dashboard">Home</a>
+        <a routerLink="/app/dashboard">Home</a>
       </li>
       <li
         [ngClass]="{ active: activeItem === 'analyze' }"
         (click)="setActiveItem('analyze')"
       >
-        <a routerLink="/mri/analyze">Analyze</a>
+        <a routerLink="/app/mri/analyze">Analyze</a>
       </li>
       <li
         [ngClass]="{ active: activeItem === 'history' }"
         (click)="setActiveItem('history')"
       >
-        <a routerLink="/mri/history">Reports</a>
+        <a routerLink="/app/mri/history">Reports</a>
       </li>
   
       <!-- <li *ngIf="user.token"><a routerLink='/mri/report'>Report</a></li> -->

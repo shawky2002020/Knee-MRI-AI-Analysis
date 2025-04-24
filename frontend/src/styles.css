@@ -41,6 +41,8 @@ body {
   --black-light: #222;
   --black-50: #00000080;
   --black-70: #000000b3;
+  --black-grad: linear-gradient(135deg, #232526 0%, #414345 100%);
+
 
   --white: #fff;
   --white-70: #ffffffb3;
@@ -180,6 +182,33 @@ li {
 }
 
 
+.back {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat-y;
+  z-index: -1;
+}
+.bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat-y;
+  z-index: -1;
+}
+
+
+
 #logo {
   h1 {
     padding: 0 0.5rem;
@@ -226,13 +255,5 @@ body.light {
   display: flex;
   flex-flow: row nowrap;
 }
-.page-light {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: calc(100vw - 10rem);
-  height: 100vh;
-  margin-left: 10rem;
-}
+
 

@@ -3,7 +3,9 @@ import mongoose from 'mongoose';
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    capitalize: true,
+    trim: true
   },
   email: {
     type: String,
@@ -13,6 +15,7 @@ const userSchema = new mongoose.Schema({
   role:{
     type: String,
     requred : true,
+    default : 'user'
   },
   password: {
     type: String,
