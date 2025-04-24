@@ -19,11 +19,13 @@ export class ReportComponent {
   
   constructor(private mriService : MriScanService) {}
   ngOnInit(): void {
+    
     this.DiagnosticResult = this.mriService.getMriScan();
     this.visualisation_img = this.DiagnosticResult.mri_scan;
     this.acl_prob = this.DiagnosticResult.result.acl_prob *100;
     this.meniscus_prob = this.DiagnosticResult.result.meniscus_prob *100;
     this.status = this.DiagnosticResult.result.status;
+    
   }
   setActiveItem(item: string): void {
     this.activeItem = item;

@@ -40,6 +40,27 @@
 
 }
 
+.icon-axial {
+  color: #fff;
+  background: linear-gradient(90deg, #00fff0 0%, #a1c4fd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2.2rem;
+}
+.icon-coronal {
+  color: #fff;
+  background: linear-gradient(90deg, #ff8ae2 0%, #8ba6ed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2.2rem;
+}
+.icon-sagittal {
+  color: #fff;
+  background: linear-gradient(90deg, #38bdf8 0%, #fbc2eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2.2rem;
+}
 
 
 @keyframes glow {
@@ -106,9 +127,9 @@
   filter: blur(10px);
 }
 .choose-btn:hover {
-  color: var(--blue);
+  color: var(--black);
   background: var(--white-glow);
-  box-shadow: 2px 2px 7px var(--blue);
+  box-shadow: 2px 2px 7px var(--blue-lighter);
 }
 
 .drop-zone:hover {
@@ -264,5 +285,21 @@
 @media screen and (max-width: 768px) {
   .upload-box {
     min-height: 130px;
+  }
+}
+
+.upload-complete-animation {
+  animation: glow 2s infinite alternate;
+  color: #38bdf8;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 8px #38bdf8, 0 0 16px #38bdf8;
+  }
+  100% {
+    text-shadow: 0 0 24px #38bdf8, 0 0 48px #38bdf8;
   }
 }

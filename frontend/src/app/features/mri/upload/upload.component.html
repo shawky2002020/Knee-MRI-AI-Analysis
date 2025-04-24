@@ -1,11 +1,25 @@
 
-  <div class="upload-page">
+<div class="upload-page">
+    <div class="upload-step-header">
+      <div>
+        <h2>Upload MRI Scans</h2>
+        <p class="upload-desc">
+          Please upload <span class="highlight">all three required views</span> of the patient's knee MRI.<br>
+          This is the final step before analysis and receiving results.
+        </p>
+      </div>
+    </div>
     <div class="upload-container">
-      <img class="bg" src="/assets/holo/ai2.jpg" alt="bg" #bgEl> 
-      <div class="text">`
+      <!-- <img class="bg" src="/assets/holo/shape3.png" alt="bg" #bgEl> -->
+      <div class="text">
         <h3>
-          Please upload all three required <br> views of the knee MRI for analysis
+          Required Views:
         </h3>
+        <ul class="views-list">
+          <li><i class="fas fa-circle-notch axial"></i> Axial View</li>
+          <li><i class="fas fa-circle-notch coronal"></i> Coronal View</li>
+          <li><i class="fas fa-circle-notch sagittal"></i> Sagittal View</li>
+        </ul>
         <div class="formats">
           <p>
             Supported formats: <br />
@@ -32,7 +46,6 @@
           ></app-file-uploader>
         </div>
       </div>
-
       <div *ngIf="uploadedFileUrls.length" class="uploaded-preview">
         <h3>Uploaded File:</h3>
         <img [src]="uploadedFileUrls" alt="Uploaded MRI Scan" />

@@ -16,12 +16,14 @@ export class AiService {
     private toast: ToastrService
   ) { }
   
-  processMRI(mriscan: MriScan): Observable<HttpEvent<any>> {
+  processMRI(mriScans: MriScan[]): Observable<HttpEvent<any>> {
     const form = new FormData();
-    form.append('scan', mriscan.imageFile);
-    form.append('metadata', JSON.stringify(mriscan.metadata));
+    mriScans.forEach((mriscan, index) => {
+        form.append(`scan_${index}`, mriscan.imageFile);
+        form.append(`metadata_${index}`, JSON.stringify(mriscan.metadata));
+    });
 
-    this.toast.info('Uploading MRI scan to AI service...');
+    this.toast.info('Uploading MRI scans to AI service...');
     
     return this.http.post<MriDiagnosticResponse>(url.MRI_UPLOAD, form, {
       reportProgress: true,
@@ -32,11 +34,11 @@ export class AiService {
           // Calculate upload progress
           const progress = Math.round(100 * event.loaded / (event.total || 1));
           if (progress === 100) {
-            this.toast.info('Upload complete. Processing MRI scan...');
+            this.toast.info('Upload complete. Processing MRI scans...');
           }
         } else if (event.type === HttpEventType.Response) {
           // Upload and processing complete
-          this.toast.success('MRI scan processed successfully!');
+          this.toast.success('MRI scans processed successfully!');
         }
       })
     );

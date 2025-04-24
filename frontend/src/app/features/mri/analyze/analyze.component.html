@@ -1,12 +1,37 @@
 <div class="page">
-    <app-header [title]="'Analyze page'"></app-header>
 
-    <form [formGroup]="userForm" class="form" autocomplete="off" (ngSubmit)="onSubmit()">
-        <div class="form-row">
+       <app-header [title]="'Analyze page'"></app-header>
+    
+    <div *ngIf="showUpload" class="info-panel">
+        <div class="info-icon">
+            <i class="fas fa-info-circle"></i>
+        </div>
+        <div class="info-content">
+            <h3>Enter Patient Details</h3>
+            <p class="info-desc">
+                Please provide the patient's basic information to continue with the MRI analysis.<br>
+                This ensures accurate diagnosis and proper documentation.
+            </p>
+            <div class="info-tags">
+                <span class="info-tag"><strong>Name</strong></span>
+                <span class="info-tag"><strong>Age</strong></span>
+                <span class="info-tag"><strong>Gender</strong></span>
+            </div>
+        </div>
+    </div>
+    
+    <form [formGroup]="userForm" class="form" autocomplete="off" (ngSubmit)="onSubmit()" *ngIf="showUpload">
+        <div class="form-row name-row">
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">First Name</label>
                 <input id="name" name="name" type="text" placeholder="Enter your name" required formControlName="name" />
             </div>
+            <div class="form-group">
+                <label for="name">Family Name</label>
+                <input id="name" name="name" type="text" placeholder="Enter your family name" required formControlName="name" />
+            </div>
+        </div>
+        <div class="form-row">
             <div class="form-group">
                 <label for="age">Age</label>
                 <input id="age" name="age" type="number" min="0" max="120" placeholder="Enter your age" required formControlName="age" />
@@ -19,12 +44,11 @@
                     <option value="" disabled>Select gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
-                    <option value="other">Other</option>
                 </select>
             </div>
         </div>
         <button type="submit" class="submit-btn" [disabled]="!userForm.valid">Continue</button>
     </form>
 
-    <app-upload *ngIf="showUpload"></app-upload>
+    <app-upload *ngIf="!showUpload"></app-upload>
 </div>

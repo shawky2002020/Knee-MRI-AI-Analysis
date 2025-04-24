@@ -21,11 +21,14 @@ export class AnalyzeComponent implements OnInit {
     });
   }
 
+
   onSubmit() {
     if (this.userForm.valid) {
       this.showUpload = true;
     } else {
       this.toast.info('Please fill all required fields');
+      console.log('Form is invalid');
+      
       this.userForm.markAllAsTouched();
     }
   }

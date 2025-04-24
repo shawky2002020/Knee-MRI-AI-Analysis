@@ -1,5 +1,9 @@
 .back{
   width: 60% ;
+  min-width: 250px;
+  max-width: 550px;
+  border-radius: 1rem;
+
   filter:brightness(.8);
 }
 .notifications {
@@ -66,6 +70,10 @@
   aspect-ratio: 1/1;
   border-radius: 50%;
   cursor: pointer;
+}
+.close-view-btn:hover{
+  background: var(--holographic-accent);
+  color: var(--black-70);
 }
 .read-btn{
   width: 50%;

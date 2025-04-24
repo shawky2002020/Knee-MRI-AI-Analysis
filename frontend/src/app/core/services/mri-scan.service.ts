@@ -11,12 +11,14 @@ import { Router } from '@angular/router';
 export class MriScanService {
   constructor(private http: HttpClient, private toastr: ToastrService,private router:Router) {}
 
-private mriScanSubject = new BehaviorSubject<MriDiagnosticResponse>(new MriDiagnosticResponse());
+private mriScanSubject = new BehaviorSubject<MriDiagnosticResponse>(localStorage.getItem('diagnosticResult') ? JSON.parse(localStorage.getItem('diagnosticResult')!) : {} as MriDiagnosticResponse);
 public mriScan$ = this.mriScanSubject.asObservable();
 
 updateMriScan(scan: MriDiagnosticResponse) {
   this.mriScanSubject.next(scan);
+  localStorage.setItem('diagnosticResult', JSON.stringify(scan));
   this.router.navigate(['/app/mri/report'])
+
 }
 
 getMriScan(): MriDiagnosticResponse {

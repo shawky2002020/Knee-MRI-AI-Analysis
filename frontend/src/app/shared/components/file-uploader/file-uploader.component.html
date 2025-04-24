@@ -17,7 +17,11 @@
         (drop)="onDrop($event)"
       >
         <div class="upload-prompt">
-          <i class="fa fa-cloud-upload"></i>
+          <i [ngClass]="{
+                'icon-axial': view_type === 'axial',
+                'icon-coronal': view_type === 'coronal',
+                'icon-sagittal': view_type === 'sagittal'
+              }" class="fa fa-cloud-upload"></i>
           <p class="view-title">{{ view_type }} View</p>
           <p class="view-sub" *ngIf="view_type == 'axial'">Top View </p>
           <p class="view-sub" *ngIf="view_type == 'sagittal'">Side View </p>
@@ -43,49 +47,22 @@
 
   <div class="preview-container" *ngIf="selectedFiles.length > 0">
     <h3>Selected Files ({{ selectedFiles.length }})</h3>
-
-    <div class="file-previews">
-      <div
-        class="file-preview"
-        *ngFor="let file of selectedFiles; let i = index"
-      >
-        <div class="preview-image">
-          <img *ngIf="previewUrls[i]" [src]="previewUrls[i]" alt="Preview" />
-          <div *ngIf="!previewUrls[i]" class="loading-preview">
-            Loading preview...
-          </div>
-        </div>
-        <div class="file-info">
-          <p class="file-name">{{ file.name }}</p>
-          <p class="file-size">{{ (file.size / 1024).toFixed(2) }} KB</p>
-          <div class="progress-bar" *ngIf="isUploading">
-            <div class="progress" [style.width.%]="uploadProgress[i]"></div>
-            <span>{{ uploadProgress[i] }}%</span>
-          </div>
-          <button
-            class="remove-btn"
-            (click)="removeFile(i)"
-            *ngIf="!isUploading"
-          >
-            Remove
-          </button>
-        </div>
+    <div class="file-previews minimal-preview">
+      <div class="file-status-badge-wrapper" *ngFor="let file of selectedFiles; let i = index">
+        <span class="file-status-badge futuristic-badge" [ngClass]="{
+            'badge-pending': isUploading && uploadProgress[i] < 100,
+            'badge-finished': !isUploading && uploadProgress[i] === 100
+          }">
+          {{ isUploading && uploadProgress[i] < 100 ? 'Pending' : (uploadProgress[i] === 100 ? 'Finished' : 'Pending') }}
+        </span>
+        <span class="file-name-badge">{{ file.name }}</span>
       </div>
     </div>
-
     <div class="upload-actions">
-      <button
-        class="upload-btn"
-        (click)="uploadFiles()"
-        [disabled]="isUploading"
-      >
+      <button class="upload-btn" (click)="uploadFiles()" [disabled]="isUploading">
         <i class="fa fa-upload"></i> Upload All Files
       </button>
-      <button
-        class="cancel-btn"
-        (click)="resetUpload()"
-        [disabled]="isUploading"
-      >
+      <button class="cancel-btn" (click)="resetUpload()" [disabled]="isUploading">
         <i class="fa fa-times"></i> Cancel
       </button>
     </div>
