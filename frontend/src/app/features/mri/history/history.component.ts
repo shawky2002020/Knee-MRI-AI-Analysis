@@ -15,11 +15,39 @@ export class HistoryComponent implements OnInit {
   selectedStatus:string = 'Diagnostic status';
   page: number = 1;
   totalPages: number = 1;
+  showPopup:boolean = true;
+  deleteId:string = '';
 
   constructor(private toast: ToastrService, private scansService: MriScanService) {}
 
   ngOnInit(): void {
     this.loadScans(this.page);
+  }
+
+  popUpShow(deleteId:string){
+    this.deleteId = deleteId;
+    this.showPopup = true;
+    console.log(this.showPopup);
+    
+    
+  }
+
+
+
+  confirmDelete(event:boolean){
+    this.scansService.deleteScan(this.deleteId).subscribe({
+      next: (res) => {
+        this.toast.success('Successfully deleted');
+        this.loadScans();
+        this.showPopup = event;
+      },
+      error: (err) => {
+        this.toast.error('Failed to delete');
+      }
+    })
+  }
+  cancelDelete(event:boolean){
+    this.showPopup = event;
   }
 
 

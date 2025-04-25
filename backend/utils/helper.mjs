@@ -30,7 +30,7 @@ export const getTimeFilter = (timeRange) => {
   };
 export const getPaginationParams = (query) => {
     const page = parseInt(query.page) > 0 ? parseInt(query.page) : 1;
-    const limit = parseInt(query.limit) > 0 ? parseInt(query.limit) : 10;
+    const limit = parseInt(query.limit) > 0 ? parseInt(query.limit) : 9;
     const skip = (page - 1) * limit;
     return { page, limit, skip };
   };

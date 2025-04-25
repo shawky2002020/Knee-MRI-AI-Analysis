@@ -109,7 +109,7 @@ header {
   box-shadow: 2px 10px 10px rgba(0, 0, 0, 0.397);
   border-radius: 1rem;
   width: 20rem;
-  height: 18rem;
+  height: 19rem;
   color: var(--black-70);
   font-size: var(--large);
 }
@@ -237,16 +237,18 @@ header {
 }
 .actions-row i {
   color: #888;
-  font-size: var(--medium);
+  font-size: var(--large);
   cursor: pointer;
   transition: color 0.2s;
 }
 .actions-row button {
   background: transparent;
+
 }
 .actions-row i:hover {
   color: #2563eb;
 }
+
 .delete-btn i:hover {
   color: var(--red);
 }

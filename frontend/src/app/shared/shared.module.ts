@@ -10,6 +10,7 @@ import { FileUploaderComponent } from './components/file-uploader/file-uploader.
 import { NotificationModule } from './components/notification/notification.module';
 import { HomeLayoutComponent } from './components/layout/home-layout/home-layout.component';
 import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
+import { PopupComponent } from './components/popup/popup.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SidebarComponent } from './components/layout/sidebar/sidebar.component'
     NavbarComponent,
     ModalComponent,
     FileUploaderComponent,
-    HomeLayoutComponent
+    HomeLayoutComponent,
+    PopupComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { SidebarComponent } from './components/layout/sidebar/sidebar.component'
     HeaderComponent,
     FooterComponent,
     AppLayoutComponent,
-    HomeLayoutComponent
+    HomeLayoutComponent,
+    PopupComponent
   ]
 })
 export class SharedModule { }

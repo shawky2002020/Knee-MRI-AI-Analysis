@@ -40,15 +40,15 @@ export class ReportComponent {
     }
   }
   downloadReport(){
-    this.reportService.generateReport(this.DiagnosticResult._id,this.DiagnosticResult.result.status,this.confidence,['axial','coronal','sagittal'],this.DiagnosticResult.createdAt,[this.DiagnosticResult.heat_map]).subscribe(
-      (response) => {
-        // Handle the response from the server
-        console.log('Report generated successfully:', response);
-      },
-      (error) => {
-        // Handle errors
-        console.error('Error generating report:', error);
-      }
-    );
+    this.reportService.generateReport(this.DiagnosticResult._id,this.DiagnosticResult.result.status,this.confidence,['axial','coronal','sagittal'],this.DiagnosticResult.createdAt,[this.DiagnosticResult.heat_map]).subscribe((response: Blob) => {
+      const url = window.URL.createObjectURL(response);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `ACL_Report_${diagnosticResult._id || Date.now()}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    });
   }
 }

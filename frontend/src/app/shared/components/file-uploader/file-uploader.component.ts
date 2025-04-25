@@ -39,7 +39,7 @@ export class FileUploaderComponent implements OnInit {
 
   ngOnInit(): void {
     // Load sample images for testing CSS
-    this.loadSampleImages();
+    // this.loadSampleImages();
   }
 
   loadSampleImages(): void {

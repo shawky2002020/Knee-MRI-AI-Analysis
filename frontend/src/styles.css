@@ -40,6 +40,7 @@ body {
   --black: #000;
   --black-light: #222;
   --black-50: #00000080;
+  
   --black-70: #000000b3;
   --black-grad: linear-gradient(135deg, #232526 0%, #414345 100%);
 
@@ -162,7 +163,7 @@ body:not(.light) button:not(:disabled):hover {
     to right,
     var(--purple-dark),
     var(--purple-light)
-  ) !important;
+  ) ;
   color: var(--black-70);
 }
 button:not(:disabled):active {

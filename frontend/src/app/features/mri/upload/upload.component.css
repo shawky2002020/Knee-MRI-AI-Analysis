@@ -51,10 +51,10 @@
 .views-list {
   list-style: none;
   padding: 0;
-  margin: 1rem 0 0.5rem 0;
   display: flex;
   gap: 1.5rem;
   font-size: 1.08rem;
+  padding: 1rem;
 }
 
 .views-list li {

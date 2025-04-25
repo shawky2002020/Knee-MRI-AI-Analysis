@@ -1,4 +1,14 @@
 <div class="container">
+  <app-popup
+  [title]=" 'Delete Report' "
+  [message]=" 'Are you sure you want to delete this report?' "
+  [confirmButtonText]=" 'Delete' "
+  [cancelButtonText]=" 'Cancel' "
+  [showPopup]="showPopup"
+  (confirmEmitter)="confirmDelete($event)"
+  (closeEmitter)="cancelDelete($event)"
+  ></app-popup>
+
   <img src="/assets/holo/holo1.jpg" alt="" class="back" />
 
   <app-header id="top" [title]="'Previous Scans'"></app-header>
@@ -180,9 +190,10 @@
 
         <div class="actions-row">
           <a (click)="viewDetails(scan)" class="view-report">View Report</a>
-          <button class="delete-btn">
+          <button class="delete-btn" (click)="popUpShow(scan._id)" >
             <i class="fa-solid fa-trash"></i>
           </button>
+  
           <button class="download-btn">
             <i class="fa-solid fa-download"></i>
           </button>

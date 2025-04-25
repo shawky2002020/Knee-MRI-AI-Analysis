@@ -24,9 +24,9 @@ export const generateReport = async (req, res) => {
   doc.pipe(stream);
 
   // === FUTURISTIC HEADER ===
-  doc.fillColor('#0077ff').fontSize(24).text('🧠 ACLyze AI', { align: 'center' });
+  doc.fillColor('#0077ff').fontSize(28).text('ACLyze AI', { align: 'center', underline: true });
   doc.moveDown(0.5);
-  doc.fillColor('#444').fontSize(14).text('MRI-Based ACL Diagnosis Report', { align: 'center' });
+  doc.fillColor('#444').fontSize(16).text('MRI-Based ACL Diagnosis Report', { align: 'center', underline: true });
   doc.moveDown();
 
   // === PATIENT & DIAGNOSIS INFO ===
@@ -36,6 +36,10 @@ export const generateReport = async (req, res) => {
   doc.text(`Diagnosis: ${diagnosis}`, { underline: true });
   doc.text(`AI Confidence Score: ${confidence}%`);
   doc.text(`Views Uploaded: ${views.join(', ')}`);
+  doc.moveDown();
+
+  // === DISCLAIMER ===
+  doc.fillColor('red').fontSize(12).text('This report is for backup purposes only. Please consult a healthcare professional for a comprehensive diagnosis.', { align: 'center' });
   doc.moveDown();
 
   // === HEATMAPS SECTION ===
@@ -60,11 +64,15 @@ export const generateReport = async (req, res) => {
     align: 'center',
     baseline: 'bottom'
   });
+  doc.moveDown();
+  doc.fillColor('#0077ff').fontSize(12).text('Signature: ACLyze', { align: 'right' });
 
   doc.end();
 
   stream.on('finish', () => {
-    res.download(filePath, fileName);
-    res.json({ success: true, message: 'Report generated successfully!' });
+    // Set headers to suggest download
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+    res.sendFile(filePath);
   });
 };

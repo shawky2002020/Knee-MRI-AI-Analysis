@@ -1,0 +1,103 @@
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Darker overlay for better focus */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.3s ease-in-out; /* Smooth transition for appearance */
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Match the popup background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    overflow: hidden;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    max-width: 500px;
+    width: 90%;
+    transition: transform 0.3s ease-in-out; /* Smooth transition for scaling */
+    transform: scale(1.05); /* Slightly larger on load for effect */
+}
+
+.popup-content h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.popup-content p {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.popup-content button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup-content button:hover {
+    background-color: #f0f0f0;
+}
+
+.popup-content button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #0077ff;
+}
+
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 1rem;
+}
+
+.cancel-btn, .confirm-btn {
+    width: 100px;
+    height: 35px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+}
+
+.cancel-btn {
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #d32f2f !important; /* Darker red on hover */
+}
+
+.confirm-btn {
+    background:var(--holographic-secondary) ; /* Red color for cancel */
+    color: white;
+}
+
+.confirm-btn:hover {
+    background:var(--holographic-primary)  ; /* Red color for cancel */
+}

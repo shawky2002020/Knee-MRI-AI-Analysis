@@ -19,5 +19,4 @@ export class ReportService {
     };
 
     return this.http.post(url.GET_REPORT, reportData, { responseType: 'blob' });
-  }
-}
+  }}

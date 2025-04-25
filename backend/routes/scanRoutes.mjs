@@ -9,7 +9,7 @@ router.use(authorize)
 router.post("/upload",upload,AIController.process_Mri );
 
 router.get("/scans", scanHistoryController.getAllScans);
-router.delete("/scans/:scanId", scanHistoryController.deleteMri);
+router.delete("/delete/:scanId", scanHistoryController.deleteMri);
 
 
 router.patch("/viewed/:scanId", scanHistoryController.updateViewed);

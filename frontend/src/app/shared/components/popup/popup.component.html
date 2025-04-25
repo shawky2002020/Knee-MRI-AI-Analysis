@@ -1,0 +1,16 @@
+<div class="popup" *ngIf="showPopup">
+  <div class="popup-overlay" (click)="closePopup()"></div>
+  <div class="popup-content">
+      <img class="bg" src="/assets/holo/holo2.jpg" alt="">
+      <h2><i class="fas fa-exclamation-circle"></i> {{ title }}</h2>
+      <p>{{ message }}</p>
+      <div class="btn-container">
+        <button class="cancel-btn" (click)="closePopup()">
+          <i class="fas fa-times"></i> {{cancelButtonText}}
+        </button>
+        <button class="confirm-btn" (click)="confirm()">
+          <i class="fas fa-check"></i> {{confirmButtonText}}
+        </button>
+      </div>
+    </div>
+  </div>
