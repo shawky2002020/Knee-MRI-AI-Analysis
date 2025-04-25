@@ -25,7 +25,7 @@ export class FileUploaderComponent implements OnInit {
     'assets/sample/7.png',
   ];
   @Input() view_type!: string;
-
+  save = false;
   previewUrls: (string | ArrayBuffer | null)[] = [];
   isUploading = false;
   uploadProgress: number[] = [];
@@ -126,7 +126,6 @@ export class FileUploaderComponent implements OnInit {
     this.isUploading = true;
     this.uploadProgress = new Array(this.selectedFiles.length).fill(0);
 
-    this.saveFilesLocally(); // Save files locally before uploading
 
     const uploadPromises: Promise<any>[] = [];
     const successfulUploads: string[] = [];
@@ -148,53 +147,12 @@ export class FileUploaderComponent implements OnInit {
       // Use a unique key for each file
       const uniqueKey = `mriscan_${file.name}_${Date.now()}`;
       localStorage.setItem(uniqueKey, JSON.stringify(mriscan));
+      console.log(localStorage.getItem(uniqueKey));
+      
+      
 
-      const uploadPromise = new Promise<string>((resolve, reject) => {
-        // this.aiService.processMRI(mriscan).subscribe({
-        //   next: (event: HttpEvent<any>) => {
-        //     switch (event.type) {
-        //       case HttpEventType.UploadProgress:
-        //         if (event.total) {
-        //           this.uploadProgress[index] = Math.round(
-        //             (100 * event.loaded) / event.total
-        //           );
-        //         }
-        //         break;
-        //       case HttpEventType.Response:
-        //         resolve(event.body.fileUrl);
-        //         break;
-        //     }
-        //   },
-        //   error: (err) => {
-        //     this.toastr.error(
-        //       `Failed to upload "${file.name}". ${
-        //         err.error?.message || 'Unknown error'
-        //       }`
-        //     );
-        //     reject(err);
-        //   },
-        // });
-      });
-
-      uploadPromises.push(uploadPromise);
     });
 
-    Promise.allSettled(uploadPromises).then((results) => {
-      results.forEach((result, index) => {
-        if (result.status === 'fulfilled') {
-          successfulUploads.push(result.value);
-        }
-      });
-
-      if (successfulUploads.length > 0) {
-        this.toastr.success(
-          `${successfulUploads.length} of ${this.selectedFiles.length} files uploaded successfully!`
-        );
-        this.uploadSuccess.emit(successfulUploads);
-      }
-
-      this.resetUpload();
-    });
   }
 
   resetUpload(): void {

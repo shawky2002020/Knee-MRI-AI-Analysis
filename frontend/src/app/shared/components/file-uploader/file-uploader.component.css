@@ -150,9 +150,7 @@
 
 .preview-container {
   position: relative;
-  width: calc(100vw - 12rem);
-  /* mask-image: linear-gradient(to right, transparent 1%, black 20%,black 80%, transparent 99% ); */
-  /* -webkit-mask-image: linear-gradient(to right, transparent 1%, black 20%,black 80%, transparent 99% ); */
+  width: 100%;
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.038); /* Glass effect */
   backdrop-filter: blur(5px);
@@ -189,9 +187,7 @@
   color: var(--white);
   border-radius: 0.5rem;
 }
-.preview-image {
-  width: 100%;
-}
+
 .file-preview img {
   width: 180px;
   height: 180px;

@@ -1,9 +1,9 @@
 import app from './config/serverConfig.mjs';
 import authRoutes from './routes/authRoutes.mjs';
-import reportRoutes from './routes/reportRoutes.mjs'
 import adminRoutes from './routes/adminRoutes.mjs'
 import mriRoutes from './routes/scanRoutes.mjs'
 import notificationRoutes from './routes/notificationRoute.mjs'
+import reportRoutes from './routes/reportRoutes.mjs'
 
 const apiVersion = "/v1/"
 app.use(apiVersion+'auth', authRoutes);

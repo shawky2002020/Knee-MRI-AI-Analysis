@@ -152,12 +152,12 @@
 
   <div class="cards-wrapper">
     <div class="card" *ngFor="let scan of mriScans; let i = index">
-      <img src="/assets/holo/holo2.jpg" alt="" class="bg" />
+      <!-- <img src="/assets/holo/holo2.jpg" alt="" class="bg" /> -->
       <div class="card-content" [ngClass]="{ big: i % 2 === 0 }">
         <div class="card-header">
           <div class="patient-details">
             <div class="patient-name">{{ scan.metadata.name }}</div>
-            <div class="scan-id">#{{ scan.userId }}</div>
+            <div class="scan-id">#{{ scan._id }}</div>
           </div>
         </div>
         <div class="badges">

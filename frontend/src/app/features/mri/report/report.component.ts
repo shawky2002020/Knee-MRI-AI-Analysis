@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { diagnosticResult, MriDiagnosticResponse } from '../../../core/models/ai-result.model';
 import { MriScanService } from '../../../core/services/mri-scan.service';
+import { ReportService } from '../../../core/services/report.service';
 
 @Component({
   selector: 'app-report',
@@ -17,7 +18,9 @@ export class ReportComponent {
   activeItem: string = 'scan'; // Default active item
 
   
-  constructor(private mriService : MriScanService) {}
+  constructor(private mriService : MriScanService
+    ,private reportService:ReportService
+  ) {}
   ngOnInit(): void {
     
     this.DiagnosticResult = this.mriService.getMriScan();
@@ -35,5 +38,17 @@ export class ReportComponent {
     else if (item ==='heatmap') {
       this.visualisation_img = this.DiagnosticResult.heat_map;
     }
+  }
+  downloadReport(){
+    this.reportService.generateReport(this.DiagnosticResult._id,this.DiagnosticResult.result.status,this.confidence,['axial','coronal','sagittal'],this.DiagnosticResult.createdAt,[this.DiagnosticResult.heat_map]).subscribe(
+      (response) => {
+        // Handle the response from the server
+        console.log('Report generated successfully:', response);
+      },
+      (error) => {
+        // Handle errors
+        console.error('Error generating report:', error);
+      }
+    );
   }
 }
