@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AnalyzeComponent implements OnInit {
   userForm!: FormGroup;
-  showUpload = true;
+  showUpload = false;
 
   constructor(private fb: FormBuilder,private toast:ToastrService) {}
 

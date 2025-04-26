@@ -15,7 +15,7 @@ export class HistoryComponent implements OnInit {
   selectedStatus:string = 'Diagnostic status';
   page: number = 1;
   totalPages: number = 1;
-  showPopup:boolean = true;
+  showPopup:boolean = false;
   deleteId:string = '';
 
   constructor(private toast: ToastrService, private scansService: MriScanService) {}

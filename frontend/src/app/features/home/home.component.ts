@@ -87,7 +87,6 @@ export class HomeComponent implements AfterViewInit {
     lighttwine
     .from(quote,{
       opacity:0,
-      duration:1,
       y:100
     })
     .fromTo(
@@ -96,8 +95,8 @@ export class HomeComponent implements AfterViewInit {
         {
           y: '0%',
           opacity: 1,
-          duration: 2,
-          stagger: { amount: 5 },
+          duration: 1,
+          stagger: { amount: 1.5 },
           ease: 'power4.out',
         }
        )
@@ -128,6 +127,8 @@ export class HomeComponent implements AfterViewInit {
         { opacity: 1, duration: 1, y: 0, ease: 'power2.out' },
         '>'
       );
+      ScrollTrigger.refresh();
+
 
     //HOW IT WORKS SECTION
     const t2 = gsap.timeline({
@@ -164,18 +165,15 @@ export class HomeComponent implements AfterViewInit {
         filter: 'brightness(0)',
         ease: 'power2.in',
       }
-      // Delay before moving back
     );
     t2.to(
       this.hand2.nativeElement,
       {
-        x: -700,
-        y: 700,
+        x: -700, y: 700,
         opacity: 0,
         filter: 'brightness(0)',
         ease: 'power2.in',
       }
-      // Moves out at the same time as hand1
     );
 
     stepElemnts.forEach((step)=>{
@@ -241,6 +239,7 @@ export class HomeComponent implements AfterViewInit {
         toggleActions:'play reverse play reverse',
       }
     })
+    setTimeout(() => ScrollTrigger.refresh(), 100);
   }
   
 }
