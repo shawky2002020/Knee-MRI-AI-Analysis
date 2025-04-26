@@ -6,7 +6,7 @@
 
   filter:brightness(.8);
 }
-.notifications {
+.notifications,.container {
   position: fixed; /* Ensure position is set */
   overflow-y: scroll; /* Enable vertical scrolling */;
   background: #00000088;

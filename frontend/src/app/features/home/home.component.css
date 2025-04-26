@@ -333,12 +333,12 @@ section {
 .hand1-container{
   position: absolute;
   right: 0;
-  top: -10vh;
+  top: 0;
 }
 .hand2-container{
   position: absolute;
   left: 0;
-  bottom: -10vh;
+  bottom: 0;
 }
 
 
