@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-// Metadata schema definition
-const MetadataSchema = new mongoose.Schema({
+// Scan Metadata schema definition
+const ScanMetadataSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -32,15 +32,14 @@ const MetadataSchema = new mongoose.Schema({
     required: true,
     lowercase: true
   },
-  viewed :{
+  viewed: {
     type: Boolean,
     default: false
   }
 }, { _id: false }); // Prevent creating ObjectId for this subdocument
 
-
-// Result schema definition
-const ResultSchema = new mongoose.Schema({
+// Diagnostic Result schema definition
+const DiagnosticResultSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
@@ -61,9 +60,8 @@ const ResultSchema = new mongoose.Schema({
   }
 }, { _id: false }); // Prevent creating ObjectId for this subdocument
 
-// Main AI Analysis schema
-const AIAnalysisSchema = new mongoose.Schema({
-  // Use a single ObjectId for the document
+// Main MRI Scan schema
+const MriScanSchema = new mongoose.Schema({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
     default: () => new mongoose.Types.ObjectId(),
@@ -76,11 +74,11 @@ const AIAnalysisSchema = new mongoose.Schema({
     index: true
   },
   metadata: {
-    type: MetadataSchema,
+    type: ScanMetadataSchema,
     required: true
   },
   result: {
-    type: ResultSchema,
+    type: DiagnosticResultSchema,
     required: true
   },
   mri_scan: {
@@ -108,8 +106,8 @@ const AIAnalysisSchema = new mongoose.Schema({
 });
 
 // Create indexes for frequently queried fields
-AIAnalysisSchema.index({ userId: 1, createdAt: -1 });
+MriScanSchema.index({ userId: 1, createdAt: -1 });
 
-const MriScan = mongoose.model('MriScan', AIAnalysisSchema);
+const MriScan = mongoose.model('MriScan', MriScanSchema);
 
 export default MriScan;
