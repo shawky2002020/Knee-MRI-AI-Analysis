@@ -1,4 +1,4 @@
-import MriScan from "../models/AIAnalysis.mjs";
+import MriScan from "../models/MriScan.mjs";
 import * as helpers from "../utils/helper.mjs";
 
 export const getAllScans = async (req, res) => {

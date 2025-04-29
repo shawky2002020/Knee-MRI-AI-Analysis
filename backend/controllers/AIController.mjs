@@ -1,4 +1,4 @@
-import MriScan from "../models/AIAnalysis.mjs";
+import MriScan from "../models/MriScan.mjs";
 import dotenv from "dotenv";
 import FormData from "form-data";
 
