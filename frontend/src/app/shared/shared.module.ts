@@ -11,6 +11,7 @@ import { NotificationModule } from './components/notification/notification.modul
 import { HomeLayoutComponent } from './components/layout/home-layout/home-layout.component';
 import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
 import { PopupComponent } from './components/popup/popup.component';
+import { AdminLayoutComponent } from './components/layout/admin-layout/admin-layout.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PopupComponent } from './components/popup/popup.component';
     ModalComponent,
     FileUploaderComponent,
     HomeLayoutComponent,
-    PopupComponent
+    PopupComponent,
+    AdminLayoutComponent
   ],
   imports: [
     CommonModule,

@@ -25,8 +25,15 @@ const routes: Routes = [
       { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule) }
     ]
   },
+  {
+    path: 'admin',
+    component: AppLayoutComponent,
+    canActivate: [AuthGuard],
+    
+  },
   { path: '**', redirectTo: 'home' } // Redirect unknown routes
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
