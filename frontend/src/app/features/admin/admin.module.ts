@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
-import { AdminComponent } from './admin.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { UserManagementComponent } from './components/user-management/user-management.component';
 import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
@@ -17,8 +15,6 @@ import { AdminNotificationsComponent } from './components/admin-notifications/ad
 
 @NgModule({
   declarations: [
-    AdminComponent,
-    DashboardComponent,
     AdminDashboardComponent,
     UserManagementComponent,
     AdminSidebarComponent,

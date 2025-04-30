@@ -34,6 +34,14 @@
       >
         <a routerLink="/app/mri/history">Reports</a>
       </li>
+      <li
+        *ngIf="user.role === 'admin'"
+        [ngClass]="{ active: activeItem === 'admin' }"
+        (click)="setActiveItem('admin')"
+      >
+        <a routerLink="/admin">Admin</a>
+      </li>
+
   
       <!-- <li *ngIf="user.token"><a routerLink='/mri/report'>Report</a></li> -->
       <li><a (click)="logout()">Logout</a></li>

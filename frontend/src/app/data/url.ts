@@ -21,5 +21,14 @@ export const NOTIFICATIONS_ADD = NOTIFICATIONS_BASE + '/add';
 export const NOTIFICATIONS_DELETE = NOTIFICATIONS_BASE + '/delete';
 export const NOTIFICATIONS_DELETE_ALL = NOTIFICATIONS_BASE + '/deleteAll';
 
+//REPORT
 export const REPORT_BASE = BASEURL + '/v1/report';
 export const GET_REPORT = REPORT_BASE + '/generate';
+
+
+//ADMIN
+export const ADMIN_BASE = BASEURL + '/v1/admin';
+export const ADMIN_GET_USERS = ADMIN_BASE + '/users';
+export const ADMIN_DELETE_USER = ADMIN_BASE + '/delete';
+export const ADMIN_UPDATE_USER = ADMIN_BASE + '/update';
+export const ADMIN_GET_REPORTS = ADMIN_BASE + '/reports';

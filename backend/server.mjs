@@ -11,6 +11,7 @@ app.use(apiVersion+'report', reportRoutes);
 app.use(apiVersion+'admin', adminRoutes);
 app.use(apiVersion+'mri', mriRoutes);
 app.use(apiVersion+'notifications', notificationRoutes);
+app.use(apiVersion+'admin', adminRoutes);
 
 
 

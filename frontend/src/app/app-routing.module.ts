@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeLayoutComponent } from './shared/components/layout/home-layout/home-layout.component';
 import { AppLayoutComponent } from './shared/components/layout/app-layout/app-layout.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AdminLayoutComponent } from './shared/components/layout/admin-layout/admin-layout.component';
 
 const routes: Routes = [
   {
@@ -27,8 +28,11 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component: AppLayoutComponent,
+    component: AdminLayoutComponent,
     canActivate: [AuthGuard],
+    children: [
+      { path: '', loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule) },
+    ]
     
   },
   { path: '**', redirectTo: 'home' } // Redirect unknown routes

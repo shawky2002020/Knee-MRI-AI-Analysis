@@ -18,6 +18,7 @@ export class AnalyzeComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(50)]],
       age: ['', [Validators.required, Validators.min(0), Validators.max(120)]],
       gender: ['', Validators.required],
+      
     });
   }
 

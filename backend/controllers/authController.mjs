@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import User from "../models/User.mjs";
 import { sendEmail } from "../services/emailService.mjs";
+import { generateToken } from "../config/authConfig.mjs";
 
 // Register a new user
 export const register = async (req, res) => {
@@ -21,9 +21,7 @@ let { name, email, password } = req.body;
     await newUser.save();
     // Send welcome email
 
-    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRE,
-    });
+    const token = generateToken({ id: newUser._id });
     await sendEmail(
       email,
       "Welcome to ACLyze AI! 🚀",
@@ -65,9 +63,7 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRE,
-    });
+    const token = generateToken({ id: user._id , role: user.role });
     res.status(200).json({ message: "User logged in successfully", token , user });
   } catch (error) {
     res.status(500).json({ message: "Error logging in", error:error.message });
