@@ -13,7 +13,16 @@
 
   <app-header id="top" [title]="'Previous Scans'"></app-header>
   <header>
-    <div class="search-bar">
+    <app-scan-filter
+      [searchTerm]="searchTerm"
+      [selectedStatus]="selectedStatus"
+      [selectedDate]="selectedDate"
+      (search)="search($event)"
+      (reset)="reset()"
+      (statusChange)="selectStatus($event)"
+      (dateChange)="selectDate($event)">
+    </app-scan-filter>
+    <!-- <div class="search-bar">
       <div class="search-input-container">
         <button class="search-btn" (click)="filterScans()">
           <i class="fas fa-search"></i>
@@ -34,7 +43,6 @@
     </div>
 
     <div class="filters-container">
-      <!-- Custom Status Dropdown -->
       <div
         class="filter-options custom-dropdown"
         [class.open]="statusDropdownOpen"
@@ -84,7 +92,6 @@
         </ul>
       </div>
 
-      <!-- Custom Date Dropdown -->
       <div
         class="filter-options custom-dropdown"
         [class.open]="dateDropdownOpen"
@@ -157,7 +164,7 @@
       <div class="btn-container">
         <button class="filter-btn" (click)="filterScans()">Filter</button>
       </div>
-    </div>
+    </div> -->
   </header>
 
   <div class="cards-wrapper">
@@ -211,49 +218,11 @@
     </div>
   </div>
   <!-- Pagination Controls -->
-  <nav
+  <app-pagination
     *ngIf="totalPages > 1"
-    class="pagination-container"
-    aria-label="MRI scan pagination"
-  >
-    <ul class="pagination-list">
-      <li>
-        <button
-          class="pagination-btn"
-          [disabled]="page === 1"
-          (click)="goToPage(page - 1)"
-          aria-label="Previous page"
-        >
-          &laquo;
-        </button>
-      </li>
-      <li *ngFor="let p of paginationWindow">
-        <button
-          class="pagination-btn"
-          [class.active]="page === p"
-          (click)="goToPage(p)"
-        >
-          <span (click)="scrollToTop()">
-            {{ p }}
-          </span>
-        </button>
-      </li>
-      
-      <li class="last-page" *ngIf="paginationWindow[paginationWindow.length-1] < totalPages">
-        <span class="pagination-ellipsis">...</span>
-        <button class="pagination-btn" (click)="goToPage(totalPages)">{{ totalPages }}</button>
-      </li>
-      <li>
-        <button
-          class="pagination-btn"
-          [disabled]="page === totalPages"
-          (click)="goToPage(page + 1)"
-          aria-label="Next page"
-        >
-          &raquo;
-        </button>
-      </li>
-    </ul>
-    <span class="pagination-info"> Page {{ page }} of {{ totalPages }} </span>
-  </nav>
+    [page]="page"
+    [totalPages]="totalPages"
+    [paginationWindow]="paginationWindow"
+    (pageChange)="goToPage($event)">
+  </app-pagination>
 </div>

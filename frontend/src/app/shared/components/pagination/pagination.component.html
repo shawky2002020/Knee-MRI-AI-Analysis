@@ -1,0 +1,40 @@
+<nav *ngIf="totalPages > 1" class="pagination-container" aria-label="MRI scan pagination">
+  <ul class="pagination-list">
+    <li>
+      <button
+        class="pagination-btn"
+        [disabled]="page === 1"
+        (click)="goToPage(page - 1)"
+        aria-label="Previous page"
+      >
+        &laquo;
+      </button>
+    </li>
+    <li *ngFor="let p of paginationWindow">
+      <button
+        class="pagination-btn"
+        [class.active]="page === p"
+        (click)="goToPage(p)"
+      >
+        <span>
+          {{ p }}
+        </span>
+      </button>
+    </li>
+    <li class="last-page" *ngIf="paginationWindow[paginationWindow.length-1] < totalPages">
+      <span class="pagination-ellipsis">...</span>
+      <button class="pagination-btn" (click)="goToPage(totalPages)">{{ totalPages }}</button>
+    </li>
+    <li>
+      <button
+        class="pagination-btn"
+        [disabled]="page === totalPages"
+        (click)="goToPage(page + 1)"
+        aria-label="Next page"
+      >
+        &raquo;
+      </button>
+    </li>
+  </ul>
+  <span class="pagination-info"> Page {{ page }} of {{ totalPages }} </span>
+</nav>

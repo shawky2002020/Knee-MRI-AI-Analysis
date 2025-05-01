@@ -17,7 +17,9 @@ export class HistoryComponent implements OnInit {
   totalPages: number = 1;
   showPopup:boolean = false;
   deleteId:string = '';
-
+  
+  statusDropdownOpen = false;
+  dateDropdownOpen = false;
   constructor(private toast: ToastrService, private scansService: MriScanService) {}
 
   ngOnInit(): void {
@@ -27,12 +29,9 @@ export class HistoryComponent implements OnInit {
   popUpShow(deleteId:string){
     this.deleteId = deleteId;
     this.showPopup = true;
-    console.log(this.showPopup);
     
     
   }
-
-
 
   confirmDelete(event:boolean){
     this.scansService.deleteScan(this.deleteId).subscribe({
@@ -68,7 +67,13 @@ export class HistoryComponent implements OnInit {
     if (page < 1 || page > this.totalPages) return;
     this.filterScans(page);
   }
+
+  search(event : string){
+    this.searchTerm = event;
+    this.filterScans();
+  }
   filterScans(page: number = 1) {
+    
     // If both filters are at their default, load all scans
     if (
       (this.selectedDate === 'Date' || !this.selectedDate) &&
@@ -128,8 +133,6 @@ export class HistoryComponent implements OnInit {
     })
   }
 
-  statusDropdownOpen = false;
-  dateDropdownOpen = false;
 
   selectStatus(status: string) {
     this.selectedStatus = status;

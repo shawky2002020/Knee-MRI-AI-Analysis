@@ -1,11 +1,34 @@
 import bcrypt from "bcryptjs";
 import User from "../../models/User.mjs";
-
+import { getPaginationParams , getTimeFilter } from "../../utils/helper.mjs";
+class usersResponse {
+  constructor(success, message, Users, totalUsers, page, limit) {
+    this.success = success;
+    this.message = message;
+    this.users = Users;
+    this.page = page;
+    this.limit = limit;
+    this.totalPages = Math.ceil(totalUsers / limit);
+    this.totalUsers = totalUsers;
+  }
+}
 export const getAllUsers = async (req, res) => {
     try {
-      const users = await User.find({role:'user'}).select("-password");
-  
-      res.status(200).json(users);
+      const { page, limit, skip } = getPaginationParams(req.query);
+      const timeFilter = getTimeFilter(req.query.timeRange);
+
+      // Build dynamic filter
+      const filter = { ...timeFilter };
+
+      // Name filter (partial match, case-insensitive)  
+      if (req.query.name && req.query.name.trim()!== "") {
+        filter["name"] = { $regex: req.query.name, $options: "i" };
+        
+      }
+      const usersCount = await User.countDocuments(filter);
+      const users = await User.find(filter).select("-password").limit(limit).skip(skip);
+      res.status(200).json(new usersResponse(true, "Users found successfully", users, usersCount,page,limit));
+
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

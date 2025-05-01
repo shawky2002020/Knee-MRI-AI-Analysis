@@ -11,6 +11,7 @@ import { AdminProfileComponent } from './components/admin-profile/admin-profile.
 import { AdminLogsComponent } from './components/admin-logs/admin-logs.component';
 import { AdminReportsComponent } from './components/admin-reports/admin-reports.component';
 import { AdminNotificationsComponent } from './components/admin-notifications/admin-notifications.component';
+import { SharedModule } from "../../shared/shared.module";
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { AdminNotificationsComponent } from './components/admin-notifications/ad
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
-  ]
+    AdminRoutingModule,
+    SharedModule
+]
 })
 export class AdminModule { }

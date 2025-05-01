@@ -1,4 +1,5 @@
 export const getTimeFilter = (timeRange) => {
+  
     let timeFilter = {};
     if (timeRange) {
       const now = new Date();

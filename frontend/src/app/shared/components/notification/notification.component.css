@@ -114,11 +114,12 @@
 }
 
 .read-btn {
-  width: 60%;
+  width: 30%;
   height: 46px;
   border-radius: .3rem 1rem .3rem 1rem;
-  position: relative;
-  margin-left: 8px;
+  position: absolute;
+  right: 0;
+  top: 0;
   border: none;
   overflow: hidden;
   text-transform: capitalize;
@@ -145,7 +146,7 @@
 }
 
 .read-btn::before {
-  background: rgba(127,95,255,0.18);
+  background: rgba(127,95,255);
   color: #fff;
   transform: translateX(-100%);
 }
