@@ -32,8 +32,6 @@ export class HistoryComponent implements OnInit {
     
   }
 
-
-
   confirmDelete(event:boolean){
     this.scansService.deleteScan(this.deleteId).subscribe({
       next: (res) => {

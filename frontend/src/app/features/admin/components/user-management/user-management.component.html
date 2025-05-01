@@ -1,3 +1,12 @@
+<app-popup
+[title]=" 'Delete User Forever' "
+[message]=" 'Are you sure you want to delete this user' "
+[confirmButtonText]=" 'Delete' "
+[cancelButtonText]=" 'Cancel' "
+[showPopup]="popupVisible"
+(confirmEmitter)="confirmDelete($event)"
+(closeEmitter)="cancelDelete($event)"
+></app-popup>
 <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -5,7 +14,6 @@
         <table class="table">
           <thead>
             <tr>
-              <th>ID</th>
               <th>Name</th>
               <th>Email</th>
               <th>Phone</th>
@@ -15,18 +23,25 @@
           </thead>
           <tbody>
             <tr *ngFor="let user of users">
-              <td>{{ user._id }}</td>
               <td>{{ user.name }}</td>
               <td>{{ user.email }}</td>
               <td>01029019830</td>
               <td>Nasr city</td>
               <td>
-                <button class="btn btn-danger" (click)="deleteUser(user._id)">Delete</button>
+                <button class="btn btn-danger" (click)="showPopup(user)">Delete</button>
               </td>
             </tr>      
           </tbody>
         </table>
       </div>
+      <app-pagination
+      *ngIf="totalPages > 1"
+      [page]="page"
+      [totalPages]="totalPages"
+      [paginationWindow]="paginationWindow"
+      (pageChange)="goToPage($event)">
+    </app-pagination>
     </div>
   </div>   
+
   

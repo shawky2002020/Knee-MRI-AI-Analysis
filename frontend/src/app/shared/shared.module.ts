@@ -12,6 +12,9 @@ import { HomeLayoutComponent } from './components/layout/home-layout/home-layout
 import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
 import { PopupComponent } from './components/popup/popup.component';
 import { AdminLayoutComponent } from './components/layout/admin-layout/admin-layout.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
+import { ScanFilterComponent } from './components/scan-filter/scan-filter.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,12 +27,15 @@ import { AdminLayoutComponent } from './components/layout/admin-layout/admin-lay
     FileUploaderComponent,
     HomeLayoutComponent,
     PopupComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    PaginationComponent,
+    ScanFilterComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    NotificationModule
+    NotificationModule,
+    FormsModule
   ],
   exports: [
     SidebarComponent,
@@ -39,7 +45,9 @@ import { AdminLayoutComponent } from './components/layout/admin-layout/admin-lay
     FooterComponent,
     AppLayoutComponent,
     HomeLayoutComponent,
-    PopupComponent
+    PopupComponent,
+    PaginationComponent,
+    ScanFilterComponent
   ]
 })
 export class SharedModule { }
