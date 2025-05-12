@@ -7,4 +7,17 @@ export interface usersResponse {
     totalPages: number;
     totalUsers: number;
   }
+
+export interface UserStats {
+  totalUsers: number;
+  activeUsers: number;
+  newUsers: number;
+  timeRange: string;
+}
+
+export interface UsersStatsResponse {
+  success: boolean;
+  stats: UserStats;
+  mostActiveUsers: User[];
+}
     

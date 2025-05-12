@@ -2,10 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as url from '../../data/url'
 import { Observable, tap } from 'rxjs';
-import { User } from '../models/user.model';
 import { ToastrService } from 'ngx-toastr';
 import { ScanResponse } from '../models/ai-result.model';
-import { usersResponse } from '../models/admin/users-result';
+import { usersResponse, UsersStatsResponse } from '../models/admin/users-result';
+import { DiagnosisDistributionResponse, UserScanDistributionResponse } from '../models/admin/scans-result';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +13,7 @@ export class AdminService {
 
   constructor(private http : HttpClient,private toast : ToastrService) { }
 
-
+  //USERS
   getAllUsers(
     filters: {
       // Added all fillters here
@@ -57,7 +57,19 @@ export class AdminService {
   updateUser(id : string, user : any){
     return this.http.put(url.ADMIN_UPDATE_USER +'/'+id, user)
   }
-
+  getUserStats(): Observable<UsersStatsResponse> {
+    const timeRange = '30days'
+    const params =new HttpParams().set('timeRange',timeRange)
+    return this.http.get<UsersStatsResponse>(url.ADMIN_GET_USERSTATES,{params});
+  }
+  
+  //SCANS
+  getDiagnosisDistribution():Observable<DiagnosisDistributionResponse>{
+    return this.http.get<DiagnosisDistributionResponse>(url.ADMIN_GET_DIAGNOSISDISTRIBUTION)
+  }
+  getUserScans():Observable<UserScanDistributionResponse>{
+    return this.http.get<UserScanDistributionResponse>(url.ADMIN_GET_USERSCANS)
+  }
 
   
 }

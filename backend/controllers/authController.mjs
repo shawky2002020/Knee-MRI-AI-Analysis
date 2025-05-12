@@ -63,7 +63,13 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
+    // Update lastLogin and increment loginCount
+    user.lastLogin = new Date();
+    user.loginCount = (user.loginCount || 0) + 1;
+    await user.save();
+
     const token = generateToken({ id: user._id , role: user.role });
+    
     res.status(200).json({ message: "User logged in successfully", token , user });
   } catch (error) {
     res.status(500).json({ message: "Error logging in", error:error.message });

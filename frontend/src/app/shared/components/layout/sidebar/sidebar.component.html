@@ -36,8 +36,7 @@
       </li>
       <li
         *ngIf="user.role === 'admin'"
-        [ngClass]="{ active: activeItem === 'admin' }"
-        (click)="setActiveItem('admin')"
+       
       >
         <a routerLink="/admin">Admin</a>
       </li>

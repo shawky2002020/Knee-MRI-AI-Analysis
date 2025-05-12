@@ -28,7 +28,15 @@ export const GET_REPORT = REPORT_BASE + '/generate';
 
 //ADMIN
 export const ADMIN_BASE = BASEURL + '/v1/admin';
+
+//USERS
 export const ADMIN_GET_USERS = ADMIN_BASE + '/users';
-export const ADMIN_DELETE_USER = ADMIN_BASE + '/delete';
+export const ADMIN_DELETE_USER = ADMIN_BASE + '/deleteUser';
 export const ADMIN_UPDATE_USER = ADMIN_BASE + '/update';
 export const ADMIN_GET_REPORTS = ADMIN_BASE + '/reports';
+export const ADMIN_GET_USERSTATES = ADMIN_BASE + '/userstates';
+
+//SCANS
+export const ADMIN_GET_USERSCANS = ADMIN_BASE + '/userscans';
+export const ADMIN_GET_DIAGNOSISDISTRIBUTION = ADMIN_BASE + '/DiagnosisDistribution';
+

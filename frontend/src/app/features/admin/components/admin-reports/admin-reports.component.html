@@ -1,1 +1,269 @@
-<p>admin-reports works!</p>
+<div class="admin-reports">
+  <div class="reports-header">
+    <h1><i class="fas fa-chart-line"></i> Analytics & Reports</h1>
+    <div class="time-filter">
+      <button class="time-btn active">Weekly</button>
+      <button class="time-btn">Monthly</button>
+      <button class="time-btn">Quarterly</button>
+      <button class="time-btn">Yearly</button>
+    </div>
+  </div>
+
+  <div class="reports-grid">
+    <!-- Scan Activity Chart -->
+    <div class="report-card wide">
+      <div class="card-header">
+        <h3><i class="fas fa-chart-area"></i> Scan Activity</h3>
+        <div class="card-actions">
+          <button class="action-btn"><i class="fas fa-download"></i></button>
+          <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
+        </div>
+      </div>
+      <div class="chart-container">
+        <div class="placeholder-chart">
+          <i class="fas fa-chart-line"></i>
+          <p>Activity trend visualization</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diagnosis Distribution -->
+    <div class="report-card">
+      <div class="card-header">
+        <h3><i class="fas fa-pie-chart"></i> Diagnosis Distribution</h3>
+        <div class="card-actions">
+          <button class="action-btn"><i class="fas fa-download"></i></button>
+        </div>
+      </div>
+      <div class="chart-container">
+        <div class="placeholder-chart">
+          <i class="fas fa-chart-pie"></i>
+          <p>Diagnosis breakdown</p>
+        </div>
+      </div>
+      <div class="stats-list">
+        <div class="stat-item">
+          <span class="stat-label">Normal</span>
+          <div class="stat-bar">
+            <div class="stat-fill" [style.width.%]="scanDistribution.percentages.normal"></div>
+          </div>
+          <span class="stat-value">
+            {{ scanDistribution.counts.normal }}
+          </span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">ACL</span>
+          <div class="stat-bar">
+            <div class="stat-fill danger" [style.width.%]="scanDistribution.percentages.acl"></div>
+          </div>
+          <span class="stat-value">{{ scanDistribution.counts.acl }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Meniscus</span>
+          <div class="stat-bar">
+            <div class="stat-fill warning" [style.width.%]="scanDistribution.percentages.meniscus"></div>
+          </div>
+          <span class="stat-value">
+            {{ scanDistribution.counts.meniscus }}
+          </span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">ACL &amp; Meniscus</span>
+          <div class="stat-bar">
+            <div class="stat-fill critical" [style.width.%]="scanDistribution.percentages.aclAndMeniscus"></div>
+          </div>
+          <span class="stat-value">{{ scanDistribution.counts['acl and meniscus']}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Processing Time -->
+    <div class="report-card">
+      <div class="card-header">
+        <h3><i class="fas fa-clock"></i> Processing Time</h3>
+        <div class="card-actions">
+          <button class="action-btn"><i class="fas fa-download"></i></button>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-value">3.2s</div>
+          <div class="metric-label">Average</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">1.8s</div>
+          <div class="metric-label">Fastest</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">8.5s</div>
+          <div class="metric-label">Slowest</div>
+        </div>
+      </div>
+      <div class="chart-container small">
+        <div class="placeholder-chart">
+          <i class="fas fa-tachometer-alt"></i>
+          <p>Processing time trend</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Activity -->
+    <div class="report-card">
+      <div class="card-header">
+        <h3><i class="fas fa-users"></i> User Activity</h3>
+        <div class="card-actions">
+          <button class="action-btn"><i class="fas fa-download"></i></button>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-value">{{usersStats.stats.activeUsers}} </div>
+          <div class="metric-label">Active Users</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">{{usersStats.stats.newUsers}} </div>
+          <div class="metric-label">New Users</div>
+        </div>
+      </div>
+      <div class="user-activity-list">
+        <div class="activity-item" *ngFor="let user of mostActiveUsers">
+          <div class="activity-user">
+            <div class="user-avatar">SA</div>
+            <div class="user-info">
+              <div class="user-name">  {{user.name}} </div>
+              <div class="user-role"> {{user.role}} </div>
+            </div>
+          </div>
+          <div class="activity-count"> {{user.scanCount}} </div>
+        </div>
+        <!-- <div class="activity-item">
+          <div class="activity-user">
+            <div class="user-avatar">AS</div>
+            <div class="user-info">
+              <div class="user-name">{{mostActiveUsers[1].name}} </div>
+              <div class="user-role">Radiologist</div>
+            </div>
+          </div>
+          <div class="activity-count">18 scans</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-user">
+            <div class="user-avatar">RJ</div>
+            <div class="user-info">
+              <div class="user-name">{{mostActiveUsers[2].name}} </div>
+              <div class="user-role">Doctor</div>
+            </div>
+          </div>
+          <div class="activity-count">15 scans</div>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- System Health -->
+    <div class="report-card">
+      <div class="card-header">
+        <h3><i class="fas fa-server"></i> System Health</h3>
+        <div class="card-actions">
+          <button class="action-btn"><i class="fas fa-sync-alt"></i></button>
+        </div>
+      </div>
+      <div class="health-metrics">
+        <div class="health-metric">
+          <div class="health-label">CPU Usage</div>
+          <div class="health-bar">
+            <div class="health-fill" style="width: 42%"></div>
+          </div>
+          <div class="health-value">42%</div>
+        </div>
+        <div class="health-metric">
+          <div class="health-label">Memory</div>
+          <div class="health-bar">
+            <div class="health-fill" style="width: 68%"></div>
+          </div>
+          <div class="health-value">68%</div>
+        </div>
+        <div class="health-metric">
+          <div class="health-label">Storage</div>
+          <div class="health-bar">
+            <div class="health-fill warning" style="width: 78%"></div>
+          </div>
+          <div class="health-value">78%</div>
+        </div>
+        <div class="health-metric">
+          <div class="health-label">API Response</div>
+          <div class="health-bar">
+            <div class="health-fill success" style="width: 95%"></div>
+          </div>
+          <div class="health-value">95%</div>
+        </div>
+      </div>
+      <div class="uptime">
+        <i class="fas fa-clock"></i> Uptime: 24 days, 8 hours
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="report-card wide">
+      <div class="card-header">
+        <h3><i class="fas fa-history"></i> Recent Activity</h3>
+        <div class="card-actions">
+          <button class="action-btn"><i class="fas fa-filter"></i></button>
+          <button class="action-btn"><i class="fas fa-download"></i></button>
+        </div>
+      </div>
+      <div class="activity-table-container">
+        <table class="activity-table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Action</th>
+              <th>Patient</th>
+              <th>Diagnosis</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dr. Smith</td>
+              <td>Uploaded Scan</td>
+              <td>John Doe</td>
+              <td><span class="status-badge normal">Normal</span></td>
+              <td>10 min ago</td>
+            </tr>
+            <tr>
+              <td>Dr. Johnson</td>
+              <td>Reviewed Scan</td>
+              <td>Alice Brown</td>
+              <td><span class="status-badge danger">ACL</span></td>
+              <td>25 min ago</td>
+            </tr>
+            <tr>
+              <td>Dr. Williams</td>
+              <td>Uploaded Scan</td>
+              <td>Robert Davis</td>
+              <td><span class="status-badge warning">Meniscus</span></td>
+              <td>45 min ago</td>
+            </tr>
+            <tr>
+              <td>Dr. Miller</td>
+              <td>Reviewed Scan</td>
+              <td>Sarah Wilson</td>
+              <td><span class="status-badge critical">ACL & Meniscus</span></td>
+              <td>1 hour ago</td>
+            </tr>
+            <tr>
+              <td>Dr. Taylor</td>
+              <td>Uploaded Scan</td>
+              <td>Michael Moore</td>
+              <td><span class="status-badge normal">Normal</span></td>
+              <td>2 hours ago</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="view-all">
+        <a href="#"><i class="fas fa-eye"></i> View All Activity</a>
+      </div>
+    </div>
+  </div>
+</div>

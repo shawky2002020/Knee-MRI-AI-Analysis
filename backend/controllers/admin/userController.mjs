@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "../../models/User.mjs";
 import { getPaginationParams , getTimeFilter } from "../../utils/helper.mjs";
+import MriScan from "../../models/MriScan.mjs";
 class usersResponse {
   constructor(success, message, Users, totalUsers, page, limit) {
     this.success = success;
@@ -122,3 +123,76 @@ export const addRole=async (req,res)=>{
     res.status(500).json({ message: "Error adding role", error: error.message });
   }
 }
+
+export const getUserStats = async (req, res) => {
+  try {
+    // Get time range from query params (default to last 30 days)
+    const timeRange = req.query.timeRange || '30days';
+    const timeFilter = getTimeFilter(timeRange);
+    
+    // Get new users (users created within the time range)
+    const newUsersCount = await User.countDocuments(timeFilter);
+    
+    // Get active users (users who logged in within the time range)
+    const activeUsersFilter = {};
+    if (timeFilter.createdAt) {
+      activeUsersFilter.lastLogin = timeFilter.createdAt;
+    }
+    const activeUsersCount = await User.countDocuments(activeUsersFilter);
+    
+    // Get total users count
+    const totalUsersCount = await User.countDocuments();
+    
+    // Get scan count for each user
+    const scanCounts = await MriScan.aggregate([
+      {
+        $group: {
+          _id: "$userId",
+          scanCount: { $sum: 1 }
+        }
+      },
+      {
+        $sort: { scanCount: -1 }
+      },
+      {
+        $limit: 5
+      }
+    ]);
+    
+    // Get user details for the most active users based on scan count
+    const userIds = scanCounts.map(item => item._id);
+    const mostActiveUsers = await User.find({ 
+      _id: { $in: userIds } 
+    }).select('name email role lastLogin loginCount').lean();
+    
+    // Combine user details with scan counts
+    const mostActiveUsersWithScans = mostActiveUsers.map(user => {
+      const scanData = scanCounts.find(item => item._id?.toString() === user._id?.toString());
+      return {
+        ...user,
+        scanCount: scanData ? scanData.scanCount : 0
+      };
+    });
+    
+    // Sort by scan count (highest first)
+    mostActiveUsersWithScans.sort((a, b) => b.scanCount - a.scanCount);
+    
+    res.status(200).json({
+      success: true,
+      stats: {
+        totalUsers: totalUsersCount,
+        activeUsers: activeUsersCount,
+        newUsers: newUsersCount,
+        timeRange: timeRange
+      },
+      mostActiveUsers: mostActiveUsersWithScans
+    });
+  } catch (error) {
+    console.error("Error getting user stats:", error);
+    res.status(500).json({ 
+      success: false,
+      message: "Failed to get user statistics", 
+      error: error.message 
+    });
+  }
+};
