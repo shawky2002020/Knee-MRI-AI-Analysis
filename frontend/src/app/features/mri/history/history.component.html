@@ -168,6 +168,8 @@
   </header>
 
   <div class="cards-wrapper">
+    <app-loader [shade]="false" *ngIf="loading"></app-loader>
+
     <div class="card" *ngFor="let scan of mriScans; let i = index">
       <!-- <img src="/assets/holo/holo2.jpg" alt="" class="bg" /> -->
       <div class="card-content" [ngClass]="{ big: i % 2 === 0 }">
@@ -207,7 +209,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="!mriScans.length" class="not-found">
+    <div *ngIf="!mriScans.length && !loading" class="not-found">
       <div class="not-found-content">
         <i class="fas fa-file-medical fa-4x"></i>
         <div class="not-found-text">

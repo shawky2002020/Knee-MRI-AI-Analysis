@@ -7,6 +7,7 @@ import { ReportComponent } from './report/report.component';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AnalyzeComponent } from './analyze/analyze.component';
+import { LoaderModule } from '../../shared/components/loader/loader.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AnalyzeComponent } from './analyze/analyze.component';
     MriRoutingModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoaderModule
   ]
 })
 export class MriModule { }

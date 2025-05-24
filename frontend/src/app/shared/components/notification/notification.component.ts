@@ -18,16 +18,20 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './notification.component.css',
 })
 export class NotificationComponent implements OnInit, OnChanges {
+  loading: boolean = false;
   constructor(private notificationService: NotificationService,private toast:ToastrService) {}
   ngOnInit(): void {
+    this.loading =true;
     this.notificationService.onNotification((data: any) => {
       this.toast.success('notification recieved');
       this.notifications = [data, ...this.notifications];
     });
     this.notificationService.getAllNotifications().subscribe({
       next: (res) => {
+        this.loading =false;
         this.notifications = res;
       },
+     
       
     });
   }

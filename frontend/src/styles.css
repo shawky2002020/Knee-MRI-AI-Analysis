@@ -156,12 +156,12 @@ button {
     justify-content: center;
   }
 }
-button.active{
+button.loading{
   position: relative;
   pointer-events: none;
   
 }
-button.active::before {
+button.loading::before {
   z-index: 1;
   content: "";
   position: absolute;
@@ -175,7 +175,7 @@ button.active::before {
   background: var(--purple-dark);
 }
 
-button.active::after {
+button.loading::after {
   z-index: 2;
   content: "";
   position: absolute;

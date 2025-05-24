@@ -7,7 +7,6 @@ import { AppLayoutComponent } from './components/layout/app-layout/app-layout.co
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
-import { NotificationModule } from './components/notification/notification.module';
 import { HomeLayoutComponent } from './components/layout/home-layout/home-layout.component';
 import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
 import { PopupComponent } from './components/popup/popup.component';
@@ -15,6 +14,9 @@ import { AdminLayoutComponent } from './components/layout/admin-layout/admin-lay
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ScanFilterComponent } from './components/scan-filter/scan-filter.component';
 import { FormsModule } from '@angular/forms';
+import { LoaderComponent } from './components/loader/loader.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { NotificationModule } from './components/notification/notification.module';
 
 @NgModule({
   declarations: [
@@ -29,13 +31,13 @@ import { FormsModule } from '@angular/forms';
     PopupComponent,
     AdminLayoutComponent,
     PaginationComponent,
-    ScanFilterComponent
+    ScanFilterComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     NotificationModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [
     SidebarComponent,
@@ -47,7 +49,7 @@ import { FormsModule } from '@angular/forms';
     HomeLayoutComponent,
     PopupComponent,
     PaginationComponent,
-    ScanFilterComponent
+    ScanFilterComponent,
   ]
 })
 export class SharedModule { }

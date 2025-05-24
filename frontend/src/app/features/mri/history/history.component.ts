@@ -9,6 +9,7 @@ import { MriDiagnosticResponse, ScanResponse } from '../../../core/models/ai-res
   styleUrl: './history.component.css',
 })
 export class HistoryComponent implements OnInit {
+  loading: boolean = false;
   mriScans : MriDiagnosticResponse[] =[]
   searchTerm: string = '';
   selectedDate:string = 'Date';
@@ -51,8 +52,10 @@ export class HistoryComponent implements OnInit {
 
 
   loadScans(page: number = 1) {
+    this.loading = true;
     this.scansService.getScans({ page }).subscribe({
       next: (res: ScanResponse) => {
+        this.loading = false;
         this.mriScans = Object.values(res.scans);
         this.page = res.page;
         this.totalPages =res.totalPages;
@@ -73,7 +76,7 @@ export class HistoryComponent implements OnInit {
     this.filterScans();
   }
   filterScans(page: number = 1) {
-    
+    this.loading = true;
     // If both filters are at their default, load all scans
     if (
       (this.selectedDate === 'Date' || !this.selectedDate) &&
@@ -103,6 +106,7 @@ export class HistoryComponent implements OnInit {
 
     this.scansService.getScans(params).subscribe({
       next: (res: ScanResponse) => {
+        this.loading = false;
         this.mriScans = Object.values(res.scans);
         this.page = res.page;
         this.totalPages = res.totalPages;
@@ -111,6 +115,7 @@ export class HistoryComponent implements OnInit {
         }
       },
       error: (err) => {
+        this.loading = false;
         this.mriScans = [];
         this.toast.info('No scans found for the selected filters');
       }
