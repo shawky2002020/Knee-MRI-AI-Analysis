@@ -3,8 +3,11 @@
       <h1>{{ title }}</h1>
     </div>
     <ul class="links-wrapper">
-      <li class="notification-bell" (click)="showNotifications()"><i class="fa-solid fa-bell"></i></li>
-      <app-notification [isVisible]="showNotificationsMenu" (VisibleEmitter)="handleEmitter($event)" *ngIf="showNotificationsMenu"></app-notification>
+      <li class="notification-bell" (click)="showNotifications()">
+        <i class="fa-solid fa-bell"></i>
+        <span class="notification-count" *ngIf="notificationCount>0">{{ notificationCount }}</span>
+      </li>
+      <app-notification [isVisible]="showNotificationsMenu"(readEmitter)="handelReadEmitter()" (VisibleEmitter)="handleEmitter($event)" *ngIf="showNotificationsMenu"></app-notification>
     </ul>
   </div>
   

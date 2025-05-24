@@ -10,6 +10,7 @@ import {
 import { NotificationSchema } from '../../../core/models/notification.model';
 import { NotificationService } from '../../../core/services/notification.service';
 import { gsap } from 'gsap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-notification',
@@ -17,12 +18,17 @@ import { gsap } from 'gsap';
   styleUrl: './notification.component.css',
 })
 export class NotificationComponent implements OnInit, OnChanges {
-  constructor(private notificationService: NotificationService) {}
+  constructor(private notificationService: NotificationService,private toast:ToastrService) {}
   ngOnInit(): void {
+    this.notificationService.onNotification((data: any) => {
+      this.toast.success('notification recieved');
+      this.notifications = [data, ...this.notifications];
+    });
     this.notificationService.getAllNotifications().subscribe({
       next: (res) => {
         this.notifications = res;
       },
+      
     });
   }
 
@@ -31,14 +37,16 @@ export class NotificationComponent implements OnInit, OnChanges {
   // Control visibility
   @Input() isVisible = true; // Property to control visibility
   @Output() VisibleEmitter = new EventEmitter<boolean>();
+  @Output() readEmitter = new EventEmitter<boolean>();
 
-  closeNotification(index: number): void {
+  readNotification(index: number): void {
     this.notificationService
       .deleteNotification(this.notifications[index])
       .subscribe({
         next: () => {
           this.notifications = this.notifications.splice(index, 1);
           this.notifications = this.notificationService.notifications;
+          this.readEmitter.emit(true);
         },
       });
     const notificationCloseBtns = document.querySelectorAll(
@@ -68,8 +76,9 @@ export class NotificationComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['isVisible'] && changes['isVisible'].currentValue) {
+    // if (changes['isVisible'] && changes['isVisible'].currentValue) {
       // Only animate when becoming visible
+      if(true){
       setTimeout(() => {
         const notificationContianer = document.querySelector('.notifications');
         if (notificationContianer) {

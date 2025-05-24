@@ -60,6 +60,8 @@ export class LoginComponent implements AfterViewInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
+      const loginBtn = document.querySelector('.login-btn');
+      loginBtn?.classList.add('active');
       this.userService.login(this.loginForm.value).subscribe({
         next:(res)=>{
           this.router.navigateByUrl('app/dashboard');

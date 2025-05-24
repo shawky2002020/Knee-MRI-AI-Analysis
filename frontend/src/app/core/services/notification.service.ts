@@ -2,22 +2,28 @@ import { Injectable } from '@angular/core';
 import { NotificationSchema } from '../models/notification.model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
+import { io, Socket } from 'socket.io-client';
 import * as url from '../../data/url'
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
+  private socket: Socket;
   private notificationSubject: BehaviorSubject<NotificationSchema[]> = new BehaviorSubject<NotificationSchema[]>([]);
   private notification$ = this.notificationSubject.asObservable();
   
   constructor(private http: HttpClient) {
-    
+    this.socket = io(url.BASEURL);
     this.getAllNotifications();
-    
-
   }
-  
+  onNotification(callback: (data: any) => void) {
+    this.socket.on('notification', callback);
+    
+  }
+  getNotificationsCount():Observable<any>{
+    return this.http.get<any>(url.NOTIFICATIONS_COUNT);
+  }
   get notifications() {
     return this.notificationSubject.value;
   }

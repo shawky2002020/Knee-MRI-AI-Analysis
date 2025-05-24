@@ -7,8 +7,11 @@ import { ThemeService } from './core/services/theme.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit   {
+export class AppComponent implements OnInit, AfterViewInit   {
   constructor(private themeService: ThemeService ) {}
+  ngAfterViewInit(): void {
+   
+  }
 
 
   ngOnInit() {

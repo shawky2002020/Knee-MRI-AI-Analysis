@@ -19,6 +19,7 @@ export const NOTIFICATIONS_BASE = BASEURL + '/v1/notifications';
 export const NOTIFICATIONS_GET_ALL = NOTIFICATIONS_BASE + '/all';
 export const NOTIFICATIONS_ADD = NOTIFICATIONS_BASE + '/add';
 export const NOTIFICATIONS_DELETE = NOTIFICATIONS_BASE + '/delete';
+export const NOTIFICATIONS_COUNT = NOTIFICATIONS_BASE + '/count';
 export const NOTIFICATIONS_DELETE_ALL = NOTIFICATIONS_BASE + '/deleteAll';
 
 //REPORT

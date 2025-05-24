@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { Server } from "socket.io";
+
 
 const app = express();
 dotenv.config();
@@ -26,8 +28,14 @@ mongoose.connect(uri)
 
 
 // Start server
-app.listen(port, () => {
+const httpServer = app.listen(port, () => {
   console.log(`Server is running on port ${port} 🚀`);
 });
+const io = new Server(httpServer, { cors: { origin: '*' } });
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id);
+  // You can emit notifications here
+});
 
-export default app;
+
+export {app,io};

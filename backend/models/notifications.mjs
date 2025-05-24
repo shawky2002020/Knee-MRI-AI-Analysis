@@ -1,14 +1,11 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
 const notificationSchema = new Schema({
-  userID: {
-    type: Number,
-    required: true,
-  },
+  userID: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   title: {
-    type: String, 
+    type: String,
     required: true,
   },
   message: {
@@ -19,13 +16,13 @@ const notificationSchema = new Schema({
     type: String,
     required: true,
   },
-  read:{
-    type:Boolean,
-    required:true, 
-    default:false
-  }
+  read: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
-const notification = mongoose.model('notifications', notificationSchema);
+const notification = mongoose.model("notifications", notificationSchema);
 
 export default notification;
