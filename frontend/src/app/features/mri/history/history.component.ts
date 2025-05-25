@@ -61,6 +61,8 @@ export class HistoryComponent implements OnInit {
         this.totalPages =res.totalPages;
       },
       error: (err) => {
+        this.loading = false;
+        this.mriScans = [];
         this.toast.error('Failed to load');
       }
     });

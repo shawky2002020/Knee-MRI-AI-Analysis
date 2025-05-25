@@ -6,30 +6,12 @@ import { NotificationService } from '../../../core/services/notification.service
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
-export class HeaderComponent implements OnInit {
-  showNotificationsMenu: boolean = false;
+export class HeaderComponent  {
   @Input() title: string = '';
-  notificationCount !: number ;
-  constructor(private notificationService : NotificationService){
+  constructor(){
 
   }
-  ngOnInit(): void {
-this.notificationService.getNotificationsCount().subscribe({
-  next:(resCount)=>{
-    this.notificationCount = resCount.count;
-  }
-})  
-this.notificationService.onNotification((data)=>{
-  this.notificationCount++
-})
-}
-  showNotifications() {
-    this.showNotificationsMenu = !this.showNotificationsMenu;
-  }
-  handleEmitter(event: boolean) {
-    this.showNotificationsMenu = event;
-  }
-  handelReadEmitter(){
-    this.notificationCount--;
-  }
+ 
+ 
+
 }

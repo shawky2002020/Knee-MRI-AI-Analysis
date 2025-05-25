@@ -1,4 +1,4 @@
-<div class="notifications" *ngIf="isVisible">
+<div class="notifications" *ngIf="isVisible" #notificationsContainer>
   <div class="loading" *ngIf="loading">
     <app-loader [shade]="true"></app-loader>
   </div>

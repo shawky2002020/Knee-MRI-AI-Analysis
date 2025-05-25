@@ -1,11 +1,13 @@
 import {
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { NotificationSchema } from '../../../core/models/notification.model';
 import { NotificationService } from '../../../core/services/notification.service';
@@ -21,6 +23,7 @@ export class NotificationComponent implements OnInit, OnChanges {
   loading: boolean = false;
   constructor(private notificationService: NotificationService,private toast:ToastrService) {}
   ngOnInit(): void {
+    
     this.loading =true;
     this.notificationService.onNotification((data: any) => {
       this.toast.success('notification recieved');
@@ -31,6 +34,11 @@ export class NotificationComponent implements OnInit, OnChanges {
         this.loading =false;
         this.notifications = res;
       },
+      error: (err) => {
+        this.loading =false;
+        
+        this.toast.error(err.error.message);
+      }
      
       
     });
@@ -78,21 +86,22 @@ export class NotificationComponent implements OnInit, OnChanges {
       this.VisibleEmitter.emit(this.isVisible);
     }
   }
-
+  @ViewChild('notificationsContainer') notificationElement!: ElementRef;
+  
   ngOnChanges(changes: SimpleChanges): void {
-    // if (changes['isVisible'] && changes['isVisible'].currentValue) {
-      // Only animate when becoming visible
-      if(true){
+    // Only run animation when isVisible changes to true
+    if (changes['isVisible'] && changes['isVisible'].currentValue === true) {
+      // Use ViewChild instead of querySelector
       setTimeout(() => {
-        const notificationContianer = document.querySelector('.notifications');
-        if (notificationContianer) {
-          gsap.set(notificationContianer, { opacity: 0, x: '100%' });
+        
+        if (this.notificationElement) {
+          gsap.set(this.notificationElement.nativeElement, { opacity: 0, x: '100%' });
           gsap.to(
-            notificationContianer,
+            this.notificationElement.nativeElement,
             { opacity: 1, x: '0%', duration: 0.5, ease: 'power2.out' }
           );
         }
-      });
+      }, 0);
     }
   }
 }

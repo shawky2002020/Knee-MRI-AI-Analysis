@@ -3,6 +3,13 @@
   <div class="content-container">
 
     <app-sidebar></app-sidebar>
+    <ul class="links-wrapper">
+      <li class="notification-bell" (click)="showNotifications()">
+        <i class="fa-solid fa-bell"></i>
+        <span class="notification-count" *ngIf="notificationCount>0">{{ notificationCount }}</span>
+      </li>
+      <app-notification [isVisible]="showNotificationsMenu"(readEmitter)="handelReadEmitter()" (VisibleEmitter)="handleEmitter($event)" *ngIf="showNotificationsMenu"></app-notification>
+    </ul>
     <main class="main-content">
       <router-outlet></router-outlet>
     </main>

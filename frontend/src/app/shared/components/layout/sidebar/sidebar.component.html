@@ -20,30 +20,46 @@
         [ngClass]="{ active: activeItem === 'dashboard' }"
         (click)="setActiveItem('dashboard')"
       >
-        <a routerLink="/app/dashboard">Home</a>
+        <a routerLink="/app/dashboard">
+          <i class="fas fa-home nav-icon"></i>
+          <span>Home</span>
+        </a>
       </li>
       <li
         [ngClass]="{ active: activeItem === 'analyze' }"
         (click)="setActiveItem('analyze')"
       >
-        <a routerLink="/app/mri/analyze">Analyze</a>
+        <a routerLink="/app/mri/analyze">
+          <i class="fas fa-search-plus nav-icon"></i>
+          <span>Analyze</span>
+        </a>
       </li>
       <li
         [ngClass]="{ active: activeItem === 'history' }"
         (click)="setActiveItem('history')"
       >
-        <a routerLink="/app/mri/history">Reports</a>
+        <a routerLink="/app/mri/history">
+          <i class="fas fa-file-medical nav-icon"></i>
+          <span>Reports</span>
+        </a>
       </li>
       <li
         *ngIf="user.role === 'admin'"
-       
+        [ngClass]="{ active: activeItem === 'admin' }"
+        (click)="setActiveItem('admin')"
       >
-        <a routerLink="/admin">Admin</a>
+        <a routerLink="/admin">
+          <i class="fas fa-user-shield nav-icon"></i>
+          <span>Admin</span>
+        </a>
       </li>
 
-  
-      <!-- <li *ngIf="user.token"><a routerLink='/mri/report'>Report</a></li> -->
-      <li><a (click)="logout()">Logout</a></li>
+      <li class="logout-item">
+        <a (click)="logout()">
+          <i class="fas fa-sign-out-alt nav-icon"></i>
+          <span>Logout</span>
+        </a>
+      </li>
     </ul>
   </div>
 </div>

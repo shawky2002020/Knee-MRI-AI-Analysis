@@ -83,6 +83,8 @@
   list-style: none;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 1.2rem;
 }
 
@@ -94,7 +96,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   padding: 0.85rem 0;
   border-radius: 1.2rem;
   color: var(white);
@@ -102,9 +103,9 @@
   font-weight: 700;
   letter-spacing: 0.03em;
   text-decoration: none;
-  background: transparent;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
   box-shadow: none;
+
 }
 
 #links-wrapper li.active a,
@@ -152,5 +153,82 @@
     font-size: 0.9rem;
     padding: 0.6rem 0;
     text-align: center;
+  }
+}
+
+/* Add these styles to your existing CSS */
+
+.logo-icon {
+  font-size: 1.8rem;
+  margin-right: 12px;
+  background: var(--holographic-secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 8px rgba(127, 95, 255, 0.3));
+}
+
+.nav-icon {
+  font-size: 1.2rem;
+  margin-right: 12px;
+  color: #7b6392;
+  transition: all 0.3s ease;
+  width: 20px;
+  text-align: center;
+}
+#links-wrapper li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#links-wrapper li a {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+#links-wrapper li:hover .nav-icon {
+  color: #7f5fff;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 6px rgba(127, 95, 255, 0.4));
+}
+
+#links-wrapper li.active .nav-icon {
+  background: var(--holographic-secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 8px rgba(127, 95, 255, 0.5));
+}
+
+.logout-item .nav-icon {
+  color: #ff6b6b;
+  transition: color 0.3s ease;
+}
+
+.logout-item .nav-icon:hover {
+  color: #ff4444;
+}
+
+.logout-item:hover .nav-icon {
+  color: #ff5252 !important;
+  filter: drop-shadow(0 0 6px rgba(255, 107, 107, 0.4));
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .nav-icon {
+    font-size: 1.1rem;
+    margin-right: 8px;
+  }
+  
+  .logo-icon {
+    font-size: 1.6rem;
+    margin-right: 8px;
   }
 }

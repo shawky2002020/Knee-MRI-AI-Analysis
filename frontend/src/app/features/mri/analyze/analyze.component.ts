@@ -15,7 +15,10 @@ export class AnalyzeComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],
+      firstName: ['', [Validators.required, Validators.maxLength(20)]],
+      middleName: ['', [Validators.required, Validators.maxLength(20)]],
+      familyName: ['', [Validators.required, Validators.maxLength(20)]],
+
       age: ['', [Validators.required, Validators.min(0), Validators.max(120)]],
       gender: ['', Validators.required],
       
