@@ -28,7 +28,11 @@ export class UploadComponent implements AfterViewInit {
   constructor(
     private toastr : ToastrService,
     private aiService : AiService
-  ){}
+  ){
+    // Clear any previously stored MRI scans from localStorage
+    const keys = Object.keys(localStorage).filter(key => key.startsWith('mriscan_'));
+    keys.forEach(key => localStorage.removeItem(key));
+  }
   ngAfterViewInit(): void {
     // Retrieve mriscan from local storage
     const mriscanData = localStorage.getItem('mriscan');
@@ -37,32 +41,30 @@ export class UploadComponent implements AfterViewInit {
       console.log('Retrieved mriscan:', mriscan);
       // Use the mriscan object as needed
     }
-    // GSAP animations
-    // const video = this.videoElement.nativeElement;
-    // video.play().catch(() => {
-    //   console.log('Autoplay prevented, attempting to play manually.');
-    //   video.muted = true;
-    //   video.play();
-    // });
 
-    // this.t1
-    //   .from(video, { opacity: 0, scaleX: 1.5, rotate: 360, duration: 2, ease: 'power3.inOut' })
-    //   .from(
-    //     this.text.nativeElement,
-    //     { opacity: 0, skewX: 25, duration: 1, ease: 'power3.inOut' },
-    //     '>-1'
-    //   )
-    //   .from(
-    //     this.upload.nativeElement,
-    //     { opacity: 0, scale: 1.5, y: '40vh', duration: 2, ease: 'power3.inOut' },
-    //     '>-1'
-    //   );
   }
 
   onUploadSuccess(fileUrls: string[]) {
     this.uploadedFileUrls = [...this.uploadedFileUrls, ...fileUrls];
     this.uploadedFileUrls = Array.from(new Set(this.uploadedFileUrls));
   }
+  test(){
+    console.log('uploadedFileUrls',this.retrieveScansFromLocalStorage());
+    
+  }
+  base64ToFile(base64: string, filename: string, mimeType: string): File {
+    const arr = base64.split(',');
+    const bstr = atob(arr[1]);
+    const n = bstr.length;
+    const u8arr = new Uint8Array(n);
+  
+    for (let i = 0; i < n; i++) {
+      u8arr[i] = bstr.charCodeAt(i);
+    }
+  
+    return new File([u8arr], filename, { type: mimeType });
+  }
+  
 
   retrieveScansFromLocalStorage(): MriScan[] {
     const scans: MriScan[] = [];
@@ -71,13 +73,25 @@ export class UploadComponent implements AfterViewInit {
     keys.forEach(key => {
       const scanData = localStorage.getItem(key);
       if (scanData) {
-        const mriscan = JSON.parse(scanData) as MriScan;
-        scans.push(mriscan);
+        const mriscanRaw = JSON.parse(scanData);
+  
+        const base64 = mriscanRaw.base64Image; // stored base64 string
+        const mimeType = mriscanRaw.metadata?.fileType ? `image/${mriscanRaw.metadata.fileType}` : 'image/png';
+        const fileName = `scan_${Date.now()}.${mriscanRaw.metadata?.fileType || 'png'}`;
+        const file = this.base64ToFile(base64, fileName, mimeType);
+  
+        const scan: MriScan = {
+          metadata: mriscanRaw.metadata,
+          imageFile: file
+        };
+  
+        scans.push(scan);
       }
     });
   
     return scans;
   }
+  
 
   
 

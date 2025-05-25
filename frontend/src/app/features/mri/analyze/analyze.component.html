@@ -2,7 +2,7 @@
 <div class="page">
 
     
-    <div *ngIf="!showUpload" class="info-panel">
+    <div *ngIf="showUpload" class="info-panel">
         <div class="info-icon">
             <i class="fas fa-info-circle"></i>
         </div>
@@ -20,7 +20,7 @@
         </div>
     </div>
     
-    <form [formGroup]="userForm" class="form" autocomplete="off" (ngSubmit)="onSubmit()" *ngIf="!showUpload">
+    <form [formGroup]="userForm" class="form" autocomplete="off" (ngSubmit)="onSubmit()" *ngIf="showUpload">
         <div class="form-row name-row">
             <div class="form-group">
                 <label for="firstName">First Name</label>
@@ -52,5 +52,5 @@
         <button type="submit" class="submit-btn" [disabled]="!userForm.valid">Continue</button>
     </form>
 
-    <app-upload *ngIf="showUpload"></app-upload>
+    <app-upload *ngIf="!showUpload"></app-upload>
 </div>

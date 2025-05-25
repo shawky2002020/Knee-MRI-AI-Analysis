@@ -32,17 +32,17 @@
           <app-file-uploader
             class="axial"
             [view_type]="'axial'"
-            (uploadSuccess)="onUploadSuccess($event)"
+            (uploadSuccess)="test()"
           ></app-file-uploader>
           <app-file-uploader
             class="coronal"
             [view_type]="'coronal'"
-            (uploadSuccess)="onUploadSuccess($event)"
+            (uploadSuccess)="test()"
           ></app-file-uploader>
           <app-file-uploader
             class="sagittal"
             [view_type]="'sagittal'"
-            (uploadSuccess)="onUploadSuccess($event)"
+            (uploadSuccess)="test()"
           ></app-file-uploader>
         </div>
       </div>
@@ -50,5 +50,7 @@
         <h3>Uploaded File:</h3>
         <img [src]="uploadedFileUrls" alt="Uploaded MRI Scan" />
       </div>
+
     </div>
+    <button (click)="submitFiles()">Process</button>
   </div>

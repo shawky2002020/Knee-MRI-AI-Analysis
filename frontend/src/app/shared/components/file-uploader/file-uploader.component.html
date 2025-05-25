@@ -49,6 +49,18 @@
     <h3>Selected Files ({{ selectedFiles.length }})</h3>
     <div class="file-previews minimal-preview">
       <div class="file-status-badge-wrapper" *ngFor="let file of selectedFiles; let i = index">
+        <!-- Progress Circle Animation -->
+        <div class="progress-circle-container" *ngIf="isUploading && uploadProgress[i] < 100">
+          <div class="progress-circle" [style.background]="getProgressBackground(i, uploadProgress[i])">
+            <div class="progress-circle-inner">
+              <span>{{ uploadProgress[i] }}%</span>
+            </div>
+          </div>
+        </div>
+        <!-- Success Checkmark for completed uploads -->
+        <div class="upload-complete" *ngIf="uploadProgress[i] === 100">
+          <i class="fa fa-check-circle"></i>
+        </div>
         <span class="file-status-badge futuristic-badge" [ngClass]="{
             'badge-pending': isUploading && uploadProgress[i] < 100,
             'badge-finished': !isUploading && uploadProgress[i] === 100

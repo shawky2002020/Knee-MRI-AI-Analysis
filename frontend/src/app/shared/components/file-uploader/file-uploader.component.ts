@@ -29,7 +29,7 @@ export class FileUploaderComponent implements OnInit {
   previewUrls: (string | ArrayBuffer | null)[] = [];
   isUploading = false;
   uploadProgress: number[] = [];
-  @Output() uploadSuccess = new EventEmitter<string[]>();
+  @Output() uploadSuccess = new EventEmitter<true>();
 
   constructor(
     private http: HttpClient,
@@ -39,7 +39,7 @@ export class FileUploaderComponent implements OnInit {
 
   ngOnInit(): void {
     // Load sample images for testing CSS
-    // this.loadSampleImages();
+    this.loadSampleImages();
   }
 
   loadSampleImages(): void {
@@ -117,23 +117,70 @@ export class FileUploaderComponent implements OnInit {
     });
   }
 
+  // Add this method to your component class
+  
+  getProgressBackground(index: number, progress: number): string {
+    // Calculate the progress percentage for conic gradient
+    const progressPercentage = `${progress}%`;
+    
+    // Return different gradient based on view type
+    if (this.view_type === 'axial') {
+      return `conic-gradient(#00fff0 ${progressPercentage}, transparent ${progressPercentage})`;
+    } else if (this.view_type === 'coronal') {
+      return `conic-gradient(#ff8ae2 ${progressPercentage}, transparent ${progressPercentage})`;
+    } else if (this.view_type === 'sagittal') {
+      return `conic-gradient(#38bdf8 ${progressPercentage}, transparent ${progressPercentage})`;
+    }
+    
+    // Default gradient
+    return `conic-gradient(var(--blue) ${progressPercentage}, transparent ${progressPercentage})`;
+  }
+  
+  // Modify the uploadFiles method to simulate progress
+  // Since your current implementation doesn't actually track real progress
+  // This simulates progress for demonstration purposes
+  
   uploadFiles(): void {
     if (this.selectedFiles.length === 0) {
       this.toastr.error('Please select files first.');
       return;
     }
-
+  
     this.isUploading = true;
     this.uploadProgress = new Array(this.selectedFiles.length).fill(0);
-
-
-    const uploadPromises: Promise<any>[] = [];
-    const successfulUploads: string[] = [];
-
+  
+    // Simulate upload progress for each file
     this.selectedFiles.forEach((file, index) => {
-      const fileExtension = this.getFileExtension(file);
-      const mriscan: MriScan = {
-        imageFile: file,
+      const simulateProgress = setInterval(() => {
+        if (this.uploadProgress[index] < 100) {
+          this.uploadProgress[index] += Math.floor(Math.random() * 10) + 1;
+          if (this.uploadProgress[index] > 100) {
+            this.uploadProgress[index] = 100;
+          }
+        } else {
+          clearInterval(simulateProgress);
+          
+          // When all files reach 100%, complete the upload process
+          if (this.uploadProgress.every(progress => progress === 100)) {
+            // Process the actual upload logic
+            this.completeUpload();
+          }
+        }
+      }, 300);
+    });
+  }
+  
+  // Add this method to handle the completion of uploads
+  completeUpload(): void {
+    const file = this.selectedFiles[0];
+    const fileExtension = this.getFileExtension(file);
+  
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64Image = reader.result as string;
+  
+      const mriscan = {
+        base64Image,
         metadata: {
           name: '',
           age: 22,
@@ -143,17 +190,21 @@ export class FileUploaderComponent implements OnInit {
           fileType: fileExtension as 'jpg' | 'jpeg' | 'png' | 'dicom',
         },
       };
-
-      // Use a unique key for each file
+  
       const uniqueKey = `mriscan_${file.name}_${Date.now()}`;
       localStorage.setItem(uniqueKey, JSON.stringify(mriscan));
-      console.log(localStorage.getItem(uniqueKey));
-      
-      
-
-    });
-
+  
+      // Finish UI workflow
+      setTimeout(() => {
+        this.uploadSuccess.emit(true);
+        this.toastr.success('Files uploaded successfully');
+        setTimeout(() => this.resetUpload(), 1500);
+      }, 500);
+    };
+  
+    reader.readAsDataURL(file);
   }
+  
 
   resetUpload(): void {
     this.selectedFiles = [];

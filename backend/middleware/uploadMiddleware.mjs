@@ -16,9 +16,15 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const upload = multer({ storage,fileFilter }).fields([
-  { name: 'scan', maxCount: 1 }, // Field name is 'file'
-  { name: 'metadata', maxCount: 1 }, // Field name is 'metadata'
-]);;
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
+}).fields([
+  { name: 'scan', maxCount: 1 },  // For single scan uploads
+  { name: 'sagittal', maxCount: 15 },  // For sagittal view
+  { name: 'coronal', maxCount: 15 },  // For coronal view
+  { name: 'axial', maxCount: 15 }     // For axial view
+]);
+
 
 export default upload;
