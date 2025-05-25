@@ -19,17 +19,19 @@ export class FileUploaderComponent implements OnInit {
     '/assets/sample/1.png',
     '/assets/sample/2.png',
     'assets/sample/3.png',
-    'assets/sample/4.png',
-    'assets/sample/5.png',
-    'assets/sample/6.png',
-    'assets/sample/7.png',
+    // 'assets/sample/4.png',
+    // 'assets/sample/5.png',
+    // 'assets/sample/6.png',
+    // 'assets/sample/7.png',
   ];
   @Input() view_type!: string;
   save = false;
   previewUrls: (string | ArrayBuffer | null)[] = [];
   isUploading = false;
   uploadProgress: number[] = [];
-  @Output() uploadSuccess = new EventEmitter<true>();
+  uploadFinished: boolean = false;
+  uploadStarted: boolean = false;
+  @Output() uploadSuccess = new EventEmitter<string>();
 
   constructor(
     private http: HttpClient,
@@ -39,7 +41,8 @@ export class FileUploaderComponent implements OnInit {
 
   ngOnInit(): void {
     // Load sample images for testing CSS
-    this.loadSampleImages();
+    // this.loadSampleImages();
+
   }
 
   loadSampleImages(): void {
@@ -111,7 +114,9 @@ export class FileUploaderComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         const fileData = reader.result;
-        localStorage.setItem(`file_${index}`, fileData as string);
+        // Use view_type as part of the key
+        localStorage.setItem(`${this.view_type}_file_${index}`, fileData as string);
+        console.log(`${this.view_type}_file_${index}`);
       };
       reader.readAsDataURL(file);
     });
@@ -122,7 +127,6 @@ export class FileUploaderComponent implements OnInit {
   getProgressBackground(index: number, progress: number): string {
     // Calculate the progress percentage for conic gradient
     const progressPercentage = `${progress}%`;
-    
     // Return different gradient based on view type
     if (this.view_type === 'axial') {
       return `conic-gradient(#00fff0 ${progressPercentage}, transparent ${progressPercentage})`;
@@ -145,7 +149,7 @@ export class FileUploaderComponent implements OnInit {
       this.toastr.error('Please select files first.');
       return;
     }
-  
+    this.uploadStarted = true;
     this.isUploading = true;
     this.uploadProgress = new Array(this.selectedFiles.length).fill(0);
   
@@ -172,38 +176,48 @@ export class FileUploaderComponent implements OnInit {
   
   // Add this method to handle the completion of uploads
   completeUpload(): void {
-    const file = this.selectedFiles[0];
-    const fileExtension = this.getFileExtension(file);
+    
+    this.uploadFinished = true;
   
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64Image = reader.result as string;
+    const fileReaders: Promise<void>[] = this.selectedFiles.map(file => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
   
-      const mriscan = {
-        base64Image,
-        metadata: {
-          name: '',
-          age: 22,
-          gender: 'Male',
-          type: 'MRI',
-          view_type: this.view_type,
-          fileType: fileExtension as 'jpg' | 'jpeg' | 'png' | 'dicom',
-        },
-      };
+        reader.onload = () => {
+          const base64Image = reader.result as string;
+
+          const mriscan = { base64Image };
   
-      const uniqueKey = `mriscan_${file.name}_${Date.now()}`;
-      localStorage.setItem(uniqueKey, JSON.stringify(mriscan));
+          const uniqueKey = `${this.view_type}_${file.name}_${Date.now()}`;
   
+          try {
+            localStorage.setItem(uniqueKey, JSON.stringify(mriscan));
+          } catch (e) {
+            console.error(`Failed to save ${file.name} in localStorage`, e);
+          }
+  
+          resolve();
+        };
+  
+        reader.onerror = () => {
+          console.error(`Error reading file: ${file.name}`);
+          reject();
+        };
+  
+        reader.readAsDataURL(file);
+      });
+    });
+  
+    Promise.all(fileReaders).then(() => {
       // Finish UI workflow
       setTimeout(() => {
-        this.uploadSuccess.emit(true);
+        this.uploadSuccess.emit(this.view_type);
         this.toastr.success('Files uploaded successfully');
         setTimeout(() => this.resetUpload(), 1500);
       }, 500);
-    };
-  
-    reader.readAsDataURL(file);
+    });
   }
+  
   
 
   resetUpload(): void {

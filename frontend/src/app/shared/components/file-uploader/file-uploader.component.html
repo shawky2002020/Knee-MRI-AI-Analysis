@@ -27,7 +27,9 @@
           <p class="view-sub" *ngIf="view_type == 'sagittal'">Side View </p>
           <p class="view-sub" *ngIf="view_type == 'coronal'">Front View </p>
         </div>
-        <button class="choose-btn" (click)="fileInput.click()" > Choose files</button>
+        <i *ngIf="uploadFinished"  class="fa fa-check-circle"></i>
+
+        <button *ngIf="!uploadFinished && !uploadStarted" class="choose-btn" (click)="fileInput.click()" > Choose files</button>
       </div>
       
       <!-- <div class="drop-zone" 

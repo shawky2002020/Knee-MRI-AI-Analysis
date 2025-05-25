@@ -16,22 +16,7 @@ const ScanMetadataSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
-  type: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  view_type: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  fileType: {
-    type: String,
-    enum: ['dicom', 'jpeg', 'png', 'jpg'],
-    required: true,
-    lowercase: true
-  },
+
   viewed: {
     type: Boolean,
     default: false

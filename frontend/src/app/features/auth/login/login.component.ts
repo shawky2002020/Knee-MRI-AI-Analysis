@@ -59,19 +59,27 @@ export class LoginComponent implements AfterViewInit {
   }
 
   onSubmit() {
+    const loginBtn = document.querySelector('.login-btn');
     if (this.loginForm.valid) {
-      const loginBtn = document.querySelector('.login-btn');
       loginBtn?.classList.add('loading');
       this.userService.login(this.loginForm.value).subscribe({
         next:(res)=>{
           this.router.navigateByUrl('app/dashboard');
+          loginBtn?.classList.remove('loading');
           this.toast.clear()
           this.toast.success(`hello ${res.user.name}`)
         },
+        error:(err)=>{
+          console.log(err);
+          loginBtn?.classList.remove('loading');
+          this.toast.error(err.error.message)
+        }
        
       });
     } else {
       console.log('Form is invalid');
+      loginBtn?.classList.remove('loading');
+
     }
   }
 }

@@ -111,33 +111,24 @@ export const process_Multi_View_Mri = async (req, res) => {
     // Process sagittal files
     for (const file of sagittalFiles) {
       const base64Data = file.buffer.toString("base64");
-      requestData.sagittal.push({
-        file: base64Data,
-        file_type: file.mimetype
-      });
+      requestData.sagittal.push(base64Data);
     }
     
     // Process coronal files
     for (const file of coronalFiles) {
       const base64Data = file.buffer.toString("base64");
-      requestData.coronal.push({
-        file: base64Data,
-        file_type: file.mimetype
-      });
+      requestData.coronal.push(base64Data);
     }
     
     // Process axial files
     for (const file of axialFiles) {
       const base64Data = file.buffer.toString("base64");
-      requestData.axial.push({
-        file: base64Data,
-        file_type: file.mimetype
-      });
+      requestData.axial.push(base64Data);
     }
     
     // Send data to AI model API endpoint
     const modelResponse = await fetch(
-      `${process.env.BASE_AI_URL}/process_multi_view_mri`,
+      `${process.env.BASE_AI_URL}/process_multiview_mri`,
       {
         method: "POST",
         body: JSON.stringify(requestData),

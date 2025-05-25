@@ -83,16 +83,24 @@ export class RegisterComponent implements AfterViewInit {
   }
 
   onSubmit() {
+    const registerBtn = document.querySelector('.register-btn');
     if (this.registerForm.valid) {
+      registerBtn?.classList.add('loading');
       this.userService.register(this.registerForm.value).subscribe({
         next : (res)=>{
           this.toast.success(`Hello ${this.user.name}`)
           this.router.navigateByUrl('app/dashboard');
+          registerBtn?.classList.remove('loading');
 
+        },
+        error:(err)=>{
+          registerBtn?.classList.remove('loading');
+          this.toast.error(err.error.message)
         }
       })
     }
     else{
+      registerBtn?.classList.remove('loading');
       console.log('form is invalid');
       
     }

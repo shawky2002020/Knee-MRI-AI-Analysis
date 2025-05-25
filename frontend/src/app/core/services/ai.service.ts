@@ -35,6 +35,9 @@ export class AiService {
       }
       
     });
+    console.log('sagital',sagittalScans);
+    console.log('axial',axialScans);
+    console.log('coronal',coronalScans);
     
     
     // Add sagittal scans to form
