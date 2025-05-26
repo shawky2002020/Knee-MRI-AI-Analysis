@@ -50,7 +50,9 @@
                 </select>
         </div>
         </div>
-        <button type="submit" class="submit-btn" [disabled]="!userForm.valid">Continue</button>
+        <button type="submit" class="submit-btn" [disabled]="!userForm.valid">
+            <!-- <app-loader  [shade]="true" [spinner]="true"></app-loader> -->
+            Continue</button>
     </form>
 
     <app-upload  [metadata]="metadata" *ngIf="showUpload"></app-upload>

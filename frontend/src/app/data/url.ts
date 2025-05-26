@@ -7,7 +7,6 @@ export const USERS_LOGIN = USERS_BASE + '/login';
 
 //Mri-Scan urls
 export const MRI_BASE = BASEURL + '/v1/mri';
-export const MRI_GET_SCANS_BY_ID = MRI_BASE + '/status';
 export const MRI_GET_SCANS = MRI_BASE + '/scans';
 export const MRI_GET_SCANS_BY_STATUS = MRI_BASE + '/status';
 export const MRI_VIEWED = MRI_BASE + '/viewed';

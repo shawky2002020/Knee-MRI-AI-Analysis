@@ -7,4 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class LoaderComponent {
 @Input() shade: boolean = false;
+@Input() spinner: boolean = false;
+@Input() loader: boolean = false;
 }

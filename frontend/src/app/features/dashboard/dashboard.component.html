@@ -1,5 +1,4 @@
-<div class="page-light">
-  <div class="dashboard">
+<div class="dashboard">
     <!-- <img class="bg" src="/assets/cover/whitebg.webp" alt="bg" #bgEl>  -->
     <!-- <img class="bg" src="/assets/dark/hand.png" alt="bg" #bgEl>  -->
 
@@ -14,8 +13,10 @@
           <p><strong>Active</strong></p>
         </div>
         <div class="card patients" #card>
-          <h3>Patients</h3>
-          <p>120</p>
+          <h3>Scans</h3>
+          <p>
+            {{totalScans}}
+          </p>
         </div>
         <div class="card reports">
           <h3>Reports</h3>
@@ -23,14 +24,27 @@
         </div>
       </section>
 
-      <section class="recent-analysis" #recentEl>
+      <section *ngIf="!latestScans.length && !loading" class="recent-analysis empty-state" #recentEl>
+        <div class="empty-icon">
+          <svg width="64" height="64" fill="none" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="30" fill="#f3f4f6"/>
+            <path d="M20 40c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#a3a3a3" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="32" cy="28" r="4" fill="#a3a3a3"/>
+          </svg>
+        </div>
+        <h2>No Recent MRI Scans</h2>
+        <p class="empty-message">You haven't uploaded or analyzed any MRI scans yet.<br>Start by uploading a new scan to see results here.</p>
+      </section>
+      <app-loader *ngIf="!latestScans.length"></app-loader>
+      <section *ngIf="latestScans.length" class="recent-analysis" #recentEl>
         <h2>Recent MRI Scans</h2>
-        <ul>
-          <li>Patient #1045 - <span> ACL Tear Detected </span></li>
-          <li>Patient #1046 - <span>No Issues Found </span></li>
-          <li>Patient #1047 - <span>Possible Meniscus Tear</span></li>
+        <ul *ngFor="let scan of latestScans">
+          <li>
+            <strong class="scan-id">#{{scan._id}}</strong> - 
+            <span class="scan-name">{{scan.metadata.name}}</span> - 
+            <span class="scan-status">{{scan.result.status}}</span>
+          </li>
         </ul>
       </section>
     </main>
   </div>
-</div>

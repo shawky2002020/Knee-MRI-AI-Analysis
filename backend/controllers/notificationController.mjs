@@ -1,8 +1,9 @@
 import notification from "../models/notifications.mjs";
 import { io } from '../config/serverConfig.mjs';
 export const getAllNotifications = async (req, res) => {
+  const id = req.user.id;
   try {
-    const notifications = await notification.find().sort({ createdAt: -1 });
+    const notifications = await notification.find({userID:id}).sort({ createdAt: -1 });
     res.status(200).json(notifications);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -10,9 +11,10 @@ export const getAllNotifications = async (req, res) => {
 };
 
 export const createNotification = async (req, res) => {
+  const id = req.user.id;
   const newNotification = new notification(req.body);
   try {
-    newNotification.userID = req.user.id;
+    newNotification.userID = id;
     await newNotification.save();
     res.status(201).json(newNotification);
     io.emit('notification', newNotification);

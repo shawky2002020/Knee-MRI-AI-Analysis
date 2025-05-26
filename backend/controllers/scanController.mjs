@@ -59,14 +59,15 @@ export const getScanById = async (req, res) => {
     }
     const timeFilter = helpers.getTimeFilter(req.query.timeRange);
     const filter = { userId: id, _id: scanId, ...timeFilter };
-
+    console.log(scanId);
+    
     const scan = await MriScan.findOne(filter);
 
     if (!scan) {
       return res.status(404).json({ message: "Scan not found" });
     }
 
-    res.status(200).json({ scan });
+    res.status(200).json(scan );
   }
   catch (error) {
     res.status(400).json({ message: "Failed to fetch scan", err: error.message });

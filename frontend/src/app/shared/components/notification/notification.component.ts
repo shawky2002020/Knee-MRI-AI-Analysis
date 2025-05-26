@@ -28,7 +28,9 @@ export class NotificationComponent implements OnInit, OnChanges ,AfterViewInit {
     private scansService:MriScanService
   ) {}
   ngAfterViewInit(): void {
-    
+    document.querySelector('.outside')?.addEventListener('click',()=>{
+      this.closeNotificationView();
+    })
   }
   ngOnInit(): void {
     
@@ -45,7 +47,7 @@ export class NotificationComponent implements OnInit, OnChanges ,AfterViewInit {
       error: (err) => {
         this.loading =false;
         
-        this.toast.error(err.error.message);
+        this.toast.error('Try again later','Notifications Loading Failed');
       }
      
       
@@ -125,19 +127,16 @@ export class NotificationComponent implements OnInit, OnChanges ,AfterViewInit {
 
 
 
-  viewDetails(scanId:string){
-    this.scansService.getScanById(scanId).subscribe({
-      next: (res) => {
-        this.scansService.updateMriScan(res);
-      },
-      error: (err) => {
-        this.toast.error(err.error.message);
-      }
-    })
-    this.scansService.viewed(scanId).subscribe({
-     next: (res:MriDiagnosticResponse) => {
-      this.toast.success('Successfully viewed');
-     }, 
-    })
-  }
+  viewDetails(notification?:NotificationSchema){
+    if (notification?.reportID) {
+      
+    
+      this.scansService.getScanById(notification.reportID).subscribe({
+        next: (res: MriDiagnosticResponse) => {
+          this.scansService.updateMriScan(res);
+          this.toast.success('Successfully viewed');
+        },
+      });
+     }
+}
 }

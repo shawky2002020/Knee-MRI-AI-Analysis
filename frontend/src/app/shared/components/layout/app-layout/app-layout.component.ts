@@ -7,7 +7,7 @@ import { NotificationService } from '../../../../core/services/notification.serv
   styleUrl: './app-layout.component.css'
 })
 export class AppLayoutComponent implements OnInit {
-  showNotificationsMenu: boolean = true;
+  showNotificationsMenu: boolean = false;
   @Input() title: string = '';
   notificationCount !: number ;
   constructor(private notificationService : NotificationService){

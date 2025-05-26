@@ -88,7 +88,7 @@
 
 .notification-message {
   font-size: 1rem;
-  color: #b3b8d0;
+  color: #666;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -145,10 +145,10 @@
 .read-btn {
   width: 30%;
   height: 36px;
-  border-radius: .3rem 1rem .3rem 1rem;
+  border-radius: .3rem 14px .3rem 14px;
   position: absolute;
-  right: 0;
-  top: 0;
+  right: -1px;
+  top: -1px;
   border: none;
   overflow: hidden;
   text-transform: capitalize;
@@ -193,6 +193,19 @@
 
 .read-btn.read::after {
   transform: translateY(0);
+}
+
+.view-report{
+  text-decoration: underline;
+  color: #fff;
+  margin: 0 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+.view-report:hover{
+  color: #b3b8d0;
 }
 
 @media (max-width: 700px) {
@@ -266,18 +279,36 @@
   opacity: 0.9;
 }
 .notification-success {
-  border-left: 5px solid #4ade80;
-  background: linear-gradient(135deg, #232526 0%, #2ecc40 100%);
+  border-left: 5px solid #a3f7bf;
+  background: linear-gradient(135deg, #1f1c2c, #9cfbc9, #6ae1f7, #d5aaff);
+  background-size: 400% 400%;
+  animation: holographicShift 6s ease infinite;
 }
+
 .notification-error {
-  border-left: 5px solid #ff6b6b;
-  background: linear-gradient(135deg, #232526 0%, #ff4e50 100%);
+  border-left: 5px solid #ff9aa2;
+  background: linear-gradient(135deg, #2c1f2b, #ff6ec7, #ffb6b9, #ffd3a5);
+  background-size: 400% 400%;
+  animation: holographicShift 6s ease infinite;
 }
+
 .notification-info {
-  border-left: 5px solid #38bdf8;
-  background: linear-gradient(135deg, #232526 0%, #38bdf8 100%);
+  border-left: 5px solid #a0e7e5;
+  background: linear-gradient(135deg, #1c2b2f, #a0e7e5, #b4f8c8, #fbe7c6);
+  background-size: 400% 400%;
+  animation: holographicShift 6s ease infinite;
 }
+
 .notification-warning {
-  border-left: 5px solid #facc15;
-  background: linear-gradient(135deg, #232526 0%, #facc15 100%);
+  border-left: 5px solid #ffe066;
+  background: linear-gradient(135deg, #2c291f, #ffe066, #ffb347, #ffccff);
+  background-size: 400% 400%;
+  animation: holographicShift 6s ease infinite;
+}
+
+/* Optional animation for shimmer effect */
+@keyframes holographicShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }

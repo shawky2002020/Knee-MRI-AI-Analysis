@@ -210,10 +210,7 @@ export class UploadComponent implements AfterViewInit {
     // Implement the logic to submit scans to the server
     this.aiService.processMRI(scans).subscribe(
       {
-        
-        next:(res)=>{
-    
-      },
+      
       error:(err)=>{
         console.log(err);
         this.toastr.error('Error submitting scans.');

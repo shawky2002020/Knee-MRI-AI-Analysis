@@ -3,7 +3,7 @@
   <app-header [title]=" 'Report' "></app-header>
   <head class="header">
     <div class="title">
-      <h1>Scan Report</h1>
+      <h1>{{DiagnosticResult.metadata.name}}</h1>
     </div>
     <div class="actions">
       <button (click)="downloadReport()" class="download">Download PDF</button>

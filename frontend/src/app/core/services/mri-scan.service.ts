@@ -27,7 +27,10 @@ export class MriScanService {
   public mriScan$ = this.mriScanSubject.asObservable();
 
   updateMriScan(scan: MriDiagnosticResponse) {
+    console.log('scan updated', scan);
+    
     this.mriScanSubject.next(scan);
+    
     localStorage.setItem('diagnosticResult', JSON.stringify(scan));
     this.router.navigate(['/app/mri/report']);
   }
@@ -37,7 +40,8 @@ export class MriScanService {
   }
 
   getScanById(scanId:string):Observable<MriDiagnosticResponse>{
-    return this.http.get<MriDiagnosticResponse>(url.MRI_GET_SCANS_BY_ID + '/' + scanId)
+    
+    return this.http.get<MriDiagnosticResponse>(url.MRI_BASE + '/' + scanId)
   }
 
   getScans(

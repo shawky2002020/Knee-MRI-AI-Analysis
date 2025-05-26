@@ -11,6 +11,7 @@ router.post("/upload",upload,AIController.process_Mri );
 router.post("/upload-multi-view", upload, AIController.process_Multi_View_Mri);
 
 router.get("/scans", scanHistoryController.getAllScans);
+router.get("/:scanId", scanHistoryController.getScanById);
 router.delete("/delete/:scanId", scanHistoryController.deleteMri);
 
 

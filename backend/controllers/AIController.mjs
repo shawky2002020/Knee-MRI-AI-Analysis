@@ -166,10 +166,9 @@ export const process_Multi_View_Mri = async (req, res) => {
     await newMri.save();
     console.log(newMri);
     
-    res.json({ 
-      message: "Multi-view MRI scans processed and saved successfully", 
-      mri: newMri 
-    });
+    res.json(
+      newMri
+    );
     
   } catch (error) {
     console.error("Multi-view upload error:", error);

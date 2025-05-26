@@ -21,6 +21,10 @@ const notificationSchema = new Schema({
     required: true,
     default: false,
   },
+  reportID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "reports",
+  },
   createdAt: {
     type: Date,
     required: true,

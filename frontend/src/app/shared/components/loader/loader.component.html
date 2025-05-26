@@ -1,7 +1,15 @@
 <!-- From Uiverse.io by ashish-yadv --> 
-<div class="loader">
+<div *ngIf="loader" class="loader">
     <li class="ball"></li>
     <li class="ball"></li>
     <li class="ball"></li>
   </div>
   <div *ngIf="shade" class="shade"></div>
+
+  <!-- From Uiverse.io by xXJollyHAKERXx --> 
+<div *ngIf="spinner" class="loader-btn">
+  <li class="ball"></li>
+  <li class="ball"></li>
+  <li class="ball"></li>
+</div>
+

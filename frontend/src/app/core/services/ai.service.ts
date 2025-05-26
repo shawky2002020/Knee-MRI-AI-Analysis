@@ -87,14 +87,23 @@ export class AiService {
           } else if (event.type === HttpEventType.Response) {
             // Ensure the response matches the schema
             const response = event.body as MriDiagnosticResponse;
+            console.log(response);
+            
             if (response && response._id) {
               const notifi: NotificationSchema = {
                 title: 'Analysis Done',
-                message: 'Ai is processing the mri',
+                message: 'Your report is ready',
                 type: 'success',
                 reportID: response._id,
               };
-              this.notificationService.addNotification(notifi);
+              this.notificationService.addNotification(notifi).subscribe({
+                next:(res)=>{
+                  console.log(res);
+                },
+                error:(err)=>{
+                  console.log(err);
+                }
+              });
               this.toast.success('Check your reports now', 'Analysis Done');
             } else {
               this.toast.error('Failed to process MRI scans.');
