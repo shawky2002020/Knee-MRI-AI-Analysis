@@ -7,6 +7,6 @@ router.get("/all",notificationController.getAllNotifications );
 router.get("/count",notificationController.getNotificationCount );
 router.post("/add",notificationController.createNotification );
 router.delete("/delete/:id",notificationController.deleteNotification );
-router.delete("/deleteAll/:userID",notificationController.deleteAll );
+router.delete("/deleteAll",notificationController.deleteAll );
 
 export default router;

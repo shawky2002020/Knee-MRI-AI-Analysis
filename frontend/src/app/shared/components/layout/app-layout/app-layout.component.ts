@@ -7,7 +7,7 @@ import { NotificationService } from '../../../../core/services/notification.serv
   styleUrl: './app-layout.component.css'
 })
 export class AppLayoutComponent implements OnInit {
-  showNotificationsMenu: boolean = false;
+  showNotificationsMenu: boolean = true;
   @Input() title: string = '';
   notificationCount !: number ;
   constructor(private notificationService : NotificationService){
@@ -32,5 +32,7 @@ this.notificationService.onNotification((data)=>{
   handelReadEmitter(){
     this.notificationCount--;
   }
-
+  handleReadAll(){
+    this.notificationCount =0;
+  }
 }

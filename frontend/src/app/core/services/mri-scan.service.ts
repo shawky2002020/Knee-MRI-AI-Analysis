@@ -35,6 +35,11 @@ export class MriScanService {
   getMriScan(): MriDiagnosticResponse {
     return this.mriScanSubject.value;
   }
+
+  getScanById(scanId:string):Observable<MriDiagnosticResponse>{
+    return this.http.get<MriDiagnosticResponse>(url.MRI_GET_SCANS_BY_ID + '/' + scanId)
+  }
+
   getScans(
     filters: {
       // Added all fillters here

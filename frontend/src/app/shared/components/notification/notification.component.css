@@ -21,7 +21,7 @@
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  gap: 18px;
+  gap: 12px;
   padding: 2rem 1rem 2.5rem 1rem;
   z-index: 1000 !important;
   box-shadow: -8px 0 32px 0 rgba(0,0,0,0.25);
@@ -30,18 +30,19 @@
   transform: translateX(100%);
 }
 
+
 .notification {
-  border-radius: 1.5rem;
+  border-radius: 14px;
   width: 92%;
-  min-height: 110px;
+  min-height: 90px;
   display: flex;
   flex-flow: row nowrap;
+  align-items: center;
   color: #e0e7ef;
   background: var(--black-grad);
   backdrop-filter: blur(32px);
   box-shadow: 0 6px 24px 0 rgba(80,88,255,0.08);
-  margin-bottom: 1rem;
-  padding: 1.5rem 1.5rem;
+  padding: .5rem 1.5rem .5rem 1rem;
   border: 1.5px solid rgba(80,88,255,0.18);
   transition: box-shadow 0.2s, border 0.2s;
 }
@@ -56,12 +57,14 @@
   flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
   font-size: 2.2rem;
   margin-right: 1.25rem;
-  color: var(--black-70);
-  background: var(--holographic-secondary);
-  border-radius: 1rem;
+  color: var(--white);
+  background:rgba(0, 0, 0, 0.332);
+  width: 50px;
+  height: 50px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
   box-shadow: 0 2px 8px rgba(127,95,255,0.08);
 }
 
@@ -73,7 +76,6 @@
   align-items: flex-start;
   justify-content: center;
   gap: 8px;
-  padding: 0.5rem 0;
 }
 
 .notification-title {
@@ -91,16 +93,42 @@
   line-height: 1.5;
 }
 
+.notifications-top {
+  width: 100%;
+  display: flex;
+  flex-flow: row-reverse nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.mark-all-btn{
+  height: 40px;
+  border-radius: 4px;
+  background: var(--black-grad);
+  background-size: 100% 200%;
+  background-position: 0% 0%;
+  transition: background-position 0.3s;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--white);
+  padding: 0 1rem;
+  border: none;
+}
+.mark-all-btn:hover{
+  background-position: 0% 100%;
+
+}
+
 .close-view-btn {
-  background: linear-gradient(135deg, #7f5fff 40%, #01cfff 100%);
-  color: #fff;
+  background: var(--white);
+  color: var(--black-70);
   font-size: 1.3rem;
-  padding: 0.85rem;
+  height: 50px;
+  width: 50px;
   border: none;
   aspect-ratio: 1/1;
   border-radius: 50%;
   cursor: pointer;
-  margin-left: auto;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 8px rgba(1,207,255,0.10);
   z-index: 101;
@@ -108,15 +136,15 @@
 
 .close-view-btn:hover,
 .close-view-btn:focus {
-  background: linear-gradient(135deg, #01cfff 40%, #7f5fff 100%);
-  color: #18181b;
+  background: var(--black-70);
+  color: var(--white);
   outline: none;
   box-shadow: 0 4px 16px rgba(1,207,255,0.18);
 }
 
 .read-btn {
   width: 30%;
-  height: 46px;
+  height: 36px;
   border-radius: .3rem 1rem .3rem 1rem;
   position: absolute;
   right: 0;
@@ -126,8 +154,8 @@
   text-transform: capitalize;
   font-size: 1rem;
   font-weight: 500;
-  background: #23272f;
-  color: #7f5fff;
+  background: var(--black-grad);
+  color: var(--white);
   box-shadow: 0 1px 4px rgba(127,95,255,0.08);
   transition: background 0.2s, color 0.2s;
 }
@@ -147,15 +175,15 @@
 }
 
 .read-btn::before {
-  background: rgba(127,95,255);
-  color: #fff;
+  background: var(--white);
+  color: var(--black-70);
   transform: translateX(-100%);
 }
 
 .read-btn::after {
   content: "Read ✓";
-  background: linear-gradient(90deg, #01cfff 0%, #7f5fff 100%);
-  color: #fff;
+  background: var(--white);
+  color: var(--black-70);
   transform: translateY(-100%);
 }
 
@@ -236,4 +264,20 @@
   line-height: 1.6;
   margin: 0;
   opacity: 0.9;
+}
+.notification-success {
+  border-left: 5px solid #4ade80;
+  background: linear-gradient(135deg, #232526 0%, #2ecc40 100%);
+}
+.notification-error {
+  border-left: 5px solid #ff6b6b;
+  background: linear-gradient(135deg, #232526 0%, #ff4e50 100%);
+}
+.notification-info {
+  border-left: 5px solid #38bdf8;
+  background: linear-gradient(135deg, #232526 0%, #38bdf8 100%);
+}
+.notification-warning {
+  border-left: 5px solid #facc15;
+  background: linear-gradient(135deg, #232526 0%, #facc15 100%);
 }

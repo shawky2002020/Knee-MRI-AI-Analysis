@@ -45,6 +45,34 @@ export const getAllScans = async (req, res) => {
   }
 };
 
+export const getScanById = async (req, res) => {
+  try {
+    const id = req.user.id;
+    const scanId = req.params.scanId;
+
+    if (!id) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (!scanId) {
+      return res.status(400).json({ message: "Scan ID is required" });
+    }
+    const timeFilter = helpers.getTimeFilter(req.query.timeRange);
+    const filter = { userId: id, _id: scanId, ...timeFilter };
+
+    const scan = await MriScan.findOne(filter);
+
+    if (!scan) {
+      return res.status(404).json({ message: "Scan not found" });
+    }
+
+    res.status(200).json({ scan });
+  }
+  catch (error) {
+    res.status(400).json({ message: "Failed to fetch scan", err: error.message });
+  }
+}
+
 export const getScanByName = async (req, res) => {
   try {
     const id = req.user.id;

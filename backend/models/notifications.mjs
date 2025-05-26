@@ -21,6 +21,11 @@ const notificationSchema = new Schema({
     required: true,
     default: false,
   },
+  createdAt: {
+    type: Date,
+    required: true,
+    default: Date.now,
+  }
 });
 
 const notification = mongoose.model("notifications", notificationSchema);

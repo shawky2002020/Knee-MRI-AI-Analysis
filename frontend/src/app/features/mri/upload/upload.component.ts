@@ -15,6 +15,8 @@ import gsap from 'gsap';
 import { MriScanService } from '../../../core/services/mri-scan.service';
 import { AiService } from '../../../core/services/ai.service';
 import { MetaData, MriScan } from '../../../core/models/mri-scan.model';
+import { NotificationService } from '../../../core/services/notification.service';
+import { NotificationSchema } from '../../../core/models/notification.model';
 
 @Component({
   selector: 'app-upload',
@@ -37,7 +39,8 @@ export class UploadComponent implements AfterViewInit {
   allUploaded = false;
   constructor(
     private toastr : ToastrService,
-    private aiService : AiService
+    private aiService : AiService,
+    private notificationService:NotificationService
   ){
     // Clear any previously stored MRI scans from localStorage
     localStorage.clear();
@@ -65,7 +68,7 @@ export class UploadComponent implements AfterViewInit {
 
     this.uploadedTypes[event as keyof typeof this.uploadedTypes] = true;
     this.checkAllTypesUploaded();
-    this.toastr.success(`${event} Files uploaded successfully`.toUpperCase());
+    this.toastr.success(event.toUpperCase() , 'Files selected successfully');
     
   }
   checkAllTypesUploaded(){
@@ -198,20 +201,18 @@ export class UploadComponent implements AfterViewInit {
 
   submitFiles(): void {
     const scans = this.retrieveScansFromLocalStorage();
-    console.log('scans',scans);
     
     if (scans.length === 0) {
-      this.toastr.error('No scans to submit.');
+      this.toastr.error('No scans to submit');
       return;
     }
-    this.toastr.info('Submitting scans...');
+    this.toastr.info('We will notify you when analysis is done', 'Processing Scans');
     // Implement the logic to submit scans to the server
     this.aiService.processMRI(scans).subscribe(
       {
         
         next:(res)=>{
-        console.log(res);
-        this.toastr.success('Scans submitted successfully.');
+    
       },
       error:(err)=>{
         console.log(err);

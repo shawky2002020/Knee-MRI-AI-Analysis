@@ -2,7 +2,7 @@ import notification from "../models/notifications.mjs";
 import { io } from '../config/serverConfig.mjs';
 export const getAllNotifications = async (req, res) => {
   try {
-    const notifications = await notification.find();
+    const notifications = await notification.find().sort({ createdAt: -1 });
     res.status(200).json(notifications);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -43,7 +43,7 @@ export const deleteNotification = async (req, res) => {
 };
 
 export const deleteAll = async (req, res) => {
-  const { userID } = req.params;
+  const userID = req.user.id
   try {
     await notification.deleteMany({ userID });
     res.status(200).json({ message: "Notification deleted successfully." });

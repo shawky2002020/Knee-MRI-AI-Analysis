@@ -67,8 +67,8 @@ export class NotificationService {
       })
     );
   }
-deleteAllNotifications(userID: string): Observable<any> {
-  return this.http.delete<any>(`${url.NOTIFICATIONS_DELETE_ALL}/${userID}`).pipe(
+  deleteAllNotifications(): Observable<any> {
+  return this.http.delete<any>(url.NOTIFICATIONS_DELETE_ALL).pipe(
     tap(() => {
       // Clear all notifications from the subject
       this.notificationSubject.next([]);

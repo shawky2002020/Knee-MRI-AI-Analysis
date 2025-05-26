@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -13,15 +14,22 @@ import { NotificationSchema } from '../../../core/models/notification.model';
 import { NotificationService } from '../../../core/services/notification.service';
 import { gsap } from 'gsap';
 import { ToastrService } from 'ngx-toastr';
+import { MriDiagnosticResponse } from '../../../core/models/ai-result.model';
+import { MriScanService } from '../../../core/services/mri-scan.service';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css',
 })
-export class NotificationComponent implements OnInit, OnChanges {
+export class NotificationComponent implements OnInit, OnChanges ,AfterViewInit {
   loading: boolean = false;
-  constructor(private notificationService: NotificationService,private toast:ToastrService) {}
+  constructor(private notificationService: NotificationService,private toast:ToastrService,
+    private scansService:MriScanService
+  ) {}
+  ngAfterViewInit(): void {
+    
+  }
   ngOnInit(): void {
     
     this.loading =true;
@@ -50,6 +58,7 @@ export class NotificationComponent implements OnInit, OnChanges {
   @Input() isVisible = true; // Property to control visibility
   @Output() VisibleEmitter = new EventEmitter<boolean>();
   @Output() readEmitter = new EventEmitter<boolean>();
+  @Output() readAllEmitter = new EventEmitter<boolean>();
 
   readNotification(index: number): void {
     this.notificationService
@@ -65,6 +74,15 @@ export class NotificationComponent implements OnInit, OnChanges {
       '.notification .read-btn'
     );
     notificationCloseBtns[index].classList.add('read');
+  }
+  readAllNotifications(): void {
+    this.notificationService.deleteAllNotifications().subscribe({
+      next: () => {
+        this.notifications = [];
+        this.notifications = this.notificationService.notifications;
+        this.readAllEmitter.emit(true);
+      },
+    });
   }
 
   closeNotificationView(): void {
@@ -103,5 +121,23 @@ export class NotificationComponent implements OnInit, OnChanges {
         }
       }, 0);
     }
+  }
+
+
+
+  viewDetails(scanId:string){
+    this.scansService.getScanById(scanId).subscribe({
+      next: (res) => {
+        this.scansService.updateMriScan(res);
+      },
+      error: (err) => {
+        this.toast.error(err.error.message);
+      }
+    })
+    this.scansService.viewed(scanId).subscribe({
+     next: (res:MriDiagnosticResponse) => {
+      this.toast.success('Successfully viewed');
+     }, 
+    })
   }
 }

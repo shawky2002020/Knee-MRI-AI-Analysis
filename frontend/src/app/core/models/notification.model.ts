@@ -1,10 +1,11 @@
 export class NotificationSchema {
-    _id?:string;
-    userID!: number;
     title!: string;
     message!: string;
-    read!:boolean;
+    _id?:string;
+    userID?: number;
+    read?:boolean;
     type!: string;
+    reportID?:string;
 }
 
 export const notification:NotificationSchema=
