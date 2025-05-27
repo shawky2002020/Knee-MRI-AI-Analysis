@@ -5,6 +5,8 @@
   overflow: auto;
   display: flex;
   flex-direction: column;
+
+  
   
   .links-wrapper {
     position: absolute;
@@ -29,6 +31,7 @@
   }
   .notification-bell {
     position: relative;
+    z-index: 2;
   }
   
   .notification-count {

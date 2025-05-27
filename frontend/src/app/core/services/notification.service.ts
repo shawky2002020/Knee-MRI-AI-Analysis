@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import * as url from '../../data/url'
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,12 @@ export class NotificationService {
   private notificationSubject: BehaviorSubject<NotificationSchema[]> = new BehaviorSubject<NotificationSchema[]>([]);
   private notification$ = this.notificationSubject.asObservable();
   
-  constructor(private http: HttpClient) {
-    this.socket = io(url.BASEURL);
-    this.getAllNotifications();
+  constructor(private http: HttpClient,private userService:UserService) {
+    
+    this.socket = io(url.BASEURL, {
+      query: { userId: this.userService.currentUser._id }, // Replace with actual user ID
+    });
+        this.getAllNotifications();
   }
   onNotification(callback: (data: any) => void) {
     this.socket.on('notification', callback);
@@ -25,6 +29,9 @@ export class NotificationService {
   }
   onFailure(callback: (data: any) => void) {
     this.socket.on('failed', callback);
+  }
+  onAccessDenied(callback: (data: any) => void) {
+    this.socket.on('access-notification', callback);
   }
   
   getNotificationsCount():Observable<any>{

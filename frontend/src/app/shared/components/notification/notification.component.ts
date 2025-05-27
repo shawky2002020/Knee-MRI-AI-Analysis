@@ -38,7 +38,16 @@ export class NotificationComponent implements OnInit, OnChanges ,AfterViewInit {
     this.notificationService.onNotification((data: any) => {
       this.toast.info('New Notification recieved');
       this.notifications = [data, ...this.notifications];
+      this.newNotifEmitter.emit(true)
     });
+    this.notificationService.onAccessDenied((noti:NotificationSchema)=>{
+      this.toast.error("Contact ACLyze AI for access","Access Denied");
+      console.log(noti);
+      
+      this.notifications = [noti, ...this.notifications];
+      this.newNotifEmitter.emit(true)
+
+    })
     this.notificationService.getAllNotifications().subscribe({
       next: (res) => {
         this.loading =false;
@@ -61,6 +70,7 @@ export class NotificationComponent implements OnInit, OnChanges ,AfterViewInit {
   @Output() VisibleEmitter = new EventEmitter<boolean>();
   @Output() readEmitter = new EventEmitter<boolean>();
   @Output() readAllEmitter = new EventEmitter<boolean>();
+  @Output() newNotifEmitter = new EventEmitter<boolean>();
 
   readNotification(index: number): void {
     this.notificationService

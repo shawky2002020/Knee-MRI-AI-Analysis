@@ -50,4 +50,7 @@ export class AppLayoutComponent implements OnInit,AfterViewInit {
   handleReadAll() {
     this.notificationCount = 0;
   }
+  handleNewNotif(){
+    this.notificationCount++
+  }
 }

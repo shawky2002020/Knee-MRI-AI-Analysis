@@ -5,8 +5,8 @@ header {
   padding: 1rem 2rem;
   backdrop-filter: blur(10px);
   background: rgba(245, 245, 245, 0.7);
-  position: relative;     
-  z-index: 1;             
+  position: relative;   
+  z-index: 1;  
 }
 @media screen and (max-width:1300px) {
   header{
@@ -62,8 +62,8 @@ header {
   gap: 12px;
   align-items: center;
   flex-wrap: wrap;
-  margin: 0 10px;
-  z-index: 1;
+  margin: auto 10px;
+  z-index: 30;
 }
 
 .reset-btn {
@@ -85,13 +85,16 @@ header {
 .custom-dropdown {
   position: relative;
   min-width: 160px;
+  
   user-select: none;
   z-index: 30;             /* <-- Add this */
 }
 .dropdown-selected {
-  padding: 10px 15px;
+  padding: 0 15px;
   border: 1px solid #ddd;
   border-radius: 12px;
+  height: 50px;
+
   background: #fff;
   cursor: pointer;
   font-size: 14px;

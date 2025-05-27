@@ -52,9 +52,7 @@ export class UploadComponent {
     keys.forEach(key => localStorage.removeItem(key));
   }
   ngOnInit(): void {
-    this.notificationService.onFailure((data:string)=>{
-      this.toastr.error(data)
-    })
+    
   }
   
   ngAfterViewInit(): void {
@@ -261,7 +259,8 @@ export class UploadComponent {
         this.loading=false;
         this.isSubmitting=false;
         console.log(err);
-        this.toastr.error('Try again later','ACLyze AI is currently down');
+      
+        this.toastr.error("AI Analysis failed");
       }
     }
     );

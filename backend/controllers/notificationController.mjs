@@ -1,5 +1,6 @@
 import notification from "../models/notifications.mjs";
 import { io } from '../config/serverConfig.mjs';
+import {notifyUser} from "../services/notificationService.mjs"
 export const getAllNotifications = async (req, res) => {
   const id = req.user.id;
   try {

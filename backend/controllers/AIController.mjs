@@ -1,7 +1,10 @@
 import MriScan from "../models/MriScan.mjs";
+import User from "../models/User.mjs";
 import dotenv from "dotenv";
 import FormData from "form-data";
-
+import { io } from "../config/serverConfig.mjs";
+import  {notifyUser ,Notification } from "../services/notificationService.mjs";
+import notification from "../models/notifications.mjs";
 
 // Configure dotenv to load environment variables
 dotenv.config();
@@ -78,55 +81,71 @@ export const process_Multi_View_Mri = async (req, res) => {
   try {
     const id = req.user.id;
     let { metadata } = req.body;
-    
+    const user = await User.findOne({ _id: id });
+    if (!user.aiAccess) {
+      const newNoti = new Notification({
+        "title": "Access Denied",
+        "message": "Please Contact the ACLyze AI for access",
+        "type": "error",
+      });
+       notifyUser(id,'access-notification',newNoti);
+      res.status(402).json({ message: "Access Denied" });
+      return;
+    }
     // Check if files exist in the request
     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).json({ message: "No files uploaded" });
     }
-    
+
     // Check if metadata exists
     if (!metadata) {
       return res.status(400).json({ message: "No MetaData inserted" });
     }
-    
+
     metadata = JSON.parse(metadata); // Parse metadata from request body
-    
+
     // Initialize view type arrays
     const sagittalFiles = req.files["sagittal"] || [];
     const coronalFiles = req.files["coronal"] || [];
     const axialFiles = req.files["axial"] || [];
-    
+
     // Check if at least one file is uploaded for any view
-    if (sagittalFiles.length === 0 && coronalFiles.length === 0 && axialFiles.length === 0) {
-      return res.status(400).json({ message: "No files uploaded for any view" });
+    if (
+      sagittalFiles.length === 0 &&
+      coronalFiles.length === 0 &&
+      axialFiles.length === 0
+    ) {
+      return res
+        .status(400)
+        .json({ message: "No files uploaded for any view" });
     }
-    
+
     // Prepare data structure for AI model
     const requestData = {
       sagittal: [],
       coronal: [],
       axial: [],
-      user_id: id.toString()
+      user_id: id.toString(),
     };
-    
+
     // Process sagittal files
     for (const file of sagittalFiles) {
       const base64Data = file.buffer.toString("base64");
       requestData.sagittal.push(base64Data);
     }
-    
+
     // Process coronal files
     for (const file of coronalFiles) {
       const base64Data = file.buffer.toString("base64");
       requestData.coronal.push(base64Data);
     }
-    
+
     // Process axial files
     for (const file of axialFiles) {
       const base64Data = file.buffer.toString("base64");
       requestData.axial.push(base64Data);
     }
-    
+
     // Send data to AI model API endpoint
     const modelResponse = await fetch(
       `${process.env.BASE_AI_URL}/process_multiview_mri`,
@@ -138,7 +157,7 @@ export const process_Multi_View_Mri = async (req, res) => {
         },
       }
     );
-    
+
     // Enhanced error handling
     if (!modelResponse.ok) {
       const errorText = await modelResponse.text();
@@ -151,9 +170,9 @@ export const process_Multi_View_Mri = async (req, res) => {
         `AI model processing failed: ${modelResponse.status} ${modelResponse.statusText}. Details: ${errorText}`
       );
     }
-    
+
     const aiResults = await modelResponse.json();
-    
+
     // Create new MRI scan record
     const newMri = await new MriScan({
       userId: id,
@@ -163,17 +182,15 @@ export const process_Multi_View_Mri = async (req, res) => {
       mri_scan: aiResults.mri_scan,
       heat_map: aiResults.heat_map,
     });
-    
+
     await newMri.save();
     console.log(newMri);
-    
-    res.json(
-      newMri
-    );
-    
+
+    res.json(newMri);
   } catch (error) {
     console.error("Multi-view upload error:", error);
-    res.status(500).json({ message: "Multi-view upload failed", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Multi-view upload failed", error: error.message });
   }
 };
-
