@@ -64,7 +64,7 @@ export class MriScanService {
     return this.http.get<ScanResponse>(url.MRI_GET_SCANS, { params });
   }
 
-  viewed(scanId: string): Observable<MriDiagnosticResponse> {
+  viewScan(scanId: string): Observable<MriDiagnosticResponse> {
     return this.http
       .patch<MriDiagnosticResponse>(url.MRI_VIEWED + '/' + scanId, {})
       .pipe(

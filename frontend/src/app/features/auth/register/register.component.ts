@@ -36,8 +36,7 @@ export class RegisterComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const registerBtn = document.querySelector('.register-btn');
-      registerBtn?.classList.add('loading');
+  
     const container = document.querySelector('.container') as HTMLElement
     this.t1
     .from(this.bg.nativeElement, {

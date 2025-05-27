@@ -168,7 +168,7 @@
   </header>
 
   <div class="cards-wrapper">
-    <app-loader [shade]="false" *ngIf="loading"></app-loader>
+    <app-loader  [loader]="true" *ngIf="loading"></app-loader>
 
     <div class="card" *ngFor="let scan of mriScans; let i = index">
       <!-- <img src="/assets/holo/holo2.jpg" alt="" class="bg" /> -->

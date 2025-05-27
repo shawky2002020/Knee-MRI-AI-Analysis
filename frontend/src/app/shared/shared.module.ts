@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from './components/loader/loader.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { NotificationModule } from './components/notification/notification.module';
+import { AppLoaderComponent } from './components/app-loader/app-loader.component';
+import { LoaderModule } from './components/loader/loader.module';
 
 @NgModule({
   declarations: [
@@ -32,13 +34,15 @@ import { NotificationModule } from './components/notification/notification.modul
     AdminLayoutComponent,
     PaginationComponent,
     ScanFilterComponent,
+    AppLoaderComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     NotificationModule,
     FormsModule,
-  ],
+    LoaderModule
+],
   exports: [
     SidebarComponent,
     FileUploaderComponent,
@@ -50,6 +54,7 @@ import { NotificationModule } from './components/notification/notification.modul
     PopupComponent,
     PaginationComponent,
     ScanFilterComponent,
+    AppLoaderComponent
   ]
 })
 export class SharedModule { }

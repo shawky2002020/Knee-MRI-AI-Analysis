@@ -1,11 +1,8 @@
 <div class="dashboard">
-    <!-- <img class="bg" src="/assets/cover/whitebg.webp" alt="bg" #bgEl>  -->
-    <!-- <img class="bg" src="/assets/dark/hand.png" alt="bg" #bgEl>  -->
-
-    <main class="content">
-      <div #headerEl>
-        <app-header [title]="'Dashboard'"></app-header>
-      </div>
+    <div #headerEl>
+      <app-header [title]="'Dashboard'"></app-header>
+    </div>
+    <main *ngIf="!loading" class="content">
 
       <section class="stats" #cardcontainerEl>
         <div class="card ai-status">
@@ -35,7 +32,6 @@
         <h2>No Recent MRI Scans</h2>
         <p class="empty-message">You haven't uploaded or analyzed any MRI scans yet.<br>Start by uploading a new scan to see results here.</p>
       </section>
-      <app-loader *ngIf="!latestScans.length"></app-loader>
       <section *ngIf="latestScans.length" class="recent-analysis" #recentEl>
         <h2>Recent MRI Scans</h2>
         <ul *ngFor="let scan of latestScans">
@@ -48,3 +44,4 @@
       </section>
     </main>
   </div>
+  <app-loader [shade]="true" [loader]="true" *ngIf="loading"></app-loader>

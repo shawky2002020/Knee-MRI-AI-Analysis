@@ -26,7 +26,8 @@ import { MriDiagnosticResponse } from '../../../core/models/ai-result.model';
   templateUrl: './upload.component.html',
   styleUrl: './upload.component.css',
 })
-export class UploadComponent implements AfterViewInit ,OnInit {
+export class UploadComponent {
+  isSubmitting = false;
   @ViewChild('video') videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('uploadEl') upload!: ElementRef<any>;
   @ViewChild('textEl') text!: ElementRef<any>;
@@ -208,11 +209,12 @@ export class UploadComponent implements AfterViewInit ,OnInit {
 
   submitFiles(): void {
     this.loading =true;
+    document.querySelector('.upload-container')?.classList.add('hidden');
     const scans = this.retrieveScansFromLocalStorage();
-    
     if (scans.length === 0) {
       this.toastr.error('No scans to submit');
       this.loading=false;
+      this.isSubmitting=false;
       return;
     }
    
@@ -257,7 +259,7 @@ export class UploadComponent implements AfterViewInit ,OnInit {
        
       error:(err)=>{
         this.loading=false;
-
+        this.isSubmitting=false;
         console.log(err);
         this.toastr.error('Try again later','ACLyze AI is currently down');
       }

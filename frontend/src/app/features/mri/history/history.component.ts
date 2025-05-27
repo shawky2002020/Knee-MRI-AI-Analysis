@@ -132,7 +132,7 @@ export class HistoryComponent implements OnInit {
   }
 
   viewDetails(scan:MriDiagnosticResponse){
-    this.scansService.viewed(scan._id).subscribe({
+    this.scansService.viewScan(scan._id).subscribe({
      next: (res:MriDiagnosticResponse) => {
       this.scansService.updateMriScan(scan);
       this.toast.success('Successfully viewed');

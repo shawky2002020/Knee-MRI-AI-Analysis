@@ -36,7 +36,7 @@ export class NotificationComponent implements OnInit, OnChanges ,AfterViewInit {
     
     this.loading =true;
     this.notificationService.onNotification((data: any) => {
-      this.toast.success('notification recieved');
+      this.toast.info('New Notification recieved');
       this.notifications = [data, ...this.notifications];
     });
     this.notificationService.getAllNotifications().subscribe({
@@ -127,12 +127,19 @@ export class NotificationComponent implements OnInit, OnChanges ,AfterViewInit {
 
 
 
-  viewDetails(notification?:NotificationSchema){
+  viewDetails(notification:NotificationSchema){
+    this.notificationService.deleteNotification(notification).subscribe({
+      next: () => {
+        this.notifications = this.notifications.filter((not) => not !== notification);
+        this.notifications = this.notificationService.notifications;
+        this.readEmitter.emit(true);
+        this.closeNotificationView()
+      },
+    });
     if (notification?.reportID) {
-      
-    
       this.scansService.getScanById(notification.reportID).subscribe({
         next: (res: MriDiagnosticResponse) => {
+          this.scansService.viewScan(res._id).subscribe();
           this.scansService.updateMriScan(res);
           this.toast.success('Successfully viewed');
         },

@@ -52,9 +52,9 @@
       </div>
 
     </div>
-    <button [disabled]="!allUploaded" class="process-btn" (click)="submitFiles()">
+    <button [disabled]="!allUploaded || isSubmitting" class="process-btn" (click)="submitFiles(); isSubmitting = true">
       <i class="fas fa-brain"></i>
-      <app-loader *ngIf="loading" [shade]="true" [spinner]="true"></app-loader>
+      <app-loader *ngIf="loading" [fullShade]="true" [spinner]="true"></app-loader>
       Process
     </button>
   </div>

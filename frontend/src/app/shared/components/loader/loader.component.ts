@@ -9,4 +9,6 @@ export class LoaderComponent {
 @Input() shade: boolean = false;
 @Input() spinner: boolean = false;
 @Input() loader: boolean = false;
+@Input() pageLoader: boolean = false;
+@Input() fullShade: boolean = false;
 }

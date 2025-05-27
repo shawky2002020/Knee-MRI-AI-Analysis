@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 import gsap from 'gsap';
 import { ToastrService } from 'ngx-toastr';
+import { LoaderService } from '../../../core/services/loader.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,6 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements AfterViewInit {
   loginForm: FormGroup;
   returnUrl!: string;
-
 
   @ViewChild('bgEl') bg!: ElementRef;
   @ViewChild('formEl') form!: ElementRef;
@@ -50,7 +50,9 @@ export class LoginComponent implements AfterViewInit {
     private router: Router,
     private userService : UserService,
     private activeRoute: ActivatedRoute,
-    private toast : ToastrService
+    private toast : ToastrService,
+    private loadingService:LoaderService
+
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -64,10 +66,13 @@ export class LoginComponent implements AfterViewInit {
       loginBtn?.classList.add('loading');
       this.userService.login(this.loginForm.value).subscribe({
         next:(res)=>{
-          this.router.navigateByUrl('app/dashboard');
-          loginBtn?.classList.remove('loading');
-          this.toast.clear()
-          this.toast.success(`hello ${res.user.name}`)
+          this.loadingService.showLoader()
+          setTimeout(() => {
+            this.toast.success(`Hello ${this.userService.currentUser.name}`)
+            this.router.navigateByUrl('app/dashboard');
+            loginBtn?.classList.remove('loading');
+            this.toast.clear()
+          }, 1000);
         },
         error:(err)=>{
           console.log(err);

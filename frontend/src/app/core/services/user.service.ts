@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import * as url from '../../data/url';
 import { ThemeService } from './theme.service';
 import { Router } from '@angular/router';
+import { LoaderService } from './loader.service';
 
 //Store Key for LocalStorage
 const USER_KEY = 'user';
@@ -18,7 +19,13 @@ export class UserService {
   );
   public userObservable: Observable<User>;
 
-  constructor(private http: HttpClient ,private themeService: ThemeService, private router:Router) {
+  constructor(
+    private http: HttpClient,
+    private themeService: ThemeService,
+    private router: Router,
+    private loadingService:LoaderService,
+
+  ) {
     this.userObservable = this.userSubject.asObservable();
   }
 
@@ -30,7 +37,6 @@ export class UserService {
     return this.http.post<userResponse>(url.USERS_LOGIN, user).pipe(
       tap({
         next: (res) => {
-          this.themeService.switchToLightTheme();
 
           const newUser = {
             ...res.user,
@@ -41,7 +47,6 @@ export class UserService {
         },
         error: (err) => {
           console.log(err);
-          
         },
       })
     );
@@ -51,6 +56,8 @@ export class UserService {
     return this.http.post<userResponse>(url.USERS_REGISTER, user).pipe(
       tap({
         next: (res) => {
+          this.loadingService.showLoader()
+
           this.themeService.switchToLightTheme();
           const newUser = {
             ...res.user,
@@ -70,8 +77,7 @@ export class UserService {
     this.userSubject.next(new User());
     localStorage.removeItem(USER_KEY);
     this.themeService.switchToDarkTheme();
-    this.router.navigate(['/']) 
-  
+    this.router.navigate(['/']);
   }
 
   private setUserToLocalStorage(user: User) {
