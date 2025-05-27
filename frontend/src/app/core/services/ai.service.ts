@@ -66,7 +66,6 @@ export class AiService {
 
     form.append('metadata', JSON.stringify(metadata));
 
-    this.toast.info('Uploading MRI scans to AI service...');
     console.log('form==>', form.getAll('axial'));
 
     return this.http
@@ -74,42 +73,42 @@ export class AiService {
         reportProgress: true,
         observe: 'events',
       })
-      .pipe(
-        tap((event: HttpEvent<any>) => {
-          if (event.type === HttpEventType.UploadProgress) {
-            // Calculate upload progress
-            const progress = Math.round(
-              (100 * event.loaded) / (event.total || 1)
-            );
-            if (progress === 100) {
-              this.toast.info('Upload complete. Processing MRI scans...');
-            }
-          } else if (event.type === HttpEventType.Response) {
-            // Ensure the response matches the schema
-            const response = event.body as MriDiagnosticResponse;
-            console.log(response);
+      // .pipe(
+      //   tap((event: HttpEvent<any>) => {
+      //     if (event.type === HttpEventType.UploadProgress) {
+      //       // Calculate upload progress
+      //       const progress = Math.round(
+      //         (100 * event.loaded) / (event.total || 1)
+      //       );
+      //       if (progress === 100) {
+      //         this.toast.info('Upload complete. Processing MRI scans...');
+      //       }
+      //     } else if (event.type === HttpEventType.Response) {
+      //       // Ensure the response matches the schema
+      //       const response = event.body as MriDiagnosticResponse;
+      //       console.log(response);
             
-            if (response && response._id) {
-              const notifi: NotificationSchema = {
-                title: 'Analysis Done',
-                message: 'Your report is ready',
-                type: 'success',
-                reportID: response._id,
-              };
-              this.notificationService.addNotification(notifi).subscribe({
-                next:(res)=>{
-                  console.log(res);
-                },
-                error:(err)=>{
-                  console.log(err);
-                }
-              });
-              this.toast.success('Check your reports now', 'Analysis Done');
-            } else {
-              this.toast.error('Failed to process MRI scans.');
-            }
-          }
-        })
-      );
+      //       if (response && response._id) {
+      //         const notifi: NotificationSchema = {
+      //           title: 'Analysis Done',
+      //           message: 'Your report is ready',
+      //           type: 'success',
+      //           reportID: response._id,
+      //         };
+      //         this.notificationService.addNotification(notifi).subscribe({
+      //           next:(res)=>{
+      //             console.log(res);
+      //           },
+      //           error:(err)=>{
+      //             console.log(err);
+      //           }
+      //         });
+      //         this.toast.success('Check your reports now', 'Analysis Done');
+      //       } else {
+      //         this.toast.error('Failed to process MRI scans.');
+      //       }
+      //     }
+      //   })
+      // );
   }
 }

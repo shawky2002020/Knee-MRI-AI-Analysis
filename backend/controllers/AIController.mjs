@@ -2,6 +2,7 @@ import MriScan from "../models/MriScan.mjs";
 import dotenv from "dotenv";
 import FormData from "form-data";
 
+
 // Configure dotenv to load environment variables
 dotenv.config();
 

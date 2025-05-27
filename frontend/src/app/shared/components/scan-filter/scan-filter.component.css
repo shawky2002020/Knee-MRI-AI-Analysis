@@ -1,8 +1,5 @@
 header {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: center;
-  justify-items: start;
+  display: flex;
   align-items: start;
   justify-content: space-between;
   padding: 1rem 2rem;
@@ -19,6 +16,7 @@ header {
   justify-items: start;
   gap: 5px;
 }
+
 .search-input-container {
   display: flex;
   flex-flow: row nowrap;
@@ -31,6 +29,7 @@ header {
   background: var(--white);
   padding: 0.5rem 1rem;
 }
+
 .search-input-container i {
   font-size: var(--medium);
   transition: color 0.2s ease-in-out;

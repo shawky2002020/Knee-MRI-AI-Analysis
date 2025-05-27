@@ -21,7 +21,7 @@
         </span>
       </button>
     </li>
-    <li class="last-page" *ngIf="paginationWindow[paginationWindow.length-1] < totalPages">
+    <li class="last-page" *ngIf="paginationWindow[paginationWindow.length] < totalPages">
       <span class="pagination-ellipsis">...</span>
       <button class="pagination-btn" (click)="goToPage(totalPages)">{{ totalPages }}</button>
     </li>

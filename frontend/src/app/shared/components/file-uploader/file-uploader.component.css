@@ -99,9 +99,11 @@
 }
 .choose-btn {
   position: relative;
-  font-weight: 600;
-  width: 120px;
-  height: 30px;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 0 8px;
+  width: 80%;
+  height: 40px;
   border-radius: 4px;
   background: rgba(245, 245, 245, 0.74);
   color: var(--black-70);
@@ -134,9 +136,7 @@
   box-shadow: 2px 2px 7px var(--blue-lighter);
 }
 
-.drop-zone:hover {
-  box-shadow: 2px 5px 10px var(--blue-glow);
-}
+
 
 .drop-zone i {
   font-size: var(--xxxlarge);
@@ -152,13 +152,13 @@
 
 .preview-container {
   position: relative;
-  max-width: 100%;
+  width: 100%;
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.038); /* Glass effect */
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-  margin: 2rem 0;
+  margin: 2rem auto;
   h3 {
     text-align: center;
     font-size: var(--large);
@@ -175,6 +175,7 @@
   flex-flow: row nowrap;
   justify-content: start;
   gap: 10px;
+  margin: auto;
   overflow-x: auto;
 }
 
@@ -189,11 +190,7 @@
   border-radius: 0.5rem;
 }
 
-.file-preview img {
-  width: 180px;
-  height: 180px;
-  border-radius: 0.5rem;
-}
+
 
 .file-info {
   display: flex;
@@ -413,7 +410,7 @@
   padding: 10px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
-  margin: 5px;
+  margin: 5px auto;
   min-width: 120px;
   overflow-x: scroll ;
 

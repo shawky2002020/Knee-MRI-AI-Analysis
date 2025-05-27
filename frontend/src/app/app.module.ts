@@ -29,6 +29,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       progressBar: true, // Show progress bar
       positionClass: 'toast-bottom-right', // Toast position
       preventDuplicates: true, // Prevent duplicate toasts
+      maxOpened:1,
+      autoDismiss:true,
       timeOut: 5000, // Timeout for the toast
       extendedTimeOut: 1000, // Additional time on hover
     })

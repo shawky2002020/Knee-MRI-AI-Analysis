@@ -19,8 +19,14 @@ export class NotificationService {
   }
   onNotification(callback: (data: any) => void) {
     this.socket.on('notification', callback);
-    
   }
+  onLoading(callback: (data: any) => void) {
+    this.socket.on('loading', callback);
+  }
+  onFailure(callback: (data: any) => void) {
+    this.socket.on('failed', callback);
+  }
+  
   getNotificationsCount():Observable<any>{
     return this.http.get<any>(url.NOTIFICATIONS_COUNT);
   }

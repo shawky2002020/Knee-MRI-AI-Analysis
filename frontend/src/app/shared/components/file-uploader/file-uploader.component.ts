@@ -37,7 +37,10 @@ export class FileUploaderComponent implements OnInit {
     private http: HttpClient,
     private toastr: ToastrService,
     private aiService: AiService,
-  ) {}
+  ) {
+    const keys = Object.keys(localStorage).filter(key => key.startsWith('axial') || key.startsWith('coronal')||key.startsWith('sagittal'));
+    keys.forEach(key => localStorage.removeItem(key));
+  }
 
   ngOnInit(): void {
     // Load sample images for testing CSS
@@ -109,18 +112,7 @@ export class FileUploaderComponent implements OnInit {
     reader.readAsDataURL(this.selectedFiles[index]);
   }
 
-  saveFilesLocally(): void {
-    this.selectedFiles.forEach((file, index) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const fileData = reader.result;
-        // Use view_type as part of the key
-        localStorage.setItem(`${this.view_type}_file_${index}`, fileData as string);
-        console.log(`${this.view_type}_file_${index}`);
-      };
-      reader.readAsDataURL(file);
-    });
-  }
+
 
   // Add this method to your component class
   
@@ -212,7 +204,6 @@ export class FileUploaderComponent implements OnInit {
       // Finish UI workflow
       setTimeout(() => {
         this.uploadSuccess.emit(this.view_type);
-        this.toastr.success('Files uploaded successfully');
         setTimeout(() => this.resetUpload(), 1500);
       }, 500);
     });
@@ -277,7 +268,6 @@ export class FileUploaderComponent implements OnInit {
     }
 
     if (this.selectedFiles.length > 0) {
-      this.toastr.success(`${this.selectedFiles.length} file(s) selected`);
     }
   }
 }

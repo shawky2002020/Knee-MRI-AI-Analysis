@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
 import {
   AfterViewInit,
   Component,
@@ -6,6 +6,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
   SimpleChanges,
   ViewChild,
@@ -17,13 +18,15 @@ import { AiService } from '../../../core/services/ai.service';
 import { MetaData, MriScan } from '../../../core/models/mri-scan.model';
 import { NotificationService } from '../../../core/services/notification.service';
 import { NotificationSchema } from '../../../core/models/notification.model';
+import { tap } from 'rxjs';
+import { MriDiagnosticResponse } from '../../../core/models/ai-result.model';
 
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
   styleUrl: './upload.component.css',
 })
-export class UploadComponent implements AfterViewInit {
+export class UploadComponent implements AfterViewInit ,OnInit {
   @ViewChild('video') videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('uploadEl') upload!: ElementRef<any>;
   @ViewChild('textEl') text!: ElementRef<any>;
@@ -37,15 +40,20 @@ export class UploadComponent implements AfterViewInit {
     'sagittal':false,
   }
   allUploaded = false;
+  loading:boolean = false
   constructor(
     private toastr : ToastrService,
     private aiService : AiService,
     private notificationService:NotificationService
   ){
     // Clear any previously stored MRI scans from localStorage
-    localStorage.clear();
     const keys = Object.keys(localStorage).filter(key => key.startsWith('mriscan_') || key.startsWith('scan_'));
     keys.forEach(key => localStorage.removeItem(key));
+  }
+  ngOnInit(): void {
+    this.notificationService.onFailure((data:string)=>{
+      this.toastr.error(data)
+    })
   }
   
   ngAfterViewInit(): void {
@@ -68,7 +76,6 @@ export class UploadComponent implements AfterViewInit {
 
     this.uploadedTypes[event as keyof typeof this.uploadedTypes] = true;
     this.checkAllTypesUploaded();
-    this.toastr.success(event.toUpperCase() , 'Files selected successfully');
     
   }
   checkAllTypesUploaded(){
@@ -200,20 +207,59 @@ export class UploadComponent implements AfterViewInit {
   
 
   submitFiles(): void {
+    this.loading =true;
     const scans = this.retrieveScansFromLocalStorage();
     
     if (scans.length === 0) {
       this.toastr.error('No scans to submit');
+      this.loading=false;
       return;
     }
-    this.toastr.info('We will notify you when analysis is done', 'Processing Scans');
+   
     // Implement the logic to submit scans to the server
-    this.aiService.processMRI(scans).subscribe(
+    this.aiService.processMRI(scans)
+    .pipe(
+      tap((event: HttpEvent<any>) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          // Calculate upload progress
+          const progress = Math.round(
+            (100 * event.loaded) / (event.total || 1)
+          );
+         
+        } else if (event.type === HttpEventType.Response) {
+          // Ensure the response matches the schema
+          const response = event.body as MriDiagnosticResponse;
+          console.log(response);
+          
+          if (response && response._id) {
+            this.loading =false;
+            this.toastr.success('Check your reports now', 'Analysis Done');
+            const notifi: NotificationSchema = {
+              title: 'Analysis Done',
+              message: 'Your report is ready',
+              type: 'success',
+              reportID: response._id,
+            };
+            this.notificationService.addNotification(notifi).subscribe({
+              next:(res)=>{
+                console.log(res);
+              },
+              error:(err)=>{
+                console.log(err);
+              }
+            });
+          } 
+        }
+      })
+    )
+    .subscribe(
       {
-      
+       
       error:(err)=>{
+        this.loading=false;
+
         console.log(err);
-        this.toastr.error('Error submitting scans.');
+        this.toastr.error('Try again later','ACLyze AI is currently down');
       }
     }
     );
