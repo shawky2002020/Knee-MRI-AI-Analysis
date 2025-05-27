@@ -15,7 +15,7 @@ router.get("/:scanId", scanHistoryController.getScanById);
 router.delete("/delete/:scanId", scanHistoryController.deleteMri);
 
 
-router.patch("/viewed/:scanId", scanHistoryController.updateViewed);
+router.patch("/viewed/:scanID", scanHistoryController.viewScan);
 router.patch("/status", scanHistoryController.lowercaseResultStatus);
 
 

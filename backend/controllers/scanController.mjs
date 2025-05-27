@@ -60,19 +60,20 @@ export const getScanById = async (req, res) => {
     const timeFilter = helpers.getTimeFilter(req.query.timeRange);
     const filter = { userId: id, _id: scanId, ...timeFilter };
     console.log(scanId);
-    
+
     const scan = await MriScan.findOne(filter);
 
     if (!scan) {
       return res.status(404).json({ message: "Scan not found" });
     }
 
-    res.status(200).json(scan );
+    res.status(200).json(scan);
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Failed to fetch scan", err: error.message });
   }
-  catch (error) {
-    res.status(400).json({ message: "Failed to fetch scan", err: error.message });
-  }
-}
+};
 
 export const getScanByName = async (req, res) => {
   try {
@@ -126,20 +127,18 @@ export const getScanByStatus = async (req, res) => {
     }
 
     // Validate status value
-    const validStatuses = ["normal", "acl", "meniscus","acl and meniscus"];
+    const validStatuses = ["normal", "acl", "meniscus", "acl and meniscus"];
     if (!validStatuses.includes(status)) {
-      return res
-        .status(400)
-        .json({
-          message: "Invalid status. Must be 'normal', 'acl', or 'meniscus'",
-        });
+      return res.status(400).json({
+        message: "Invalid status. Must be 'normal', 'acl', or 'meniscus'",
+      });
     }
 
     const timeFilter = helpers.getTimeFilter(req.query.timeRange);
-    
+
     const filter = {
       userId: id,
-      "result.status": status, 
+      "result.status": status,
       ...timeFilter,
     };
 
@@ -212,6 +211,35 @@ export const updateName = async (req, res) => {
     res.status(400).json({ message: "failed", error: error.message });
   }
 };
+
+export const viewScan = async (req, res) => {
+  const id = req.user.id;
+  try {
+    const scanID = req.params.scanID;
+    if (!scanID) {
+      res.status(400).json({ message: "Report Id Not Found" });
+      return;
+    }
+    const updatedScan =await MriScan.updateOne(
+      { userId: id, _id: scanID },
+      {
+        $set: {
+          "metadata.viewed": true,
+        },
+      }
+    );
+    if (updatedScan.matchedCount > 0) {
+      res.status(200).json({ message: "Scan viewed successfully" });
+    } else {
+      res.status(404).json({ message: "No scan found with the sent Id" });
+    }
+  } catch (err) {
+    res
+      .status(400)
+      .json({ message: "Updating scan failed", error: err.message });
+  }
+};
+
 export const updateViewed = async (req, res) => {
   try {
     await MriScan.updateMany({}, [
@@ -234,13 +262,23 @@ export const lowercaseResultStatus = async (req, res) => {
       [
         {
           $set: {
-            "result.status": { $toLower: "$result.status" }
-          }
-        }
+            "result.status": { $toLower: "$result.status" },
+          },
+        },
       ]
     );
-    res.status(200).json({ message: "All result.status fields lowercased", modifiedCount: result.modifiedCount });
+    res
+      .status(200)
+      .json({
+        message: "All result.status fields lowercased",
+        modifiedCount: result.modifiedCount,
+      });
   } catch (error) {
-    res.status(400).json({ message: "Failed to lowercase result.status", error: error.message });
+    res
+      .status(400)
+      .json({
+        message: "Failed to lowercase result.status",
+        error: error.message,
+      });
   }
 };
