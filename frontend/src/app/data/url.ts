@@ -32,8 +32,14 @@ export const ADMIN_BASE = BASEURL + '/v1/admin';
 
 //USERS
 export const ADMIN_GET_USERS = ADMIN_BASE + '/users';
+export const ADMIN_GET_USER_BY_ID = ADMIN_BASE + '/user';
+export const ADMIN_UPDATE_USER= ADMIN_BASE + '/editUser';
+export const ADMIN_CREATE_USER = ADMIN_BASE + '/create';
+export const ADMIN_CHANGE_ROLE_USER = ADMIN_BASE + '/role';
+export const ADMIN_CHANGE_ACCESS_USER = ADMIN_BASE + '/access';
 export const ADMIN_DELETE_USER = ADMIN_BASE + '/deleteUser';
-export const ADMIN_UPDATE_USER = ADMIN_BASE + '/update';
+
+//REPORTS
 export const ADMIN_GET_REPORTS = ADMIN_BASE + '/reports';
 export const ADMIN_GET_USERSTATES = ADMIN_BASE + '/userstates';
 

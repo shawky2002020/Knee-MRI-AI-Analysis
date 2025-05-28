@@ -53,6 +53,82 @@ export const getAllUsers = async (req, res) => {
     }
   };
 
+  // Update User
+  export const updateUser = async (req, res) => {
+    const { _id, name, email, password ,aiAccess} = req.body;
+    try {
+      const user = await User.findById(_id);
+      if (!user) return res.status(404).json({ message: "User not found" });
+
+      // Update fields
+      if (name) user.name = name;
+      if (email) user.email = email;
+      if (password) user.password = await bcrypt.hash(password, 10);
+      if (aiAccess) user.aiAccess = aiAccess;
+
+      await user.save();
+
+      res.status(200).json({ message: "User updated successfully", user });
+
+    }
+    catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+
+  // Create User
+  export const createUser = async (req, res) => {
+    try {
+      let { name, email, password } = req.body;
+      email = email.toLowerCase();
+
+      // Check if user already exists
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({ message: "User already exists" });
+      }
+
+      // Hash password
+      const hashedPassword = await bcrypt.hash(password, 10);
+    }
+    catch (error) {
+      res.status(500).json({ message: "Error creating admin user", error: error.message });
+    }
+  }
+  export const addRole = async (req, res) => {
+    const { userId, role } = req.body;
+    try {
+      const user = await User.findByIdAndUpdate(userId, { role }, { new: true });
+      if (!user) return res.status(404).json({ message: "User not found" });
+      res.status(200).json({ message: `User role updated to ${role}` });
+    }
+    catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+
+  export const getUserScanCounts = async (req, res) => {
+    try {
+      const scanCounts = await MriScan.aggregate([
+        {
+          $group: {
+            _id: "$userId",
+            scanCount: { $sum: 1 }
+          }
+        },
+        {
+          $sort: { scanCount: -1 }
+        },
+        {
+          $limit: 5
+        }
+      ])
+    }
+    catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+
   export const changeAccess = async (req, res) => {
     const { userId, block } = req.body; 
     try {
@@ -112,18 +188,8 @@ export const getAllUsers = async (req, res) => {
     }
   };
   
-export const addRole=async (req,res)=>{
-  try{
-    const result = await User.updateMany(
-      { role: { $exists: false } },
-      { $set: { role: 'user' } }
-    );
-    res.status(200).json({ message: "Role added successfully", result });
-  }catch(error){
-    res.status(500).json({ message: "Error adding role", error: error.message });
-  }
-}
 
+////
 export const getUserStats = async (req, res) => {
   try {
     // Get time range from query params (default to last 30 days)

@@ -10,6 +10,7 @@ export class User {
   lastLogin?: Date;
   loginCount?: number;
   scanCount?: number;
+  aiAccess?: boolean;
 }
 
 export class userResponse {

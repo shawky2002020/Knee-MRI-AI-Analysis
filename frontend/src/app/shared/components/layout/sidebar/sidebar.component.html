@@ -57,10 +57,11 @@
         [ngClass]="{ active: activeItem === 'admin' }"
         (click)="setActiveItem('admin')"
       >
-        <a routerLink="/admin">
-          <i class="fas fa-user-shield nav-icon"></i>
-          <span>Admin</span>
-        </a>
+      <a href="/admin" target="_blank" rel="noopener">
+        <i class="fas fa-user-shield nav-icon"></i>
+        <span>Admin</span>
+      </a>
+      
       </li>
 
       <li class="logout-item">

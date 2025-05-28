@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../../../../core/services/admin.service';
 import { DiagnosisDistributionResponse, UserScanDistributionResponse } from '../../../../core/models/admin/scans-result';
 import { UsersStatsResponse } from '../../../../core/models/admin/users-result';
 import { User } from '../../../../core/models/user.model';
+import { AdminService } from '../../../../core/services/admin/admin.service';
 
 @Component({
   selector: 'app-admin-reports',

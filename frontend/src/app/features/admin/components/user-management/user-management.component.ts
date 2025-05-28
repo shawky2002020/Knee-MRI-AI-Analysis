@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../../../../core/services/admin.service';
 import { User } from '../../../../core/models/user.model';
 import { ToastrService } from 'ngx-toastr';
+import { AdminService } from '../../../../core/services/admin/admin.service';
+import { AdminUserService } from '../../../../core/services/admin/admin-user.service';
 
 @Component({
   selector: 'app-user-management',
@@ -12,6 +13,7 @@ export class UserManagementComponent implements OnInit {
   users: User[] = [];
   paginationWindow: number[] = [];
   popupVisible: boolean = false;
+  editUser: User | null = null;
   deleteUser: User | null = null;
 
 
@@ -25,7 +27,7 @@ export class UserManagementComponent implements OnInit {
   dateDropdownOpen = false;
 
 
-  constructor(private adminService: AdminService
+  constructor(private adminService: AdminUserService
     ,private toast: ToastrService
   ) {}
 
@@ -143,5 +145,42 @@ export class UserManagementComponent implements OnInit {
   cancelDelete(event: boolean) {
     this.popupVisible = event;
     this.deleteUser = null;
+  }
+
+  changeAccess(user: User) {
+    user.aiAccess = !user.aiAccess;
+    this.adminService.changeAccessUser(user._id, user.aiAccess).subscribe({
+      next: (res) => {
+        this.toast.success(`${user.name}'s access has been updated`)
+        console.log(res);
+        
+      },
+      error: (err) => {
+        this.toast.error('Failed to update user access');
+      }
+    });
+  }
+  openEdit(user: User) {
+    this.editUser = { ...user };
+  }
+  closeEdit() {
+    this.editUser = null;
+  }
+  saveEdit(edited: User) {
+    if (edited && edited._id) {
+      const sentUser:User = {...edited ,_id:edited._id};
+      this.adminService.updateUser(edited._id, edited).subscribe({
+        next: (res) => {
+          console.log(sentUser);
+          
+          this.toast.success('User updated successfully');
+          this.loadUsers(this.page);
+          this.closeEdit();
+        },
+        error: () => {
+          this.toast.error('Failed to update user');
+        }
+      });
+    }
   }
 }

@@ -35,7 +35,8 @@
               <td>{{ user.email }}</td>
               <td>01029019830</td>
               <td>Nasr city</td>
-              <td>
+              <td class="user-actions">
+                <button class="edit-btn" (click)="openEdit(user)">Edit</button>
                 <button class="btn btn-danger" (click)="showPopup(user)">Delete</button>
               </td>
             </tr>      
@@ -51,5 +52,6 @@
     </app-pagination>
     </div>
   </div>
+<app-user-edit *ngIf="editUser" [user]="editUser" (save)="saveEdit($event)" (cancel)="closeEdit()"></app-user-edit>
 
   

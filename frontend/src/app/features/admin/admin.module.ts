@@ -11,7 +11,9 @@ import { AdminProfileComponent } from './components/admin-profile/admin-profile.
 import { AdminLogsComponent } from './components/admin-logs/admin-logs.component';
 import { AdminReportsComponent } from './components/admin-reports/admin-reports.component';
 import { AdminNotificationsComponent } from './components/admin-notifications/admin-notifications.component';
+import { UserEditComponent } from './components/user-management/user-edit.component';
 import { SharedModule } from "../../shared/shared.module";
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,12 +26,14 @@ import { SharedModule } from "../../shared/shared.module";
     AdminProfileComponent,
     AdminLogsComponent,
     AdminReportsComponent,
-    AdminNotificationsComponent
+    AdminNotificationsComponent,
+    UserEditComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule
 ]
 })
 export class AdminModule { }

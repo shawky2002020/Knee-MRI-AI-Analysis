@@ -1,0 +1,45 @@
+<div *ngIf="editedUser" class="user-edit-dialog">
+  <h3>Edit User</h3>
+  <form (ngSubmit)="onSave()">
+    <div class="form-group">
+      <label>Name</label>
+      <input [(ngModel)]="editedUser.name" name="name" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input [(ngModel)]="editedUser.email" name="email" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label>Gender</label>
+      <select [(ngModel)]="editedUser.gender" name="gender" class="form-control">
+        <option [defaultSelected]="user?.gender " value="male">Male</option>
+        <option [defaultSelected]=" user?.gender=='female' " value="female">Female</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Role</label>
+      <select [(ngModel)]="editedUser.role" name="role" class="form-control">
+        <option value="user">Doctor</option>
+        <option value="admin">Admin</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>AI Access : <span> {{editedUser.aiAccess }} </span></label> 
+      <div class="access-container">
+
+        <button type="button" (click)="allow()" class="allow">
+          <i class="fas fa-check-circle"></i>
+          Allow
+        </button>
+        <button type="button" (click)="block()" class="block">
+          <i class="fas fa-ban"></i>
+          Block
+        </button>
+      </div>
+    </div>
+    <div class="form-group mt-3">
+      <button type="submit" class="btn btn-success">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>
