@@ -68,7 +68,6 @@ export class LoginComponent implements AfterViewInit {
         next:(res)=>{
           this.loadingService.showLoader()
           setTimeout(() => {
-            this.toast.success(`Hello ${this.userService.currentUser.name}`)
             this.router.navigateByUrl('app/dashboard');
             loginBtn?.classList.remove('loading');
             this.toast.clear()

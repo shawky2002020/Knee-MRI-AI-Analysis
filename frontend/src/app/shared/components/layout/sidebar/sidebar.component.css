@@ -16,6 +16,7 @@
 .side-bar .container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   height: 100%;
   padding: 2rem 1.2rem 1.2rem 1.2rem;
   justify-content: space-between;
@@ -28,6 +29,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 1.5rem;
 }
 
@@ -36,9 +38,10 @@
   font-weight: 900;
   letter-spacing: 0.08em;
   color: #fff;
-  /* background: var(--holographic-primary); */
-  /* -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-shadow: 0 0 12px #a1c4fd88, 0 0 24px #c2e9fb44;
   cursor: pointer;
   transition: text-shadow 0.2s;
@@ -86,6 +89,7 @@
   align-items: center;
   justify-content: center;
   gap: 1.2rem;
+  width: 100%;
 }
 
 #links-wrapper li {
@@ -99,12 +103,13 @@
   padding: 0.85rem 0;
   border-radius: 1.2rem;
   color: var(white);
-  font-size: 1.08rem;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: 0.03em;
   text-decoration: none;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
   box-shadow: none;
+  font-family: poppins;
 
 }
 

@@ -30,7 +30,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of users">
+            <tr *ngFor="let user of users" 
+            [ngClass]="{
+              active: user.aiAccess,
+              disabled: !user.aiAccess
+            }">
               <td>{{ user.name }}</td>
               <td>{{ user.email }}</td>
               <td>01029019830</td>
@@ -53,6 +57,7 @@
 </app-pagination>
     </div>
   </div>
+  
 <app-user-edit *ngIf="editUser" [user]="editUser" (save)="saveEdit($event)" (cancel)="closeEdit()"></app-user-edit>
 
   

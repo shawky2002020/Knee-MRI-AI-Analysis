@@ -30,6 +30,10 @@ export class AppLayoutComponent implements OnInit, AfterViewInit {
   ) {}
   ngAfterViewInit(): void {
     setTimeout(() => {
+      if (this.loadingService.LoaderStatus) {
+        this.toast.success(`Hello ${this.userService.currentUser.name}`)
+
+      }
       this.loadingService.hideLoader();
     }, 2000);
   }

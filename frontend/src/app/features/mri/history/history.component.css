@@ -54,8 +54,9 @@
 }
 .patient-name {
   font-weight: bold;
-  font-size: var(--medium);
+  font-size: var(--large);
   color: #222;
+  font-family: lora;
 }
 .scan-id {
   color: #888;

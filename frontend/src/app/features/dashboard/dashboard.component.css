@@ -32,7 +32,7 @@
   justify-content: start;
   align-items: start;
   gap: 1rem;
-  padding: 2rem;
+  padding:  1rem;
   background: rgba(255, 255, 255, 0.1); /* Transparent White */
   border-radius: 1rem;  
 }
@@ -40,6 +40,7 @@
 
 
 .stats {
+  height: fit-content;
   z-index: -2 ; 
   display: grid;
   grid-template-columns: 1fr 1fr;

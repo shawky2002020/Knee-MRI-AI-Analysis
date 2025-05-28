@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Cairo+Play:wght@200..1000&family=Cairo:wght@200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 * {
   padding: 0;
   margin: 0;
@@ -22,6 +23,31 @@ a{
 @font-face {
   font-family: f;
   src: url(/assets/fonts/Designer.otf);
+}
+@font-face {
+  font-family: lora;
+  src: url(/assets/fonts/Lora-Bold.ttf);
+}
+@font-face {
+  font-family: proto;
+  src: url(/assets/fonts/Prototype.ttf);
+}
+@font-face {
+  font-family: quantum;
+  src: url(/assets/fonts/Quantum.otf);
+}
+.f{
+  font-family: f;
+}
+
+.lora{
+  font-family: lora;
+}
+.proto{
+  font-family: proto;
+}
+.quantum{
+  font-family: quantum;
 }
 /* GLOBAL STYLES */
 body {
@@ -122,7 +148,7 @@ body {
   --box-shadow: 0px 2px 12px rgba(255, 255, 255, 0.3);
 
   /* 🖋 Typography */
-  --font-family: "Inter", sans-serif;
+  --font-family:"Poppins", "Inter", sans-serif;
   --tiny: 0.3rem;
   --small: 0.5rem;
   --normal: 1rem;
@@ -159,16 +185,33 @@ body {
 /* Toastr container */
 /* Toastr Custom Styling */
 #toast-container .ngx-toastr {
-  background: var(--black-grad);
-  color: #ffffff;
+  background: var(--holographic-pearl);
+  color: var(--black-70);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  opacity: 1 !important; /* Ensure visibility */
-  backdrop-filter: blur(5px); /* Optional: adds a subtle blur effect */
-  -webkit-backdrop-filter: blur(5px); /* Safari support */
-  border: 1px solid transparent; /* Base border */
+  opacity: 1 !important;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid transparent;
   transition: all 0.3s ease-in-out;
+
+  /* 🔥 Fit content */
+  display: inline-block;
+  width: auto;
+  max-width: 90vw; /* Optional: prevent overflow on small screens */
+  padding: 12px 16px;
+  white-space: normal;
 }
+
+#toast-container .toast-title,
+#toast-container .toast-message {
+  font-size: 20px !important;
+  padding: 12px 16px;
+  display: inline;
+  white-space: normal;
+  word-break: break-word; /* handle long strings */
+}
+
 
 #toast-container .ngx-toastr:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
@@ -193,12 +236,13 @@ body {
 
 #toast-container .toast-title {
   font-weight: bold;
-  font-size: 1.1em;
   margin-bottom: 5px;
+  white-space: nowrap;
+  font-weight: 700;
 }
 
 #toast-container .toast-message {
-  font-size: 1em;
+  font-weight: 400;
 }
 
 /* Close button styling */

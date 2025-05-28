@@ -10,7 +10,7 @@ import { MetaData } from '../../../core/models/mri-scan.model';
 })
 export class AnalyzeComponent implements OnInit {
   userForm!: FormGroup;
-  showUpload = true;
+  showUpload = false;
   metadata: MetaData = {} as MetaData;
   @Output() metadataChange = new EventEmitter<MetaData>();
   constructor(private fb: FormBuilder,private toast:ToastrService) {
