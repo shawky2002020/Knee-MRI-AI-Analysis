@@ -93,7 +93,7 @@ export class UserManagementComponent implements OnInit {
 
   loadUsers(page: number = 1) {
     // Replace with your actual API call and pagination logic
-    this.adminService.getAllUsers({page:1}).subscribe((response: any) => {
+    this.adminService.getAllUsers({page}).subscribe((response: any) => {
       this.users = response.users;
       this.page = response.page;
       this.totalPages = response.totalPages;
@@ -171,7 +171,8 @@ export class UserManagementComponent implements OnInit {
       const sentUser:User = {...edited ,_id:edited._id};
       this.adminService.updateUser(edited._id, edited).subscribe({
         next: (res) => {
-          console.log(sentUser);
+          console.log('sentUser',sentUser);
+          console.log('recievedUser',res);
           
           this.toast.success('User updated successfully');
           this.loadUsers(this.page);

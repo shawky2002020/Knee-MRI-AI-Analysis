@@ -21,7 +21,10 @@ export class HistoryComponent implements OnInit {
   
   statusDropdownOpen = false;
   dateDropdownOpen = false;
-  constructor(private toast: ToastrService, private scansService: MriScanService) {}
+  constructor(private toast: ToastrService, private scansService: MriScanService) {
+    document.title = 'Reports Page'
+
+  }
 
   ngOnInit(): void {
     this.loadScans(this.page);

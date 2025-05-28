@@ -89,7 +89,7 @@ export const process_Multi_View_Mri = async (req, res) => {
         "type": "error",
       });
        notifyUser(id,'access-notification',newNoti);
-      res.status(402).json({ message: "Access Denied" });
+      res.status(403).json({ message: "Access Denied" });
       return;
     }
     // Check if files exist in the request

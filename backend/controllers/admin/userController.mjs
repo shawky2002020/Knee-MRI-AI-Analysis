@@ -57,16 +57,17 @@ export const getAllUsers = async (req, res) => {
   export const updateUser = async (req, res) => {
     const { _id, name, email, password ,aiAccess} = req.body;
     try {
-      const user = await User.findById(_id);
+      const user = await User.updateOne({_id},{
+        $set:{
+          name,
+          email,
+          password,
+          aiAccess
+        }
+      });
       if (!user) return res.status(404).json({ message: "User not found" });
 
-      // Update fields
-      if (name) user.name = name;
-      if (email) user.email = email;
-      if (password) user.password = await bcrypt.hash(password, 10);
-      if (aiAccess) user.aiAccess = aiAccess;
-
-      await user.save();
+ 
 
       res.status(200).json({ message: "User updated successfully", user });
 

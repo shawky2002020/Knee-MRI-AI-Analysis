@@ -41,6 +41,13 @@ export class UserEditComponent implements AfterViewInit  {
   onCancel() {
     this.cancel.emit();
   }
+  changeAccess(){
+    if(this.editedUser.aiAccess){
+      this.block();
+    }else{
+      this.allow();
+    }
+  }
   allow(){
     this.editedUser.aiAccess=true;
     document.querySelector('.block')?.classList.remove('active');

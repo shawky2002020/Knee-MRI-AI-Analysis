@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AppLayoutComponent implements OnInit,AfterViewInit {
   showNotificationsMenu: boolean = false;
-  @Input() title: string = '';
+  @Input() title: string = 'ACLyze AI';
   notificationCount: number = 0;
   constructor(
     private notificationService:NotificationService,
@@ -32,6 +32,8 @@ export class AppLayoutComponent implements OnInit,AfterViewInit {
     this.notificationService.notification$.subscribe({
       next: (res) => {
         this.notificationCount = res.length;
+        console.log(res.length);
+        
         
       },
     })
@@ -52,8 +54,7 @@ export class AppLayoutComponent implements OnInit,AfterViewInit {
     this.notificationCount = 0;
   }
   handleNewNotif(event:boolean){
-    this.notificationCount++
-    console.log(this.notificationCount);
-    
+    // this.notificationCount++
+
   }
 }

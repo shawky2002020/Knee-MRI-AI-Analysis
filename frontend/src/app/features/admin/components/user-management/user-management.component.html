@@ -18,7 +18,7 @@
   </app-scan-filter>
     <div class="row">
       <div class="col-md-12">
-        <h2>User List</h2>
+        <h2 class="table-head">Users Details</h2>
         <table class="table">
           <thead>
             <tr>
@@ -43,13 +43,14 @@
           </tbody>
         </table>
       </div>
-      <app-pagination
-      *ngIf="totalPages > 1"
-      [page]="page"
-      [totalPages]="totalPages"
-      [paginationWindow]="paginationWindow"
-      (pageChange)="goToPage($event)">
-    </app-pagination>
+       <!-- Pagination Controls -->
+  <app-pagination
+  *ngIf="totalPages > 1"
+  [page]="page"
+  [totalPages]="totalPages"
+  [paginationWindow]="paginationWindow"
+  (pageChange)="goToPage($event)">
+</app-pagination>
     </div>
   </div>
 <app-user-edit *ngIf="editUser" [user]="editUser" (save)="saveEdit($event)" (cancel)="closeEdit()"></app-user-edit>

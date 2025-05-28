@@ -10,10 +10,12 @@ import { MetaData } from '../../../core/models/mri-scan.model';
 })
 export class AnalyzeComponent implements OnInit {
   userForm!: FormGroup;
-  showUpload = false;
+  showUpload = true;
   metadata: MetaData = {} as MetaData;
   @Output() metadataChange = new EventEmitter<MetaData>();
-  constructor(private fb: FormBuilder,private toast:ToastrService) {}
+  constructor(private fb: FormBuilder,private toast:ToastrService) {
+    document.title = 'Analyze Page'
+  }
 
   ngOnInit(): void {
     this.userForm = this.fb.group({

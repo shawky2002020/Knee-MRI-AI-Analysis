@@ -1,14 +1,6 @@
 
 <div class="upload-page">
-    <div class="upload-step-header">
-      <div>
-        <h2>Upload MRI Scans</h2>
-        <p class="upload-desc">
-          Please upload <span class="highlight">all three required views</span> of the patient's knee MRI.<br>
-          This is the final step before analysis and receiving results.
-        </p>
-      </div>
-    </div>
+  
     <div class="upload-container">
       <!-- <img class="bg" src="/assets/holo/shape3.png" alt="bg" #bgEl> -->
       <div class="text">
@@ -52,9 +44,19 @@
       </div>
 
     </div>
+    <div *ngIf="!allUploaded" class="upload-step-header">
+      <div class="upload-desc">
+        <i class="fas fa-upload upload-icon"></i>
+        <div class="desc-text">
+          Please upload <span class="highlight">all three required views</span> of the patient's knee MRI.<br>
+          This is the final step before analysis and receiving results.
+        </div>
+      </div>
+  </div>
     <button [disabled]="!allUploaded || isSubmitting" class="process-btn" (click)="submitFiles(); isSubmitting = true">
-      <i class="fas fa-brain"></i>
+      <i *ngIf="allUploaded || block" class="fas fa-brain"></i>
       <app-loader *ngIf="loading" [fullShade]="true" [spinner]="true"></app-loader>
+      <i class="fas fa-lock" *ngIf="!allUploaded && !block"></i>
       Process
     </button>
   </div>

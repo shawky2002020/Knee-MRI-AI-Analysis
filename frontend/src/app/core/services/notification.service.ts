@@ -119,12 +119,7 @@ export class NotificationService {
     return this.http
       .post<NotificationSchema>(url.NOTIFICATIONS_ADD, notification)
       .pipe(
-        tap((res: NotificationSchema) => {
-          this.notificationSubject.next([
-            res,
-            ...this.notificationSubject.value,
-          ]);
-        }),
+        
         catchError((error) => {
           console.error('Error adding notification:', error);
           return throwError(() => error);

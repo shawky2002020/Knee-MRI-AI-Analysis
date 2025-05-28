@@ -28,6 +28,7 @@ import { MriDiagnosticResponse } from '../../../core/models/ai-result.model';
 })
 export class UploadComponent {
   isSubmitting = false;
+  block=false;
   @ViewChild('video') videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('uploadEl') upload!: ElementRef<any>;
   @ViewChild('textEl') text!: ElementRef<any>;
@@ -261,6 +262,25 @@ export class UploadComponent {
         console.log(err);
       
         this.toastr.error("AI Analysis failed");
+        if (err.status === 403) {
+          this.isSubmitting=true;
+          this.block=true;
+        }
+        else if (err.status === 500) {
+          this.notificationService.addNotification({
+            title: 'AI Analysis failed',
+            message: 'ACLyze AI is currently unavailable',
+            type:'bad',
+          }).subscribe({
+            next:(res)=>{
+              console.log(res);
+            },
+            error:(err)=>{
+              console.log(err);
+            }
+          })
+          this.toastr.error('ACLyze AI is currently down',"Failed");
+        }
       }
     }
     );
