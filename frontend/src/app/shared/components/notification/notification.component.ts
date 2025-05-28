@@ -35,19 +35,7 @@ export class NotificationComponent implements OnInit, OnChanges ,AfterViewInit {
   ngOnInit(): void {
     
     this.loading =true;
-    this.notificationService.onNotification((data: any) => {
-      this.toast.info('New Notification recieved');
-      this.notifications = [data, ...this.notifications];
-      this.newNotifEmitter.emit(true)
-    });
-    this.notificationService.onAccessDenied((noti:NotificationSchema)=>{
-      this.toast.error("Contact ACLyze AI for access","Access Denied");
-      console.log(noti);
-      
-      this.notifications = [noti, ...this.notifications];
-      this.newNotifEmitter.emit(true)
-
-    })
+  
     this.notificationService.getAllNotifications().subscribe({
       next: (res) => {
         this.loading =false;

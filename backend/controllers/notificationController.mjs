@@ -1,6 +1,6 @@
 import notification from "../models/notifications.mjs";
 import { io } from '../config/serverConfig.mjs';
-import {notifyUser} from "../services/notificationService.mjs"
+import {notifyUser,Notification} from "../services/notificationService.mjs"
 export const getAllNotifications = async (req, res) => {
   const id = req.user.id;
   try {
@@ -13,12 +13,11 @@ export const getAllNotifications = async (req, res) => {
 
 export const createNotification = async (req, res) => {
   const id = req.user.id;
-  const newNotification = new notification(req.body);
+  const newNotification = new Notification(req.body);
   try {
     newNotification.userID = id;
-    await newNotification.save();
+    notifyUser(id,'notification',newNotification)
     res.status(201).json(newNotification);
-    io.emit('notification', newNotification);
 
   } catch (error) {
     res.status(409).json({ message: error.message });

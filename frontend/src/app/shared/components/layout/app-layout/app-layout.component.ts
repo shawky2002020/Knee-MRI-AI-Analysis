@@ -12,9 +12,9 @@ import { ToastrService } from 'ngx-toastr';
 export class AppLayoutComponent implements OnInit,AfterViewInit {
   showNotificationsMenu: boolean = false;
   @Input() title: string = '';
-  notificationCount!: number;
+  notificationCount: number = 0;
   constructor(
-    private notificationService: NotificationService,
+    private notificationService:NotificationService,
     private loadingService: LoaderService,
     private toast:ToastrService,
     private userService: UserService
@@ -28,15 +28,16 @@ export class AppLayoutComponent implements OnInit,AfterViewInit {
   }
  
   ngOnInit(): void {
-
-    this.notificationService.getNotificationsCount().subscribe({
-      next: (resCount) => {
-        this.notificationCount = resCount.count;
+   
+    this.notificationService.notification$.subscribe({
+      next: (res) => {
+        this.notificationCount = res.length;
+        
       },
-    });
-    this.notificationService.onNotification((data) => {
-      this.notificationCount++;
-    });
+    })
+
+    
+  
   }
   showNotifications() {
     this.showNotificationsMenu = !this.showNotificationsMenu;
@@ -50,7 +51,9 @@ export class AppLayoutComponent implements OnInit,AfterViewInit {
   handleReadAll() {
     this.notificationCount = 0;
   }
-  handleNewNotif(){
+  handleNewNotif(event:boolean){
     this.notificationCount++
+    console.log(this.notificationCount);
+    
   }
 }
