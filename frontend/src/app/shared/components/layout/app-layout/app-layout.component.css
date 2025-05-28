@@ -54,7 +54,46 @@
     z-index: 2;
   }
 }
+.notification-count.new-notif ~ .notification-bell {
+  animation: bell;
+}
+@keyframes bell {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(10deg);
+  }
+  40% {
+    transform: rotate(-10deg);
+  }
+  60% {
+    transform: rotate(5deg);
+  }
+  80% {
+    transform: rotate(-5deg);
+  }
+  
+}
+.notification-count.new-notif {
+  color: var(--black-70);
+  animation: pulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  transform-origin: center;
+  transition: all 0.3s ease;
+}
 
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 .main-content{
   position: absolute;
   right: 0;

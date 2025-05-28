@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { LoaderService } from '../../../../core/services/loader.service';
 import { UserService } from '../../../../core/services/user.service';
@@ -9,43 +16,50 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './app-layout.component.html',
   styleUrl: './app-layout.component.css',
 })
-export class AppLayoutComponent implements OnInit,AfterViewInit {
+export class AppLayoutComponent implements OnInit, AfterViewInit {
   showNotificationsMenu: boolean = false;
   @Input() title: string = 'ACLyze AI';
   notificationCount: number = 0;
+  @ViewChild('Count') notifCount!: ElementRef;
+
   constructor(
-    private notificationService:NotificationService,
+    private notificationService: NotificationService,
     private loadingService: LoaderService,
-    private toast:ToastrService,
+    private toast: ToastrService,
     private userService: UserService
   ) {}
   ngAfterViewInit(): void {
     setTimeout(() => {
-      
-      this.loadingService.hideLoader()
-
+      this.loadingService.hideLoader();
     }, 2000);
   }
- 
+
   ngOnInit(): void {
-   
     this.notificationService.notification$.subscribe({
       next: (res) => {
         this.notificationCount = res.length;
-        console.log(res.length);
+        console.log('checked');
         
-        
+        if (this.notifCount?.nativeElement) {
+          if (!this.notifCount.nativeElement.classList.contains('new-notif')) {
+            
+            this.notifCount.nativeElement.classList.add('new-notif');
+          }
+        }
       },
-    })
-
-    
-  
+    });
   }
   showNotifications() {
     this.showNotificationsMenu = !this.showNotificationsMenu;
+    if (this.notifCount?.nativeElement) {
+      this.notifCount.nativeElement.classList.remove('new-notif');
+    }
   }
   handleEmitter(event: boolean) {
     this.showNotificationsMenu = event;
+    if (this.notifCount?.nativeElement) {
+      this.notifCount.nativeElement.classList.remove('new-notif');
+    }
   }
   handelReadEmitter() {
     this.notificationCount--;
@@ -53,8 +67,6 @@ export class AppLayoutComponent implements OnInit,AfterViewInit {
   handleReadAll() {
     this.notificationCount = 0;
   }
-  handleNewNotif(event:boolean){
-    // this.notificationCount++
-
+  handleNewNotif(event: boolean) {
   }
 }

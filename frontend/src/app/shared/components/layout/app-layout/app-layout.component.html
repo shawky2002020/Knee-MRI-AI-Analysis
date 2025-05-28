@@ -6,7 +6,7 @@
     <ul class="links-wrapper">
       <li class="notification-bell" (click)="showNotifications()">
         <i class="fa-solid fa-bell"></i>
-        <span class="notification-count" *ngIf="notificationCount>0">{{ notificationCount }}</span>
+        <span #Count class="notification-count" *ngIf="notificationCount>0">{{ notificationCount }}</span>
       </li>
       <app-notification [isVisible]="showNotificationsMenu" (newNotifEmitter)="handleNewNotif($event) "  (readAllEmitter)="handleReadAll()" (readEmitter)="handelReadEmitter()" (VisibleEmitter)="handleEmitter($event)" *ngIf="showNotificationsMenu"></app-notification>
     </ul>
