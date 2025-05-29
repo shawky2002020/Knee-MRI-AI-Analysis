@@ -8,12 +8,7 @@ header {
   position: relative;   
   z-index: 1;  
 }
-@media screen and (max-width:1300px) {
-  header{
-    flex-flow: column ;
-    gap: 1rem;
-  }
-}
+
 .search-bar {
   display: flex;
   justify-content: start;
@@ -26,11 +21,13 @@ header {
   align-items: center;
   justify-content: start;
   gap: 1rem;
-  border-radius: 1rem;
+  border-radius: 12px;
   border: solid 2px var(--gray-light);
   height: 50px;
   background: var(--white);
   padding: 0 1rem;
+  width: 100%;
+  max-width: 400px;
 }
 
 .search-input-container i {
@@ -52,27 +49,27 @@ header {
   border: none;
   outline: none;
   height: 50px;
-
   font-size: var(--normal);
 }
 
 .filters-container {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   gap: 12px;
   align-items: center;
-  flex-wrap: wrap;
   margin: auto 10px;
   z-index: 30;
 }
 
 .reset-btn {
   border: none;
-  width: 5rem;
-  font-size: 16px;
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
   background-color: var(--black-50);
   color: white;
-  border-radius: 14px;
   cursor: pointer;
   font-weight: 700;
   gap: .3rem;
@@ -83,17 +80,17 @@ header {
 
 
 .custom-dropdown {
-  position: relative;
-  min-width: 160px;
-  
+  position: relative;  
   user-select: none;
-  z-index: 30;             /* <-- Add this */
+  z-index: 30;       
+  width: 100%;      /* <-- Add this */
 }
 .dropdown-selected {
   padding: 0 15px;
   border: 1px solid #ddd;
   border-radius: 12px;
   height: 50px;
+  width: fit-content;
 
   background: #fff;
   cursor: pointer;
@@ -165,13 +162,40 @@ header {
   font-size: 1rem;
 }
 
-@media screen and (max-width: 768px)  {
- 
- 
-  .search-input-container {
+@media screen and (max-width: 968px)  {
+  header {
+    padding: 1rem;
+    flex-flow: column;
+    gap: 1rem;
+  }
+  .search-bar {
+    flex-flow: row nowrap;
+    align-items: start;
     width: 100%;
+    gap: 0;
+  }
+  .search-input-container {
+    height: 40px;
+    margin: 0;
+    max-width: 100%;
+  }
+  .reset-btn{
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    display: none;
   }
   .filters-container {
     margin: 0;
+    flex-flow: row;
+    width: 100%;
+    height: 40px;
+    justify-content: space-between;
+    .dropdown-selected {
+    height: 40px;
+    font-size: 12px;
+    flex: 1;
+    width: 100%;
+   }
   }
 }

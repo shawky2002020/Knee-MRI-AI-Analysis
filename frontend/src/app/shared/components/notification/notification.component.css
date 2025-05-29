@@ -23,7 +23,7 @@
   align-items: center;
   gap: 12px;
   padding: 2rem 1rem 2.5rem 1rem;
-  z-index: 1000 !important;
+  z-index: 10 ;
   box-shadow: -8px 0 32px 0 rgba(0,0,0,0.25);
   font-family: 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif;
   backdrop-filter: blur(24px);
@@ -143,7 +143,7 @@
   box-shadow: 0 4px 16px rgba(1,207,255,0.18);
 }
 
-.read-btn {
+.read-btn,.mobile-read-btn {
   width: 30%;
   height: 36px;
   border-radius: .3rem 14px .3rem 14px;
@@ -174,7 +174,6 @@
   justify-content: center;
   transition: transform .3s, background .3s;
 }
-
 .read-btn::before {
   background: var(--white);
   color: var(--black-70);
@@ -211,9 +210,8 @@
 
 @media (max-width: 700px) {
   .notifications {
-    width: 95vw;
-    min-width: unset;
-    max-width: unset;
+    width:calc(100% - 60px);
+    max-width: 450px;
     padding: 1rem 0.5rem 1.5rem 0.5rem;
   }
   .notification {
@@ -312,4 +310,55 @@
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+.mobile-read-btn{
+  display: none;
+}
+
+@media screen and (max-width:767px) {
+  .read-btn{
+    display: none;
+  }
+  .mobile-read-btn{
+    display: block;
+    width: fit-content;
+    height: fit-content;
+    padding: 4px 12px;
+  }
+
+  .mobile-read-btn.active {
+    background: var(--white);
+    color: var(--black-70);
+  }
+  .notification {
+    width: 92%;
+    padding: .5rem;
+    min-height: fit-content;
+  }
+  
+
+  .notification-icon {
+    margin-right: 8px;
+  }
+  
+  .notification-content {
+    gap: 4px;
+  }
+  
+  .notification-title {
+    font-size: 14px;
+    color: #fff;
+    font-weight: 800;
+    font-family: poppins;
+    letter-spacing: 0.01em;
+    text-shadow: 0 2px 8px rgba(127,95,255,0.08);
+  }
+  
+  .notification-message {
+    font-size: 8px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
 }

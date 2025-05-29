@@ -1,7 +1,12 @@
-<div class="side-bar">
+<div class="side-bar"[class.expanded]="isExpanded ">
   <div class="container">
 
     <ul id="logo-container ">
+      <li (click)="toggleExpanded()" class="mobile-only brain-icon">
+
+        <i class="fas fa-brain ai-logo-icon "></i> <!-- FontAwesome icon -->
+      </li>
+
       <li id="logo" routerLink="dashboard">
         <span>ACLyze</span>
       </li>

@@ -32,7 +32,7 @@
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
     max-width: 500px;
-    width: 90%;
+    width: 60%;
     transition: transform 0.3s ease-in-out; /* Smooth transition for scaling */
     transform: scale(1.05); /* Slightly larger on load for effect */
 }

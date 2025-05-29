@@ -161,6 +161,7 @@ export class HistoryComponent implements OnInit {
   }
 
   get paginationWindow(): number[] {
+   
     const windowSize = 5;
     let start = Math.floor((this.page - 1) / windowSize) * windowSize + 1;
     let end = Math.min(start + windowSize - 1, this.totalPages);

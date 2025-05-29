@@ -34,6 +34,33 @@
   color: #7f9cf5;
   margin-top: 0.2rem;
 }
+@media screen and (max-width: 600px)  {
+  .info-icon{
+    display: none;
+  }
+  .info-tags{
+    gap: .3rem;
+    .info-tag {
+      padding: 0.3rem ;
+      font-size: 0.7rem;
+      font-weight: 600;
+      box-shadow: 0 1px 6px #a1c4fd33;
+      
+    }  
+  }
+  .info-content {
+    h3{
+      font-size: 0.8rem;
+    }
+    .info-desc{
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    }
+  }
+  
+
+
+}
 
 .info-content h3 {
   margin: 0 0 0.5rem 0;
@@ -63,6 +90,10 @@
   font-size: 0.98rem;
   font-weight: 600;
   box-shadow: 0 1px 6px #a1c4fd33;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 }  
 
 .form {

@@ -78,7 +78,7 @@ export const updateUser = async (req, res) => {
       
       notifyUser(
         _id,
-        "notification",
+        "access-enabeled",
         new Notification({
           title:"AI Access Granted",
          message: "Your AI access has been granted. You can now use the AI to diagnose your scans.",
@@ -90,7 +90,7 @@ export const updateUser = async (req, res) => {
     else if (u.aiAccess === true && aiAccess === false) {
       notifyUser(
         _id,
-        "notification",
+        "access-disabeled",
         new Notification({
           title:"AI Access Blocked",
          message: "Your AI access has been revoked. You will no longer be able to use the AI to diagnose your scans.",

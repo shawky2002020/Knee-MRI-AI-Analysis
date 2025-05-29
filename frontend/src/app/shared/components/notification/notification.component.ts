@@ -24,6 +24,8 @@ import { MriScanService } from '../../../core/services/mri-scan.service';
 })
 export class NotificationComponent implements OnInit, OnChanges ,AfterViewInit {
   loading: boolean = false;
+  @ViewChild ('Outside') OutsideElem !: ElementRef;
+  @ViewChild ('mobileRead') mobileReadElem !: ElementRef;
   constructor(private notificationService: NotificationService,private toast:ToastrService,
     private scansService:MriScanService
   ) {}
@@ -31,6 +33,10 @@ export class NotificationComponent implements OnInit, OnChanges ,AfterViewInit {
     document.querySelector('.outside')?.addEventListener('click',()=>{
       this.closeNotificationView();
     })
+    // Remove this event listener as it's redundant and causing the issue
+    // this.mobileReadElem.nativeElement.addEventListener('click', () => {
+    //   this.mobileReadElem.nativeElement.classList.add('active');
+    // });
   }
   ngOnInit(): void {
     
@@ -61,6 +67,12 @@ export class NotificationComponent implements OnInit, OnChanges ,AfterViewInit {
   @Output() newNotifEmitter = new EventEmitter<boolean>();
 
   readNotification(index: number): void {
+    // Add active class to the mobile read button
+    const mobileReadBtns = document.querySelectorAll('.mobile-read-btn');
+    if (mobileReadBtns[index]) {
+      mobileReadBtns[index].classList.add('active');
+    }
+    
     this.notificationService
       .deleteNotification(this.notifications[index])
       .subscribe({
@@ -101,6 +113,7 @@ export class NotificationComponent implements OnInit, OnChanges ,AfterViewInit {
     } else {
       // fallback if container not found
       this.isVisible = false;
+
       this.VisibleEmitter.emit(this.isVisible);
     }
   }

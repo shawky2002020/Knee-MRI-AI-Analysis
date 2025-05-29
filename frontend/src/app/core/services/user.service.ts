@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { LoaderService } from './loader.service';
 
 //Store Key for LocalStorage
-const USER_KEY = 'user';
+export const USER_KEY = 'user';
 
 @Injectable({
   providedIn: 'root',
@@ -81,8 +81,9 @@ export class UserService {
   }
 
   private setUserToLocalStorage(user: User) {
-    console.log('from local', user);
-
+    if (localStorage.getItem(USER_KEY)) {
+      localStorage.removeItem(USER_KEY);
+    }
     localStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 

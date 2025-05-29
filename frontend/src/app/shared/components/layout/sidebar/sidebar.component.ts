@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  isExpanded = false
   user!:User;
   isLight !:boolean;
   activeItem!: string ; // Default active item
@@ -36,6 +37,8 @@ export class SidebarComponent {
     localStorage.setItem('activeItem', item);
   }
 
-
+  toggleExpanded() {
+    this.isExpanded = !this.isExpanded;
+  }
 
 }

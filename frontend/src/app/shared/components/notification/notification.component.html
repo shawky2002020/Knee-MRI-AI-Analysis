@@ -42,6 +42,9 @@
       </div>
     </div>
     <button class="read-btn" (click)="readNotification(i)">mark as read</button>
+    <button #mobileRead class="mobile-read-btn" (click)="readNotification(i)">
+      <i class="fa fa-check" aria-hidden="true"></i>
+    </button>
   </div>
 </div>
-<div class="outside"></div>
+<div *ngIf="isVisible" #Outside class="outside"></div>

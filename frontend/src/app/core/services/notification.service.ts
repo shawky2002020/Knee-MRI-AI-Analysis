@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import * as url from '../../data/url';
-import { UserService } from './user.service';
+import { USER_KEY, UserService } from './user.service';
 import { User } from '../models/user.model';
 import { ToastrService } from 'ngx-toastr';
 
@@ -71,10 +71,27 @@ export class NotificationService {
       this.toast.error('Upload failed', 'Error');
     });
 
-    this.socket.on('access-notification', (data) => {
+    this.socket.on('access-disabeled', (data) => {
       // Handle access notification event
       this.notificationSubject.next([data, ...this.notificationSubject.value]);
-      this.toast.error('Contact ACLyze AI for access', 'Access Denied');
+      this.toast.error('Contact ACLyze AI for access', 'Access Blocked');
+      const editedUser:User = {...this.user,aiAccess:false}
+      localStorage.setItem(USER_KEY,JSON.stringify(editedUser))
+      setTimeout(() => {
+        window.location.reload()
+      }, 2000);
+
+    });
+    this.socket.on('access-enabeled', (data) => {
+      // Handle access notification event
+      const editedUser:User = {...this.user,aiAccess:true}
+      localStorage.setItem(USER_KEY,JSON.stringify(editedUser))
+      this.notificationSubject.next([data, ...this.notificationSubject.value]);
+      this.toast.success('You can now use ACLyze AI for analysis', 'Access Revoked');
+      setTimeout(() => {
+        window.location.reload()
+      }, 2000);
+
     });
   }
 

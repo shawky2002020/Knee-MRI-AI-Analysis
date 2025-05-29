@@ -11,6 +11,7 @@
 .file-uploader {
   max-width: 360px;
   width: 100%;
+  margin: auto;
 }
 .upload-container {
   display: flex;
