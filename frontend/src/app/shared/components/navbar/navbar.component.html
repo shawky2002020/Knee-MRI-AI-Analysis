@@ -9,6 +9,8 @@
 
     <ul id="links-wrapper">
       <li *ngIf="!user.token"><a routerLink="/auth/login">Login</a></li>
+      <li *ngIf="!user.token"><a routerLink="/home/about">About Us</a></li>
+      <li *ngIf="!user.token"><a routerLink="/home/faq">FAQ</a></li>
 
 
     </ul>

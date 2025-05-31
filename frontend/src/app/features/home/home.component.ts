@@ -6,6 +6,8 @@ import {
   ViewChild,
   Inject,
   Renderer2,
+  QueryList,
+  ViewChildren,
 } from '@angular/core';
 
 import gsap from 'gsap';
@@ -37,6 +39,7 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild('hand1El') hand1!: ElementRef;
   @ViewChild('hand2El') hand2!: ElementRef;
   @ViewChild('video') videoElement!: ElementRef<HTMLVideoElement>;
+  @ViewChildren('Question') questionELem!: QueryList<ElementRef>;
   t1 = gsap.timeline();
 
   ngAfterViewInit() {
@@ -230,6 +233,21 @@ export class HomeComponent implements AfterViewInit {
       video.play();
     });
 
+    this.questionELem.forEach((question)=>{
+      question.nativeElement.addEventListener('click',()=>{
+        console.log('clicked');
+        
+        if (question.nativeElement.classList.contains('active')) {
+          question.nativeElement.classList.remove('active')    
+        }
+        else{
+          console.log('added');
+          
+          question.nativeElement.classList.add('active')
+        }
+      })
+    })
+
     gsap.from(cta.children,{
       opacity:0,
       stagger:.3,
@@ -241,5 +259,5 @@ export class HomeComponent implements AfterViewInit {
     })
     setTimeout(() => ScrollTrigger.refresh(), 100);
   }
-  
+ 
 }
