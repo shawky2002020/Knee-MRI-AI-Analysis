@@ -37,10 +37,10 @@ li {
 .nav-icon {
   position: fixed;
   top: 14px;
-  right: 24px;
-  height: 50px;
-  width: 50px;
-  padding: 2px 12px;
+  right: 14px;
+  height: 60px;
+  width: 60px;
+  padding: 8px 12px;
   border-radius: 50%;
   background-color: var(--black-70);
 
@@ -49,7 +49,7 @@ li {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 1.2s ease-in-out;
+  transition: all .8s ease-in-out;
   z-index: 500;
   max-height: 400px;
 }
@@ -64,6 +64,7 @@ li {
 }
 
 .nav-list {
+
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-around;
@@ -78,6 +79,14 @@ li {
   pointer-events: none;
   z-index: 100;
   position: absolute;
+  @media screen and (max-width: 570px) {
+    font-size: 24px;
+    font-weight: 500;
+    padding: 1rem;
+  }
+  li{
+    overflow: hidden;
+  }
   i{
     margin-right: 4px;
     color: var(--purple-light);
@@ -88,9 +97,11 @@ li {
 }
 
 .nav-icon.active {
-  background: var(--purple-dark);
   right: 0;
-  /* border-radius: 40px !important; */
+  background-color: transparent;
+  backdrop-filter: blur(100px);
+  /* border: solid 1px var(--purple-light); */
+  box-shadow: 0 2px 200px var(--purple-dark);
   transform-origin: 50% 50%;
   transform: translateX(calc(-50vw + 40vw)) translateY(50%) rotate(180deg);
   width: 95vw;

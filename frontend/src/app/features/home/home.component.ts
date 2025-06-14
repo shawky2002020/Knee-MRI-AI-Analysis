@@ -35,6 +35,7 @@ export class HomeComponent implements AfterViewInit {
   }
 
   @ViewChild('textEl') text!: ElementRef;
+  @ViewChild('btnContainerEl') btnContainer!: ElementRef;
   @ViewChild('btnEl') btn!: ElementRef;
   @ViewChild('hand1El') hand1!: ElementRef;
   @ViewChild('hand2El') hand2!: ElementRef;
@@ -125,7 +126,7 @@ export class HomeComponent implements AfterViewInit {
         '>'
       )
       .fromTo(
-        this.btn.nativeElement,
+        this.btnContainer.nativeElement,
         { opacity: 0},
         { opacity: 1, duration: 1, y: 0, ease: 'power2.out' },
         '>'
@@ -137,9 +138,9 @@ export class HomeComponent implements AfterViewInit {
     const t2 = gsap.timeline({
       scrollTrigger: {
         trigger: this.hand1.nativeElement, // Single trigger for both
-        start: '200% bottom',
-        end: '300% center',
-        scrub: true, // Enables smooth scrolling animation
+        start: '300% bottom',
+        end: '450% center',
+        scrub: 1, // Enables smooth scrolling animation
       },
     });
 
@@ -220,7 +221,8 @@ export class HomeComponent implements AfterViewInit {
     // Apply the infinite animation separately
     gsap.to('.features img', {
       opacity: 1,
-      y: 50,
+      scale:.9,
+      y:50,
       duration: 3,
       repeat: -1,
       yoyo: true,
@@ -258,6 +260,11 @@ export class HomeComponent implements AfterViewInit {
       }
     })
     setTimeout(() => ScrollTrigger.refresh(), 100);
+  }
+  loading(){
+    this.btn.nativeElement.classList.add('loading');
+    console.log(this.btn.nativeElement);
+    
   }
  
 }

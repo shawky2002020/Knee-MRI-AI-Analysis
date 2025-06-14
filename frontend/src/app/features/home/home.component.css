@@ -25,30 +25,48 @@
   display: flex;
   overflow: hidden;
   filter: drop-shadow(0 0 15px var(--cyan)); /* Purple glow */
-  padding: 2rem;
 }
 .features .h2-wrap {
   filter: drop-shadow(0 0 15px var(--purple-medium)); /* Purple glow */
 
   border-radius: 1rem;
-  padding: 1rem;
 }
 .how .h2-wrap {
   border-radius: 1rem;
   max-width: 30rem;
-  padding: 1rem;
   filter: drop-shadow(0 0 15px var(--cyan)); /* Purple glow */
+}
+h1 {
+  font-size: var(--xxlarge);
+  @media screen and (max-width: 720px) {
+    font-size: var(--large);
+  }
 }
 h2 {
   font-size: var(--xxlarge);
   overflow: hidden;
-  padding: 0 3rem;
+  padding: 12px 3rem;
 }
 h3 {
   font-size: var(--xlarge);
 }
 p {
   font-size: var(--medium);
+}
+@media screen and (max-width: 720px) {
+  .h2-wrap {
+    padding: 1rem;
+  }
+  h2 {
+    font-size: var(--xlarge);
+    padding: 0 1rem;
+  }
+  h3 {
+    font-size: var(--large);
+  }
+  p {
+    font-size: var(--normal);
+  }
 }
 
 video {
@@ -57,7 +75,11 @@ video {
   filter: contrast(2);
   transform: scaleY(0.5);
   mix-blend-mode: screen;
+  @media screen and (max-width: 720px) {
+    transform: scaleY(1);
+  }
 }
+
 #myVideo {
   min-width: 100vw;
   z-index: 1;
@@ -83,6 +105,22 @@ section {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  h1 {
+    text-align: center;
+    span {
+      background: linear-gradient(
+        to right,
+        var(--purple-dark),
+        var(--purple-light)
+      ) ;
+            background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradient 9s ease-in-out infinite;
+    }
+  }
+ 
+
   gap: 1rem;
   p {
     color: rgba(173, 216, 230, 0.7); /* Light Cyan instead of White-70 */
@@ -95,28 +133,81 @@ section {
   justify-content: center;
   button {
     font-size: var(--large);
-    background: var(--white);
-    width: 12rem;
-    height: 4rem;
+    /* background: var(--white); */
+    width: 300px;
+    height: 50px;
     display: flex;
-    border-radius: 1rem;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 12px;
     border: none;
     cursor: pointer;
     font-weight: bold;
-
+    @media screen and (max-width: 720px) {
+      height: 40px;
+      font-size: var(--medium);
+    }
+   
     a {
       color: var(--purple-dark);
       text-decoration: none;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
     }
+  }
+  button.loading{
+    position: relative;
+    pointer-events: none;
+    
+  }
+  button.loading::before {
+    z-index: 1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background: var(--purple-dark);
+  }
+  
+  button.loading::after {
+    z-index: 2;
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 4px solid transparent;
+    border-top-color: var(--white);
+    border-radius: 12px;
+    animation: button-loading-spinner 1s ease infinite;
+  }
+  button.checked{
+    background: var(--purple-dark) ;
+    color: var(--white) ;
+    transform: scale(.9);
+    a{
+      color: var(--white);
+    }
+
   }
 }
 
-.sec1 h1 {
-  font-size: var(--xxlarge);
-  text-align: center;
-}
-@media screen and (max-width: 720px)  {
-  .desktop{
+@media screen and (max-width: 720px) {
+  .desktop {
     display: none !important;
   }
   .sec1 h1 {
@@ -130,14 +221,8 @@ section {
   }
 }
 
-@media screen and (max-width: 480px)   {
-  .sec1 h1{
-    font-size: var(--large);
-  }
-
-}
-
 .quote {
+  height: 100vh;
   background-image: linear-gradient(black 10%, transparent 20%, black),
     url("/assets/dark/quotecover.jpg");
   background-position: center;
@@ -175,48 +260,67 @@ section {
     font-size: var(--xxlarge);
     position: relative;
   }
+  @media screen and (max-width: 720px) {
+    .text {
+      font-size: var(--large);
+    }
+  }
 }
 
 .features {
-  min-height: 100vh;
+  height: 100%;
   padding: 5rem 0;
-  height: auto;
   background: linear-gradient(var(--purple-dark), var(--black));
   display: flex;
   flex-flow: column nowrap;
+  align-items: start;
+  justify-content: center;
+  gap: 24px;
   position: relative;
-  .h2-wrap{
-    grid-column: span 2;
+  @media screen and (max-width: 720px) {
+    padding: 0;
+  }
+  .h2-wrap {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+  }
+  .features-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
   }
   .sub1 {
+    flex: 1;
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: row wrap;
     justify-content: space-around;
     align-items: flex-start;
     padding: 1rem 2rem;
-    
+    min-width: fit-content;
+    .content {
+      width: 100%;
+      display: flex;
+      flex-flow: column wrap;
+      align-items: center;
+      justify-content: space-around;
+      gap: 1rem;
+    }
   }
   .sub2 {
+    flex: 1;
     position: relative;
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    align-items: start;
+    justify-content: flex-start;
   }
-}
-.features .content {
-  width: 100%;
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: space-around;
-  gap: 1rem;
 }
 
 .feature-item {
-  padding: 1rem;
+  padding: 8px 12px;
   gap: 0.5rem;
   border-radius: 0.5rem;
   display: flex;
@@ -245,41 +349,54 @@ section {
   );
   mix-blend-mode: color-dodge;
   filter: brightness(1.2) contrast(1.3);
+  object-fit: contain;
   width: 100%;
-  height: auto;
-  object-fit: cover;
+  height: 100%;
 }
 
 .how {
-  
   background: linear-gradient(black 30%, rgba(0, 0, 0, 0.085), black 70%),
     radial-gradient(ellipse at center, transparent 20%, rgb(0, 0, 0) 70%),
     url(/assets/dark/d.jpg);
   background-size: cover;
   background-position: center;
   height: auto;
+  @media screen and (max-width: 720px) {
+    height: 100vh;
+  }
   .content {
-    height: 120vh;
+    height: 100%;
     width: 100vw;
     position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
   }
 
   .steps {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
     width: 90%;
-    height: 80vh;
+    height: 70%;
     max-width: 70rem;
+    width: 100%;
+    padding: 0 8px 40px 8px;
     margin: auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    transform: translateY(-50%);
+    justify-items: center;
+
+    @media screen and (max-width: 720px) {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
   }
   .step {
     display: flex;
+    flex: 1 1 200px;
     justify-content: center;
     align-items: center;
     gap: 10%;
@@ -327,7 +444,7 @@ section {
   .step:nth-child(1) {
     grid-row: 1;
     grid-column: 1;
-    filter: brightness(1.4) ;
+    filter: brightness(1.4);
   }
   .step:nth-child(2) {
     grid-column: 2;
@@ -338,6 +455,12 @@ section {
     grid-column: 3;
     grid-row: 3;
     animation-delay: 2s;
+  }
+  @media screen and (max-width: 720px) {
+    .step {
+      width: 90%;
+      padding: 12px 14px !important;
+    }
   }
 }
 
@@ -350,64 +473,88 @@ section {
   }
 }
 
-
-.hand1-container{
+.hand1-container {
   position: absolute;
   right: 0;
   top: 0;
 }
-.hand2-container{
+.hand2-container {
   position: absolute;
   left: 0;
   bottom: 0;
 }
 
-
-
-.hand{
+.hand {
   mix-blend-mode: screen;
+  width: 20rem;
+  height: 20rem;
+  object-fit: cover;
+  filter: brightness(1.5);
 }
 .cta {
+  height: 100vh;
+  max-height: 500px;
   position: relative;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: center;
-  background-image: radial-gradient(
-      ellipse 80vw 80vh at center,
-      transparent 10%,
-      rgba(0, 0, 0, 0.918) 40%
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.5) 50%,
+      rgba(0, 0, 0, 0.8) 100%
+    ),
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.5) 50%,
+      rgba(0, 0, 0, 0.8) 100%
     ),
     url(/assets/knee/knee2.jpg);
-  background-size: contain;
+  background-size: cover;
   background-position: bottom center;
   background-repeat: no-repeat;
   h2 {
     text-align: center;
-    padding: 3rem 0;
+    padding: 3rem 1rem;
   }
-  button{
+  button {
     position: absolute;
     top: 60vh;
     width: 15rem;
     height: 5rem;
-    border-radius: .3rem;
+    border-radius: 0.3rem;
     background: transparent;
     backdrop-filter: blur(40px);
     color: var(--white);
     filter: drop-shadow(0px 2px 10px var(--cyan));
     font-size: var(--xlarge);
-    margin:0 auto;
+    margin: 0 auto;
   }
 }
-.cta button:hover{
-  background: linear-gradient(45deg,rgba(0, 255, 255, 0.219) ,transparent ) !important;
+.cta button:hover {
+  background: linear-gradient(
+    45deg,
+    rgba(0, 255, 255, 0.219),
+    transparent
+  ) !important;
 }
 
 @media (max-width: 1200px) {
-  .features{
+  .features {
   }
 }
 
 
-
+@keyframes gradient  {
+  0% {
+    background-position: 200% 0%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}

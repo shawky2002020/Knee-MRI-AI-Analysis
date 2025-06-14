@@ -8,14 +8,22 @@
 
     <div class="text-container" #textEl>
       <h1>
-        Check Your Knee Immediately <br />
-        With Our AI Powered Analysis
+        AI-Powered Knee Diagnosis <br />
+        <span >
+
+          In Seconds, Not Weeks
+        </span>
       </h1>
       <p>Upload Your Scan & Get the results in minutes</p>
     </div>
 
-    <div id="check" #btnEl>
-      <button><a routerLink="/app/dashboard">Check Now</a></button>
+    <div id="check" #btnContainerEl>
+      <button #btnEl (click)="loading()" class="special-btn">
+        <a routerLink="/app/dashboard">Check Now
+          <i class="fas fa-stethoscope"></i>
+
+        </a>
+      </button>
     </div>
   </section>
 
@@ -23,25 +31,28 @@
     <div class="h2-wrap">
       <h2>Why Choose ACLyze AI?</h2>
     </div>
-    <div class="sub1">
+    <div class="features-wrap">
 
-      <div class="content">
-        <div class="feature-item">
-          <h3>AI-Powered Analysis</h3>
-          <p>Get accurate results using advanced deep learning models.</p>
-        </div>
-        <div class="feature-item">
-          <h3>Fast & Reliable</h3>
-          <p>Receive results within minutes</p>
-        </div>
-        <div class="feature-item">
-          <h3>Expert Insights</h3>
-          <p>Ensure accuracy with AI-verified assessments.</p>
+      <div class="sub1">
+  
+        <div class="content">
+          <div class="feature-item">
+            <h3>AI-Powered Analysis</h3>
+            <p>Get accurate results using advanced deep learning models.</p>
+          </div>
+          <div class="feature-item">
+            <h3>Fast & Reliable</h3>
+            <p>Receive results within minutes</p>
+          </div>
+          <div class="feature-item">
+            <h3>Expert Insights</h3>
+            <p>Ensure accuracy with AI-verified assessments.</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="sub2 desktop">
-      <img src="assets/dark/head.jpg" alt="" />
+      <div class="sub2 desktop">
+        <img src="assets/dark/head.jpg" alt="" />
+      </div>
     </div>
   </section>
   <section class="quote">
@@ -58,7 +69,7 @@
   </section>
   <section class="how">
     <div class="content">
-      <div class="hand1-container">
+      <div class="hand1-container ">
         <img #hand1El class="hand-1 hand" src="assets/dark/righthand.png" alt="" />
       </div>
       <div class="hand2-container">
@@ -70,9 +81,9 @@
         <h2>How It Works</h2>
       </div>
       <div class="steps">
-        <div class="step"><span>1</span> Upload Your MRI Scan</div>
-        <div class="step"><span>2</span> AI Analyzes the Scan</div>
-        <div class="step"><span>3</span> Get Instant Results</div>
+        <div class="step"><span>1</span><h3>Upload Your MRI Scan</h3></div>
+        <div class="step"><span>2</span><h3>AI Analyzes the Scan</h3></div>
+        <div class="step"><span>3</span><h3>Get Instant Results</h3></div>
       </div>
     </div>
   </section>

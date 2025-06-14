@@ -30,31 +30,32 @@ export class NavbarComponent {
   toggleHamburger() {
     const navIcon = document.querySelector('.nav-icon');
     const overlay = document.querySelector('.overlay');
-  
+
     if (navIcon?.classList.contains('active')) {
       this.closeHamburgerMenu();
     } else {
       this.openHamburgerMenu();
     }
-  
+
     overlay?.addEventListener('click', () => {
       this.closeHamburgerMenu();
     });
   }
-  
+
   openHamburgerMenu() {
     const navIcon = document.querySelector('.nav-icon');
     const hamburger = document.querySelector('.hamburger');
     const overlay = document.querySelector('.overlay');
     const navList = document.querySelector('.nav-list');
     const navItems = document.querySelectorAll('.nav-list li');
-  
+
     const twine = gsap.timeline();
-  
+
     twine
       .from(navIcon, {
         opacity: 0,
-        duration: 0.1,
+        duration: 0.2,
+        ease: 'power1.out',
         onComplete: () => {
           navIcon?.classList.add('active');
           overlay?.classList.add('active');
@@ -63,34 +64,37 @@ export class NavbarComponent {
       })
       .to(navList, {
         opacity: 1,
-        duration: 0.1,
+        duration: 0.3,
         ease: 'power2.out',
       })
       .fromTo(
         navItems,
-        { opacity: 0 },
+        {  opacity:0, duration: 0.2, ease: 'power1.out' },
         {
           opacity: 1,
-          stagger: { amount: 0.5 },
-          duration: 1,
-          delay: 1,
-          ease: 'power2.out',
+          duration: 0.6,
+          ease: 'power3.out',
+          delay:1,
+          stagger: {
+            amount: 0.5,
+            from: 'start',
+          },
           onComplete: () => {
             navList?.classList.add('active');
           },
         },
-        '<'
+        '<-0.5'
       );
   }
-  
+
   closeHamburgerMenu() {
     const navIcon = document.querySelector('.nav-icon');
     const hamburger = document.querySelector('.hamburger');
     const overlay = document.querySelector('.overlay');
     const navList = document.querySelector('.nav-list');
-  
+
     const twine = gsap.timeline({ defaults: { duration: 0.2 } });
-  
+
     twine
       .fromTo(hamburger, { opacity: 1 }, { opacity: 0, duration: 0.1 })
       .fromTo(
@@ -105,13 +109,14 @@ export class NavbarComponent {
             navList?.classList.add('hidden');
             navIcon?.classList.remove('active');
             overlay?.classList.remove('active');
-            gsap.fromTo(hamburger, { opacity: 0 }, { opacity: 1, duration: 1.5 });
+            gsap.fromTo(
+              hamburger,
+              { opacity: 0 },
+              { opacity: 1, duration: 1.5 }
+            );
           },
         },
         '0.2'
       );
   }
-  
 }
-
-
