@@ -164,6 +164,14 @@ body {
   --xxxxlarge: 4rem;
   --huge: 5rem;
   --super-huge: 6rem;
+
+
+
+  /* BREAKPOINTS */
+  --mobile: 480px;
+  --tablet: 768px;
+  --laptop: 1024px;
+  --desktop: 1200px;
 }
 
 
@@ -381,6 +389,7 @@ li {
 
 
 #logo {
+  white-space: no-wrap;
   h1 {
     padding: 0 0.5rem;
     background: linear-gradient(
@@ -402,7 +411,19 @@ li {
   font-size: var(--xlarge);
   color: var(--white);
 }
+@media screen and (max-width: 480px) {
+  
+#logo {
+  white-space: nowrap;
+  h1 {
+  
+  }
 
+}
+#logo span {
+  font-size: var(--large);
+}
+}
 #links-wrapper {
   display: flex;
   flex-flow: row nowrap;
@@ -417,6 +438,25 @@ footer {
   }
 }
 
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.overlay.active{
+  opacity: 1;
+  visibility: visible;
+}
 
 
 body.light {

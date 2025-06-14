@@ -1,12 +1,9 @@
 .about-us {
-  padding: 4rem 2rem;
-  background: linear-gradient(135deg, #0e1117f2, #1e0a32f2);
+  padding: 4rem 12px;
   font-family: 'Segoe UI', 'Poppins', sans-serif;
   color: #f1f1f1;
   overflow-x: hidden;
-  .section{
-    min-height: 70vh;
-  }
+  
 }
 
 /* Header Section */
@@ -17,7 +14,7 @@
 }
 
 .gradient-text {
-  background: linear-gradient(45deg, var(--purple-bg), rgba(165, 79, 165, 0.799), var(--purple-bg));
+  background: linear-gradient(235deg, var(--purple-bg), rgba(165, 79, 165, 0.799));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -29,10 +26,11 @@
   content: '';
   position: absolute;
   bottom: -10px;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, var(--purple-light), var(--cyan));
+  background: linear-gradient(90deg, var(--purple-light), var(--purple-bg));
   border-radius: 3px;
 }
 

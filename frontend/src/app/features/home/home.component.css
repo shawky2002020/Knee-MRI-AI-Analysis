@@ -115,6 +115,27 @@ section {
   font-size: var(--xxlarge);
   text-align: center;
 }
+@media screen and (max-width: 720px)  {
+  .desktop{
+    display: none !important;
+  }
+  .sec1 h1 {
+    font-size: var(--xlarge);
+  }
+  .sec1 p {
+    font-size: var(--normal);
+  }
+  .sec1 button {
+    font-size: var(--large);
+  }
+}
+
+@media screen and (max-width: 480px)   {
+  .sec1 h1{
+    font-size: var(--large);
+  }
+
+}
 
 .quote {
   background-image: linear-gradient(black 10%, transparent 20%, black),
@@ -161,8 +182,8 @@ section {
   padding: 5rem 0;
   height: auto;
   background: linear-gradient(var(--purple-dark), var(--black));
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-flow: column nowrap;
   position: relative;
   .h2-wrap{
     grid-column: span 2;

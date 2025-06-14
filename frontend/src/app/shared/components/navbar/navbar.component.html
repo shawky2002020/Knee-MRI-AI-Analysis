@@ -11,7 +11,39 @@
       <li *ngIf="!user.token"><a routerLink="/auth/login">Login</a></li>
       <li *ngIf="!user.token"><a routerLink="/home/about">About Us</a></li>
       <li *ngIf="!user.token"><a routerLink="/home/faq">FAQ</a></li>
-
-
     </ul>
+    <div class="nav-icon" (click)="toggleHamburger()">
+      <ul class="nav-list" >
+        <li *ngIf="!user.token">
+          <a routerLink="/home">
+            <i class="fas fa-home"></i>
+            Home
+          </a>
+        </li>
+        <li *ngIf="!user.token">
+          <a routerLink="/home/about">
+            <i class="fas fa-info-circle"></i>
+            About Us
+          </a>
+        </li>
+        <li *ngIf="!user.token">
+          <a routerLink="/home/faq">
+            <i class="fas fa-question-circle"></i>
+            FAQ
+          </a>
+        </li>
+        <li *ngIf="!user.token">
+          <a routerLink="/auth/login">
+            <i class="fas fa-sign-in-alt"></i>
+            Login
+          </a>
+        </li>
+      </ul>
+      <div class="hamburger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+    </div>
 </div>
+<div class="overlay"></div>
