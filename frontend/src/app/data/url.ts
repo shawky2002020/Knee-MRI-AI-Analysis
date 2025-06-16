@@ -1,4 +1,5 @@
-export const BASEURL = 'http://localhost:3000';
+import * as ennviroment from "../enviroments/enviroment";
+export const BASEURL = ennviroment.production.apiUrl;
 
 //Users urls
 export const USERS_BASE = BASEURL + '/v1/auth';
