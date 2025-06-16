@@ -12,7 +12,7 @@
   position: relative;
   width: 100vw;
   .content{
-    /* background: rgba(45, 9, 46, 0.733); */
+    background:var(--purple-dark);
     display: flex;
     -webkit-backdrop-filter: blur(3px);
     backdrop-filter: blur(10px);

@@ -1,8 +1,9 @@
 .page{
-  height: calc(100vh - 5rem);
+  height: calc(100vh - 80px);
   width: 100vw;
   display: flex;
   align-items: center;
+  margin: 20px 0 100px 0;
   
 }
 

@@ -21,9 +21,9 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
 }).fields([
   { name: 'scan', maxCount: 1 },  // For single scan uploads
-  { name: 'sagittal', maxCount: 15 },  // For sagittal view
-  { name: 'coronal', maxCount: 15 },  // For coronal view
-  { name: 'axial', maxCount: 15 }     // For axial view
+  { name: 'sagittal'},  // For sagittal view
+  { name: 'coronal' },  // For coronal view
+  { name: 'axial' }     // For axial view
 ]);
 
 

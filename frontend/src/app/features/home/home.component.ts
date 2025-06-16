@@ -216,7 +216,7 @@ export class HomeComponent implements AfterViewInit {
         duration: 1,
         stagger: { amount: 1 },
         ease: 'power3.out',
-      });
+      }, '>-1.5');
     
     // Apply the infinite animation separately
     gsap.to('.features img', {
