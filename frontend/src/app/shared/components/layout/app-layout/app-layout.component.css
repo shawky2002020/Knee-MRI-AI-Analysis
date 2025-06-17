@@ -1,11 +1,11 @@
 .app-container {
   position: relative;
-  min-height: 100vh;
+  min-height: 100vh;    /* Fallback */
+  min-height: 100vh;   /* Modern browsers override this */
   width: 100%;
-  overflow: auto;
+  overflow:hidden auto;
   display: flex;
   flex-direction: column;
-  
   .sidebar-container{
     z-index: 50;
     background: #000;
