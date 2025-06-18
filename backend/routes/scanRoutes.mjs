@@ -1,6 +1,6 @@
 import express from "express";
 import * as scanHistoryController from '../controllers/scanController.mjs'
-import * as aiController from '../controllers/aiController.mjs'
+import * as aiController from '../controllers/modelController.mjs'
 import upload from "../middleware/uploadMiddleware.mjs";
 import { authorize } from "../middleware/authMiddleware.mjs";
 const router = express.Router();

@@ -1,8 +1,6 @@
 import MriScan from "../models/MriScan.mjs";
 import User from "../models/User.mjs";
 import dotenv from "dotenv";
-import FormData from "form-data";
-import { io } from "../config/serverConfig.mjs";
 import  {notifyUser ,Notification } from "../services/notificationService.mjs";
 import notification from "../models/notifications.mjs";
 

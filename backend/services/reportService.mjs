@@ -1,59 +1,56 @@
-import puppeteer from 'puppeteer';
-import { join,dirname } from 'path';
-import { promises as fs } from 'fs';
-import { fileURLToPath } from 'url';
+import puppeteer from "puppeteer";
+import { join, dirname } from "path";
+import { promises as fs } from "fs";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export class ReportService {
   constructor() {
-    this.templatePath = join(__dirname, '../templates/report-template.html');
+    this.templatePath = join(__dirname, "../templates/report-template.html");
   }
 
   async generateReport(reportData) {
     try {
       // Generate HTML content
       const htmlContent = await this.generateHTML(reportData);
-      
+
       // Convert HTML to PDF using Puppeteer
       const pdfBuffer = await this.generatePDF(htmlContent);
-      
+
       return pdfBuffer;
     } catch (error) {
-      console.error('Error generating report:', error);
+      console.error("Error generating report:", error);
       throw error;
     }
   }
 
   async generateHTML(data) {
-    const {
-      patientId,
-      diagnosis,
-      confidence,
-      views,
-      date,
-      heatmapUrls
-    } = data;
+    const { patientId, diagnosis, confidence, views, date, heatmapUrls } = data;
 
-    const formattedDate = new Date(date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    const formattedDate = new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
 
-    const formattedTime = new Date().toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit'
+    const formattedTime = new Date().toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
     });
 
     // Generate heatmap images HTML
-    const heatmapImagesHTML = heatmapUrls.map((url, index) => `
+    const heatmapImagesHTML = heatmapUrls
+      .map(
+        (url, index) => `
       <div class="heatmap-container">
-        <h4>View ${index + 1}: ${views[index] || 'Unknown View'}</h4>
+        <h4>View ${index + 1}: ${views[index] || "Unknown View"}</h4>
         <img src="${url}" alt="Heatmap ${index + 1}" class="heatmap-image">
       </div>
-    `).join('');
+    `
+      )
+      .join("");
 
     const confidenceColor = this.getConfidenceColor(confidence);
     const confidenceLevel = this.getConfidenceLevel(confidence);
@@ -145,7 +142,10 @@ export class ReportService {
                 font-size: 2.8rem;
                 margin-bottom: 0.5rem;
                 font-weight: 700;
-                color:#fff;
+                background: var(--holographic-secondary);
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
                 display: inline-block;
             }
     
@@ -283,7 +283,13 @@ export class ReportService {
                 padding: 1rem 1.5rem;
                 background: rgba(255, 255, 255, 0.7);
                 border-radius: 12px;
-                border-left: 5px solid ${confidence >= 80 ? 'var(--green)' : confidence >= 60 ? 'var(--yellow)' : 'var(--red)'};
+                border-left: 5px solid ${
+                  confidence >= 80
+                    ? "var(--green)"
+                    : confidence >= 60
+                    ? "var(--yellow)"
+                    : "var(--red)"
+                };
                 display: inline-block;
                 text-transform:capitalize;
             }
@@ -327,7 +333,13 @@ export class ReportService {
             }
             
             .confidence-level {
-                color: ${confidence >= 80 ? 'var(--green-dark)' : confidence >= 60 ? 'var(--yellow)' : 'var(--red)'};
+                color: ${
+                  confidence >= 80
+                    ? "var(--green-dark)"
+                    : confidence >= 60
+                    ? "var(--yellow)"
+                    : "var(--red)"
+                };
                 font-weight: 700;
             }
     
@@ -567,8 +579,8 @@ export class ReportService {
     <body>
         <div class="report-container">
             <div class="header">
-                <h1>Medical Analysis Report</h1>
-                <p>AI-Powered Diagnostic Assessment</p>
+                <h1>ACLYZE AI</h1>
+                <p>Medical Analysis Report</p>
             </div>
     
             <div class="report-meta">
@@ -611,9 +623,16 @@ export class ReportService {
     
                 <div class="section views-section">
                     <h2 class="section-title">Analysis Overview</h2>
-                    <p>This comprehensive analysis was performed on ${views.length} different medical views using our advanced AI diagnostic system.</p>
+                    <p>This comprehensive analysis was performed on ${
+                      views.length
+                    } different medical views using our advanced AI diagnostic system.</p>
                     <div class="views-list">
-                        ${views.map(view => `<span class="view-tag"><i class="fas fa-film"></i>${view}</span>`).join('')}
+                        ${views
+                          .map(
+                            (view) =>
+                              `<span class="view-tag"><i class="fas fa-film"></i>${view}</span>`
+                          )
+                          .join("")}
                     </div>
                 </div>
     
@@ -621,12 +640,20 @@ export class ReportService {
                     <h2 class="section-title">Heatmap Analysis</h2>
                     <p>The following heatmaps highlight areas of interest identified by our AI analysis system, providing visual insights into potential abnormalities.</p>
                     <div class="heatmaps-grid">
-                        ${heatmapUrls.map((url, index) => `
+                        ${heatmapUrls
+                          .map(
+                            (url, index) => `
                           <div class="heatmap-container">
-                            <h4><i class="fas fa-fire"></i> View ${index + 1}: ${views[index] || 'Unknown View'}</h4>
-                            <img src="${url}" alt="Heatmap ${index + 1}" class="heatmap-image">
+                            <h4><i class="fas fa-fire"></i> View ${
+                              index + 1
+                            }: ${views[index] || "Unknown View"}</h4>
+                            <img src="${url}" alt="Heatmap ${
+                              index + 1
+                            }" class="heatmap-image">
                           </div>
-                        `).join('')}
+                        `
+                          )
+                          .join("")}
                     </div>
                 </div>
                 
@@ -638,11 +665,17 @@ export class ReportService {
                             <p>Based on the AI-assisted analysis of the provided MRI scans, the following observations have been made:</p>
                             <ul>
                                 <li>Primary diagnosis indicates <strong>${diagnosis}</strong> with a confidence level of <strong>${confidence}%</strong>.</li>
-                                <li>The AI system has analyzed ${views.length} different views to provide a comprehensive assessment.</li>
+                                <li>The AI system has analyzed ${
+                                  views.length
+                                } different views to provide a comprehensive assessment.</li>
                                 <li>Areas of interest have been highlighted in the heatmap visualizations above.</li>
-                                ${confidence >= 80 ? '<li>The high confidence score suggests a reliable diagnostic assessment.</li>' : 
-                                confidence >= 60 ? '<li>The moderate confidence score suggests further clinical correlation may be beneficial.</li>' : 
-                                '<li>The lower confidence score indicates that additional clinical evaluation is strongly recommended.</li>'}
+                                ${
+                                  confidence >= 80
+                                    ? "<li>The high confidence score suggests a reliable diagnostic assessment.</li>"
+                                    : confidence >= 60
+                                    ? "<li>The moderate confidence score suggests further clinical correlation may be beneficial.</li>"
+                                    : "<li>The lower confidence score indicates that additional clinical evaluation is strongly recommended.</li>"
+                                }
                             </ul>
                             <p>This report should be reviewed by a qualified healthcare professional for final interpretation and treatment planning.</p>
                         </div>
@@ -668,16 +701,16 @@ export class ReportService {
 
   async generatePDF(htmlContent) {
     const browser = await puppeteer.launch({
-        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
-        headless: 'new',
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
-      });
-      
-  
+      executablePath:
+        process.env.PUPPETEER_EXECUTABLE_PATH || "/usr/bin/chromium",
+      headless: "new",
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+
     try {
       const page = await browser.newPage();
-      await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
-  
+      await page.setContent(htmlContent, { waitUntil: "networkidle0" });
+
       // Evaluate full height more accurately
       const bodyHeight = await page.evaluate(() => {
         const body = document.body;
@@ -690,39 +723,37 @@ export class ReportService {
           html.offsetHeight
         );
       });
-  
+
       const heightInMm = bodyHeight * 0.264583; // Convert px to mm (1px ≈ 0.264583mm)
       const pdfBuffer = await page.pdf({
-        width: '210mm', // A4 width
+        width: "210mm", // A4 width
         height: `${heightInMm}mm`,
         printBackground: true,
         margin: {
-          top: '0mm',
-          right: '0mm',
-          bottom: '0mm',
-          left: '0mm'
-        }
+          top: "0mm",
+          right: "0mm",
+          bottom: "0mm",
+          left: "0mm",
+        },
       });
-  
+
       return pdfBuffer;
     } finally {
       await browser.close();
     }
   }
-  
-  
 
   getConfidenceColor(confidence) {
-    if (confidence >= 80) return 'linear-gradient(90deg, #28a745, #20c997)';
-    if (confidence >= 60) return 'linear-gradient(90deg, #ffc107, #fd7e14)';
-    return 'linear-gradient(90deg, #dc3545, #e83e8c)';
+    if (confidence >= 80) return "linear-gradient(90deg, #28a745, #20c997)";
+    if (confidence >= 60) return "linear-gradient(90deg, #ffc107, #fd7e14)";
+    return "linear-gradient(90deg, #dc3545, #e83e8c)";
   }
 
   getConfidenceLevel(confidence) {
-    if (confidence >= 80) return 'High';
-    if (confidence >= 60) return 'Medium';
-    return 'Low';
+    if (confidence >= 80) return "High";
+    if (confidence >= 60) return "Medium";
+    return "Low";
   }
 }
 
-export default  ReportService;
+export default ReportService;

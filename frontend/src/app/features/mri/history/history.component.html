@@ -1,13 +1,13 @@
+<app-popup
+[title]=" 'Delete Report' "
+[message]=" 'Are you sure you want to delete this report?' "
+[confirmButtonText]=" 'Delete' "
+[cancelButtonText]=" 'Cancel' "
+[showPopup]="showPopup"
+(confirmEmitter)="confirmDelete($event)"
+(closeEmitter)="cancelDelete($event)"
+></app-popup>
 <div class="container">
-  <app-popup
-  [title]=" 'Delete Report' "
-  [message]=" 'Are you sure you want to delete this report?' "
-  [confirmButtonText]=" 'Delete' "
-  [cancelButtonText]=" 'Cancel' "
-  [showPopup]="showPopup"
-  (confirmEmitter)="confirmDelete($event)"
-  (closeEmitter)="cancelDelete($event)"
-  ></app-popup>
 
   <img src="/assets/holo/holo1.jpg" alt="" class="back" />
 
