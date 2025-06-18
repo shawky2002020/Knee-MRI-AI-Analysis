@@ -1,7 +1,6 @@
 .app-container {
   position: relative;
-  min-height: 100vh;    /* Fallback */
-  min-height: 100vh;   /* Modern browsers override this */
+  height: 100svh;   /* Modern browsers override this */
   width: 100%;
   overflow:hidden auto;
   display: flex;

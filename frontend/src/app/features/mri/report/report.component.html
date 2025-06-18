@@ -31,12 +31,13 @@
       <div class="card-header">
         <h2>MRI Visualization</h2>
         <div class="tab-navigation">
-          <button 
+          <!-- <button 
             [ngClass]="{'active': activeItem === 'scan'}" 
             (click)="setActiveItem('scan')">
             <i class="fas fa-image"></i> Original Scan
-          </button>
+          </button> -->
           <button 
+            class="active"
             [ngClass]="{'active': activeItem === 'heatmap'}" 
             (click)="setActiveItem('heatmap')">
             <i class="fas fa-fire"></i> AI Heatmap

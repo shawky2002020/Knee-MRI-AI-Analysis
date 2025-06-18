@@ -24,20 +24,20 @@ export class ReportComponent {
   ngOnInit(): void {
     
     this.DiagnosticResult = this.mriService.getMriScan();
-    this.visualisation_img = this.DiagnosticResult.mri_scan;
+    this.visualisation_img = this.DiagnosticResult.heat_map;
     this.acl_prob = this.DiagnosticResult.result.acl_prob *100;
     this.meniscus_prob = this.DiagnosticResult.result.meniscus_prob *100;
     this.status = this.DiagnosticResult.result.status;
     
   }
   setActiveItem(item: string): void {
-    this.activeItem = item;
-    if (item === 'scan') {
-      this.visualisation_img = this.DiagnosticResult.mri_scan;    
-    }
-    else if (item ==='heatmap') {
-      this.visualisation_img = this.DiagnosticResult.heat_map;
-    }
+    // this.activeItem = item;
+    // if (item === 'scan') {
+    //   this.visualisation_img = this.DiagnosticResult.mri_scan;    
+    // }
+    // else if (item ==='heatmap') {
+    //   this.visualisation_img = this.DiagnosticResult.heat_map;
+    // }
   }
   downloadReport(){
     this.reportService.generateReport(this.DiagnosticResult._id,this.DiagnosticResult.result.status,this.confidence,['axial','coronal','sagittal'],this.DiagnosticResult.createdAt,[this.DiagnosticResult.heat_map]).subscribe((response: Blob) => {

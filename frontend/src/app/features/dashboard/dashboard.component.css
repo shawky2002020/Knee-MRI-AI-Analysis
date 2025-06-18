@@ -2,8 +2,10 @@
 
 .dashboard {
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
   border-radius: 1rem;
+  padding-bottom: 30px;
+
   display: flex;
   flex-flow: column;
   justify-content: start;

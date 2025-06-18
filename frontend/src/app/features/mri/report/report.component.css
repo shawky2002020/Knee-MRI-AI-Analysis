@@ -190,7 +190,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--black-light);
+  background-color: var(--white);
 }
 
 .scan-image {
