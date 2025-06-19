@@ -116,7 +116,7 @@ export class LoginComponent implements AfterViewInit , OnInit {
         error:(err)=>{
           console.log(err);
           loginBtn?.classList.remove('loading');
-          this.toast.error('Failed to Login')
+          this.toast.error(err.error.message)
         }
        
       });

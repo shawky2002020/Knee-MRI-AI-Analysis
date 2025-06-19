@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -14,7 +15,7 @@ const userSchema = new mongoose.Schema({
   },
   role:{
     type: String,
-    requred : true,
+    required : true,
     default : 'user'
   },
   password: {
@@ -49,6 +50,21 @@ const userSchema = new mongoose.Schema({
   }
 });
 
+// Method to check if user can login with password
+userSchema.methods.canLoginWithPassword = function() {
+  return !this.isGoogleUser && this.password;
+};
+
+// Method to compare passwords
+userSchema.methods.comparePassword = async function(candidatePassword) {
+  if (this.isGoogleUser) return false;
+  return await bcrypt.compare(candidatePassword, this.password);
+};
+
+// Method to check if account is linked
+userSchema.methods.isLinkedAccount = function() {
+  return this.isGoogleUser && this.password;
+};
 const User = mongoose.model('User', userSchema);
 
 

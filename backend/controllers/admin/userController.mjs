@@ -67,61 +67,55 @@ export const getUser = async (req, res) => {
 };
 
 // Update User
+
 export const updateUser = async (req, res) => {
-  const { _id, name, email, password, aiAccess } = req.body;
+  const { _id, name, password, email, role, aiAccess } = req.body;
+
+  if (!_id) return res.status(400).json({ message: "User ID is required" });
+
   try {
-    if (!_id) {
-      return res.status(400).json({ message: "User ID is required" });
-    }
-    const u =await User.findOne({_id});
-    if (u.aiAccess === false && aiAccess === true) {
-      
+    const userDoc = await User.findById(_id);
+    if (!userDoc) return res.status(404).json({ message: "User not found" });
+
+    // Send notification if AI access is changed
+    if (userDoc.aiAccess === false && aiAccess === true) {
       notifyUser(
         _id,
-        "access-enabeled",
+        "access-enabled",
         new Notification({
-          title:"AI Access Granted",
-         message: "Your AI access has been granted. You can now use the AI to diagnose your scans.",
-        type: "success",
-        }
-        )
+          title: "AI Access Granted",
+          message: "You can now use the AI to diagnose your scans.",
+          type: "success",
+        })
       );
-    }
-    else if (u.aiAccess === true && aiAccess === false) {
+    } else if (userDoc.aiAccess === true && aiAccess === false) {
       notifyUser(
         _id,
-        "access-disabeled",
+        "access-disabled",
         new Notification({
-          title:"AI Access Blocked",
-         message: "Your AI access has been revoked. You will no longer be able to use the AI to diagnose your scans.",
-        type: "warning",
-        }
-        )
+          title: "AI Access Blocked",
+          message: "Your AI access has been revoked.",
+          type: "warning",
+        })
       );
     }
-   
-    const user = await User.updateOne(
-      { _id },
-      {
-        $set: {
-          name,
-          email,
-          password,
-          aiAccess,
-        },
-      }
-    );
-    if (!user) return res.status(404).json({ message: "User not found" });
-    if (!aiAccess === null) {
-      if (aiAccess === "true") {
-          
-      }
+
+    // Build update object
+    const updateFields = { name, email, role, aiAccess };
+
+    // Only update password if it is provided and user is not Google user
+    if (password && !userDoc.isGoogleUser) {
+      updateFields.password = await bcrypt.hash(password, 10);
     }
-    res.status(200).json({ message: "User updated successfully", user });
+
+    await User.updateOne({ _id }, { $set: updateFields });
+
+    res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
+
 
 // Create User
 export const createUser = async (req, res) => {

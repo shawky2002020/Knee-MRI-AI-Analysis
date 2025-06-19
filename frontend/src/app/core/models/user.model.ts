@@ -11,6 +11,7 @@ export class User {
   loginCount?: number;
   scanCount?: number;
   aiAccess?: boolean;
+  isGoogleUser?: boolean;
 }
 
 export class userResponse {
