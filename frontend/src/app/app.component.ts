@@ -1,14 +1,14 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ThemeService } from './core/services/theme.service';
+// import { ThemeService } from './core/services/theme.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit, AfterViewInit   {
-  constructor(private themeService: ThemeService ) {}
+  constructor( ) {}
   ngAfterViewInit(): void {
    
   }
@@ -16,6 +16,6 @@ export class AppComponent implements OnInit, AfterViewInit   {
 
 
   ngOnInit() {
-    this.themeService.applySavedTheme();
+    // this.themeService.applySavedTheme();
   }
 }

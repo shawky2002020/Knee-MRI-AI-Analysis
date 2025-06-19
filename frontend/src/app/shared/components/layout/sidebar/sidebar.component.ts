@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../../../core/models/user.model';
-import { ThemeService } from '../../../../core/services/theme.service';
 import { UserService } from '../../../../core/services/user.service';
 import { Router } from '@angular/router';
 
@@ -15,15 +14,15 @@ export class SidebarComponent {
   isLight !:boolean;
   activeItem!: string ; // Default active item
 
-  constructor(private router: Router, private userService: UserService,  private themeService:ThemeService) {
+  constructor(private router: Router, private userService: UserService) {
     
     userService.userObservable.subscribe((newUser)=>{
       this.user = newUser;
     });
-    themeService.themeObservable.subscribe((newTheme)=>{
-      this.isLight = newTheme === 'light';
+    // themeService.themeObservable.subscribe((newTheme)=>{
+    //   this.isLight = newTheme === 'light';
 
-    })
+    // })
     this.activeItem = localStorage.getItem('activeItem') || 'dashboard'
     
   }

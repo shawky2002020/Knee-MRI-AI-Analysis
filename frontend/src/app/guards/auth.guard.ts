@@ -3,7 +3,7 @@ import { CanActivate, Router } from '@angular/router';
 import { UserService } from '../core/services/user.service';
 import { User } from '../core/models/user.model';
 import { ToastrService } from 'ngx-toastr';
-import { ThemeService } from '../core/services/theme.service';
+// import { ThemeService } from '../core/services/theme.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ import { ThemeService } from '../core/services/theme.service';
 export class AuthGuard implements CanActivate {
   user!:User ;
   constructor(private userService: UserService, private router: Router,
-    private toast : ToastrService,private themeService:ThemeService
+    private toast : ToastrService
   ) {
     userService.userObservable.subscribe({
       next:(user)=>{
@@ -32,7 +32,7 @@ export class AuthGuard implements CanActivate {
     } else {
       console.log(this.user);
       
-      this.themeService.switchToDarkTheme()
+      // this.themeService.switchToDarkTheme()
       this.toast.info('Login to proceed please')
       this.router.navigate(['/auth/login']); // Redirect if not logged in
 

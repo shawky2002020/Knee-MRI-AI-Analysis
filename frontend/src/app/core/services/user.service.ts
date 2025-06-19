@@ -3,7 +3,7 @@ import { User, userResponse } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import * as url from '../../data/url';
-import { ThemeService } from './theme.service';
+// import { ThemeService } from './theme.service';
 import { Router } from '@angular/router';
 import { LoaderService } from './loader.service';
 
@@ -21,7 +21,7 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private themeService: ThemeService,
+    // private themeService: ThemeService,
     private router: Router,
     private loadingService:LoaderService,
 
@@ -58,7 +58,7 @@ export class UserService {
         next: (res) => {
           this.loadingService.showLoader()
 
-          this.themeService.switchToLightTheme();
+          // this.themeService.switchToLightTheme();
           const newUser = {
             ...res.user,
             token: res.token,
@@ -76,7 +76,7 @@ export class UserService {
   logout() {
     this.userSubject.next(new User());
     localStorage.removeItem(USER_KEY);
-    this.themeService.switchToDarkTheme();
+    // this.themeService.switchToDarkTheme();
     this.router.navigate(['/']);
   }
 

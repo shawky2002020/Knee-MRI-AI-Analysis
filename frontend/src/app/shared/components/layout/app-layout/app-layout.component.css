@@ -11,9 +11,8 @@
   }
   .content-container{
     position: relative;
-    height: 100%;
+    height: 100vh;
     
-    transition: all 0.3s ease;
   }
   
   .notification-container {

@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { UserService } from '../../core/services/user.service';
 import { User } from '../../core/models/user.model';
 import gsap from 'gsap';
-import { ThemeService } from '../../core/services/theme.service';
+// import { ThemeService } from '../../core/services/theme.service';
 import { MriScanService } from '../../core/services/mri-scan.service';
 import { MriDiagnosticResponse } from '../../core/models/ai-result.model';
 
@@ -15,8 +15,8 @@ export class DashboardComponent implements AfterViewInit,OnInit {
   latestScans: MriDiagnosticResponse[] = [];
   totalScans: number = 0;
   loading: boolean = false;
-  constructor(private userService: UserService,private themeService : ThemeService,private scansService:MriScanService) {
-    themeService.switchToLightTheme()
+  constructor(private userService: UserService,private scansService:MriScanService) {
+    // themeService.switchToLightTheme()
   }
   ngOnInit(): void {
     this.getLastScans()

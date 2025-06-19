@@ -1,30 +1,39 @@
-
 <div class="report-page">
-  
   <!-- Enhanced Header Section -->
-   <header class="page-header">
-
-     <app-header [title]="'Report'"></app-header>
-    </header>
+  <header class="page-header">
+    <app-header [title]="'Report'"></app-header>
+  </header>
   <header class="report-header">
     <div class="title-section">
-      <h1 class="gradient-text">{{DiagnosticResult.metadata.name}}</h1>
+      <h1 class="gradient-text">{{ DiagnosticResult.metadata.name }}</h1>
       <div class="metadata">
-        <span class="metadata-item"><i class="fas fa-calendar"></i> {{DiagnosticResult.createdAt | date:'mediumDate'}}</span>
-        <span class="metadata-item"><i class="fas fa-user"></i> {{DiagnosticResult.metadata.age}} years, {{DiagnosticResult.metadata.gender}}</span>
-        <span class="metadata-item"><i class="fas fa-x-ray"></i> {{DiagnosticResult.metadata.view_type || 'Axial'}} View</span>
+        <span class="metadata-item"
+          ><i class="fas fa-calendar"></i>
+          {{ DiagnosticResult.createdAt | date : "mediumDate" }}</span
+        >
+        <span class="metadata-item"
+          ><i class="fas fa-user"></i>
+          {{ DiagnosticResult.metadata.age }} years,
+          {{ DiagnosticResult.metadata.gender }}</span
+        >
+        <span class="metadata-item"
+          ><i class="fas fa-x-ray"></i>
+          {{ DiagnosticResult.metadata.view_type || "Axial" }} View</span
+        >
       </div>
     </div>
     <div class="actions">
-      <button (click)="downloadReport()" class="action-btn download">
-        <i class="fas fa-file-download"></i> Download PDF
+      <button #downloadBtnEL (click)="downloadReport()" class="action-btn download">
+        <p #downloadTextEl>Download Report</p>
+        <div #downloadIconEl>
+
+          <i  class="fas fa-arrow-down"></i>
+        </div>
       </button>
-      <button class="action-btn share">
-        <i class="fas fa-share-alt"></i> Share Report
-      </button>
+     
     </div>
   </header>
-  
+
   <div class="report-body">
     <!-- Enhanced Visualization Section -->
     <div class="visualization-card">
@@ -36,16 +45,21 @@
             (click)="setActiveItem('scan')">
             <i class="fas fa-image"></i> Original Scan
           </button> -->
-          <button 
+          <button
             class="active"
-            [ngClass]="{'active': activeItem === 'heatmap'}" 
-            (click)="setActiveItem('heatmap')">
+            [ngClass]="{ active: activeItem === 'heatmap' }"
+            (click)="setActiveItem('heatmap')"
+          >
             <i class="fas fa-fire"></i> AI Heatmap
           </button>
         </div>
       </div>
       <div class="image-container">
-        <img [src]="visualisation_img" alt="MRI Visualization" class="scan-image" />
+        <img
+          [src]="visualisation_img"
+          alt="MRI Visualization"
+          class="scan-image"
+        />
         <div class="image-overlay" *ngIf="activeItem === 'heatmap'">
           <div class="overlay-info">
             <span>AI-generated heatmap highlighting areas of interest</span>
@@ -53,7 +67,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Enhanced Analysis Section -->
     <div class="analysis-container">
       <!-- Key Findings Card -->
@@ -62,29 +76,56 @@
           <h2><i class="fas fa-clipboard-list"></i> Key Findings</h2>
         </div>
         <div class="card-content">
-          <div class="status-indicator" [ngClass]="{
-            'normal': status.toLowerCase().includes('normal'),
-            'warning': status.toLowerCase().includes('abnormal') || status.toLowerCase().includes('suspicious'),
-            'critical': status.toLowerCase().includes('tear') || status.toLowerCase().includes('rupture')
-          }">
+          <div
+            class="status-indicator"
+            [ngClass]="{
+              normal: status.toLowerCase().includes('normal'),
+              warning:
+                status.toLowerCase().includes('abnormal') ||
+                status.toLowerCase().includes('suspicious'),
+              critical:
+                status.toLowerCase().includes('tear') ||
+                status.toLowerCase().includes('rupture')
+            }"
+          >
             <span class="status-icon"></span>
             <p>{{ status }}</p>
           </div>
           <div class="findings-details">
-            <p>Based on AI analysis of the MRI scan, the following observations were made:</p>
+            <p>
+              Based on AI analysis of the MRI scan, the following observations
+              were made:
+            </p>
             <ul>
-              <li *ngIf="acl_prob <= 20">ACL appears normal with no significant abnormalities detected.</li>
-              <li *ngIf="acl_prob > 20 && acl_prob < 60">ACL shows some potential irregularities that may require further evaluation.</li>
-              <li *ngIf="acl_prob >= 60">ACL shows significant abnormalities consistent with potential injury.</li>
-              
-              <li *ngIf="meniscus_prob <= 20">Meniscus appears normal with no significant abnormalities detected.</li>
-              <li *ngIf="meniscus_prob > 20 && meniscus_prob < 60">Meniscus shows some potential irregularities that may require further evaluation.</li>
-              <li *ngIf="meniscus_prob >= 60">Meniscus shows significant abnormalities consistent with potential injury.</li>
+              <li *ngIf="acl_prob <= 20">
+                ACL appears normal with no significant abnormalities detected.
+              </li>
+              <li *ngIf="acl_prob > 20 && acl_prob < 60">
+                ACL shows some potential irregularities that may require further
+                evaluation.
+              </li>
+              <li *ngIf="acl_prob >= 60">
+                ACL shows significant abnormalities consistent with potential
+                injury.
+              </li>
+
+              <li *ngIf="meniscus_prob <= 20">
+                Meniscus appears normal with no significant abnormalities
+                detected.
+              </li>
+              <li *ngIf="meniscus_prob > 20 && meniscus_prob < 60">
+                Meniscus shows some potential irregularities that may require
+                further evaluation.
+              </li>
+              <li *ngIf="meniscus_prob >= 60">
+                Meniscus shows significant abnormalities consistent with
+                potential injury.
+              </li>
             </ul>
           </div>
         </div>
       </div>
-      
+
       <!-- AI Confidence Card -->
       <div class="analysis-card confidence">
         <div class="card-header">
@@ -92,21 +133,28 @@
         </div>
         <div class="card-content">
           <div class="confidence-display">
-            <div class="confidence-score" [ngClass]="{
-              'good': confidence >= 80,
-              'normal': confidence > 40 && confidence < 80,
-              'bad': confidence <= 40
-            }">
+            <div
+              class="confidence-score"
+              [ngClass]="{
+                good: confidence >= 80,
+                normal: confidence > 40 && confidence < 80,
+                bad: confidence <= 40
+              }"
+            >
               <span>{{ confidence }}%</span>
             </div>
           </div>
           <div class="confidence-bar-container">
             <div class="confidence-bar">
-              <div class="progress" [ngClass]="{
-                'good': confidence >= 80,
-                'normal': confidence > 40 && confidence < 80,
-                'bad': confidence <= 40
-              }" [style.width.%]="confidence"></div>
+              <div
+                class="progress"
+                [ngClass]="{
+                  good: confidence >= 80,
+                  normal: confidence > 40 && confidence < 80,
+                  bad: confidence <= 40
+                }"
+                [style.width.%]="confidence"
+              ></div>
             </div>
             <div class="confidence-labels">
               <span>Low</span>
@@ -114,10 +162,13 @@
               <span>High</span>
             </div>
           </div>
-          <p class="confidence-note">This score represents the AI's confidence in its assessment. Higher scores indicate greater confidence in the diagnosis.</p>
+          <p class="confidence-note">
+            This score represents the AI's confidence in its assessment. Higher
+            scores indicate greater confidence in the diagnosis.
+          </p>
         </div>
       </div>
-      
+
       <!-- Risk Factors Card -->
       <div class="analysis-card risk-factors">
         <div class="card-header">
@@ -127,18 +178,26 @@
           <div class="risk-item">
             <div class="risk-info">
               <h3>ACL</h3>
-              <span class="risk-percentage" [ngClass]="{
-                'good': acl_prob <= 20,
-                'normal': acl_prob > 20 && acl_prob < 60,
-                'bad': acl_prob >= 60
-              }">{{ acl_prob.toFixed(1) }}%</span>
+              <span
+                class="risk-percentage"
+                [ngClass]="{
+                  good: acl_prob <= 20,
+                  normal: acl_prob > 20 && acl_prob < 60,
+                  bad: acl_prob >= 60
+                }"
+                >{{ acl_prob.toFixed(1) }}%</span
+              >
             </div>
             <div class="risk-bar">
-              <div class="progress" [ngClass]="{
-                'good': acl_prob <= 20,
-                'normal': acl_prob > 20 && acl_prob < 60,
-                'bad': acl_prob >= 60
-              }" [style.width.%]="acl_prob.toFixed(1)"></div>
+              <div
+                class="progress"
+                [ngClass]="{
+                  good: acl_prob <= 20,
+                  normal: acl_prob > 20 && acl_prob < 60,
+                  bad: acl_prob >= 60
+                }"
+                [style.width.%]="acl_prob.toFixed(1)"
+              ></div>
             </div>
             <div class="risk-label">
               <span *ngIf="acl_prob <= 20">Low Risk</span>
@@ -146,32 +205,42 @@
               <span *ngIf="acl_prob >= 60">High Risk</span>
             </div>
           </div>
-          
+
           <div class="risk-item">
             <div class="risk-info">
               <h3>Meniscus</h3>
-              <span class="risk-percentage" [ngClass]="{
-                'good': meniscus_prob <= 20,
-                'normal': meniscus_prob > 20 && meniscus_prob < 60,
-                'bad': meniscus_prob >= 60
-              }">{{ meniscus_prob.toFixed(1) }}%</span>
+              <span
+                class="risk-percentage"
+                [ngClass]="{
+                  good: meniscus_prob <= 20,
+                  normal: meniscus_prob > 20 && meniscus_prob < 60,
+                  bad: meniscus_prob >= 60
+                }"
+                >{{ meniscus_prob.toFixed(1) }}%</span
+              >
             </div>
             <div class="risk-bar">
-              <div class="progress" [ngClass]="{
-                'good': meniscus_prob <= 20,
-                'normal': meniscus_prob > 20 && meniscus_prob < 60,
-                'bad': meniscus_prob >= 60
-              }" [style.width.%]="meniscus_prob"></div>
+              <div
+                class="progress"
+                [ngClass]="{
+                  good: meniscus_prob <= 20,
+                  normal: meniscus_prob > 20 && meniscus_prob < 60,
+                  bad: meniscus_prob >= 60
+                }"
+                [style.width.%]="meniscus_prob"
+              ></div>
             </div>
             <div class="risk-label">
               <span *ngIf="meniscus_prob <= 20">Low Risk</span>
-              <span *ngIf="meniscus_prob > 20 && meniscus_prob < 60">Moderate Risk</span>
+              <span *ngIf="meniscus_prob > 20 && meniscus_prob < 60"
+                >Moderate Risk</span
+              >
               <span *ngIf="meniscus_prob >= 60">High Risk</span>
             </div>
           </div>
         </div>
       </div>
-      
+
       <!-- Recommendations Card -->
       <div class="analysis-card recommendations">
         <div class="card-header">
@@ -179,25 +248,49 @@
         </div>
         <div class="card-content">
           <div class="recommendation-list">
-            <div class="recommendation-item" *ngIf="acl_prob <= 20 && meniscus_prob <= 20">
+            <div
+              class="recommendation-item"
+              *ngIf="acl_prob <= 20 && meniscus_prob <= 20"
+            >
               <i class="fas fa-check-circle"></i>
-              <p>No immediate medical intervention appears necessary based on this scan.</p>
+              <p>
+                No immediate medical intervention appears necessary based on
+                this scan.
+              </p>
             </div>
-            <div class="recommendation-item" *ngIf="acl_prob > 20 || meniscus_prob > 20">
+            <div
+              class="recommendation-item"
+              *ngIf="acl_prob > 20 || meniscus_prob > 20"
+            >
               <i class="fas fa-user-md"></i>
-              <p>Consult with an orthopedic specialist for a comprehensive evaluation.</p>
+              <p>
+                Consult with an orthopedic specialist for a comprehensive
+                evaluation.
+              </p>
             </div>
-            <div class="recommendation-item" *ngIf="acl_prob >= 60 || meniscus_prob >= 60">
+            <div
+              class="recommendation-item"
+              *ngIf="acl_prob >= 60 || meniscus_prob >= 60"
+            >
               <i class="fas fa-hospital"></i>
-              <p>Seek prompt medical attention to address potential knee injury.</p>
+              <p>
+                Seek prompt medical attention to address potential knee injury.
+              </p>
             </div>
             <div class="recommendation-item">
               <i class="fas fa-file-medical"></i>
-              <p>Share this report with your healthcare provider for further guidance.</p>
+              <p>
+                Share this report with your healthcare provider for further
+                guidance.
+              </p>
             </div>
           </div>
           <div class="disclaimer">
-            <p><strong>Disclaimer:</strong> This AI-generated report is not a substitute for professional medical advice. Always consult with a qualified healthcare provider for diagnosis and treatment.</p>
+            <p>
+              <strong>Disclaimer:</strong> This AI-generated report is not a
+              substitute for professional medical advice. Always consult with a
+              qualified healthcare provider for diagnosis and treatment.
+            </p>
           </div>
         </div>
       </div>

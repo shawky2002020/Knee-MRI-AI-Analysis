@@ -13,7 +13,7 @@ import {
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { UserService } from '../../core/services/user.service';
-import { ThemeService } from '../../core/services/theme.service';
+// import { ThemeService } from '../../core/services/theme.service';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,10 +27,10 @@ export class HomeComponent implements AfterViewInit {
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document,
     userService: UserService,
-    private themeService : ThemeService
+    // private themeService : ThemeService
   ) {
     userService.logout()
-    themeService.switchToDarkTheme()
+    // themeService.switchToDarkTheme()
     localStorage.removeItem('activeItem')
   }
 
