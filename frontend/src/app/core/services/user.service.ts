@@ -101,4 +101,22 @@ export class UserService {
     }
     return new User();
   }
+
+  loginWithGoogle(idToken: string): Observable<userResponse> {
+    return this.http.post<userResponse>(url.USERS_BASE + '/google-login', { idToken }).pipe(
+      tap({
+        next: (res) => {
+          const newUser = {
+            ...res.user,
+            token: res.token,
+          };
+          this.setUserToLocalStorage(newUser);
+          this.userSubject.next(newUser);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      })
+    );
+  }
 }

@@ -19,7 +19,9 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: function () {
+      return !this.isGoogleUser;
+    },
   },
   aiAccess: {
     type: Boolean,
@@ -40,6 +42,10 @@ const userSchema = new mongoose.Schema({
   loginCount: {
     type: Number,
     default: 0
+  },
+  isGoogleUser: {
+    type: Boolean,
+    default: false
   }
 });
 

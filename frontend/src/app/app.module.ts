@@ -12,6 +12,7 @@ import { MriModule } from './features/mri/mri.module';
 import { ToastrModule } from 'ngx-toastr';
 import { HomeModule } from './features/home/home.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       autoDismiss:true,
       timeOut: 5000, // Timeout for the toast
       extendedTimeOut: 1000, // Additional time on hover
-    })
+    }),
   ],
   providers: [
     {
@@ -41,6 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       useClass: AuthInterceptor,
       multi: true,
     },
+  
   ],
   bootstrap: [AppComponent],
   

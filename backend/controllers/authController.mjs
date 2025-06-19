@@ -2,6 +2,9 @@ import bcrypt from "bcryptjs";
 import User from "../models/User.mjs";
 import { sendEmail } from "../services/emailService.mjs";
 import { generateToken } from "../config/authConfig.mjs";
+import { OAuth2Client } from 'google-auth-library';
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // Register a new user
 export const register = async (req, res) => {
@@ -73,6 +76,33 @@ export const login = async (req, res) => {
     res.status(200).json({ message: "User logged in successfully", token , user });
   } catch (error) {
     res.status(500).json({ message: "Error logging in", error:error.message });
+  }
+};
+
+// Login with Google
+export const googleLogin = async (req, res) => {
+  const { idToken } = req.body;
+  try {
+    // Verify Google token
+    const ticket = await client.verifyIdToken({
+      idToken,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    if (!payload) return res.status(400).json({ message: 'Invalid Google token' });
+    const email = payload.email.toLowerCase();
+    let user = await User.findOne({ email });
+    if (!user) {
+      user = new User({
+        name: payload.name,
+        email,
+      });
+      await user.save();
+    }
+    const token = generateToken({ id: user._id});
+    res.status(200).json({ message: 'User logged in with Google', token, user });
+  } catch (error) {
+    res.status(500).json({ message: 'Google login failed', error: error.message });
   }
 };
 

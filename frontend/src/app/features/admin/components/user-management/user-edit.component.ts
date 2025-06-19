@@ -33,6 +33,8 @@ export class UserEditComponent implements AfterViewInit  {
   }
 
   onSave() {
+    console.log(this.editedUser);
+    
     if (this.editedUser) {
       this.save.emit(this.editedUser);
     }
@@ -42,21 +44,7 @@ export class UserEditComponent implements AfterViewInit  {
     this.cancel.emit();
   }
   changeAccess(){
-    if(this.editedUser.aiAccess){
-      this.block();
-    }else{
-      this.allow();
-    }
+    this.editedUser.aiAccess=!this.editedUser.aiAccess;
   }
-  allow(){
-    this.editedUser.aiAccess=true;
-    document.querySelector('.block')?.classList.remove('active');
-    document.querySelector('.allow')?.classList.add('active');
-  }
-  block(){
-    this.editedUser.aiAccess=false;
-    document.querySelector('.allow')?.classList.remove('active');
-    document.querySelector('.block')?.classList.add('active');
-    
-  }
+
 }
