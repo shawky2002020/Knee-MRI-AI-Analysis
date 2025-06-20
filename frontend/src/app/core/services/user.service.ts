@@ -67,7 +67,7 @@ export class UserService {
           this.userSubject.next(newUser);
         },
         error: (err) => {
-          alert(err.error.message);
+          console.log(err);
         },
       })
     );

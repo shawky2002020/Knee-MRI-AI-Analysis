@@ -36,7 +36,12 @@
               active: user.aiAccess,
               disabled: !user.aiAccess
             }">
-              <td>{{ user.name }}</td>
+              <td>
+                <span *ngIf="user.role === 'admin'">
+                  <i class="fas fa-user-shield"></i>
+                </span>
+                {{ user.name }}
+              </td>
               <td>{{ user.email }}</td>
               <td>******</td>
               <td>01029019830</td>

@@ -16,7 +16,7 @@ let { name, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.findOne({ email });
 
-    if (user || user.canLoginWithPassword()) {
+    if (user) {
       return res
         .status(400)
         .json({ message: "User already registered, please log in" });
@@ -29,21 +29,6 @@ let { name, email, password } = req.body;
     const token = generateToken({ id: newUser._id });
     await sendEmail(
       email,
-      "Welcome to ACLyze AI! 🚀",
-      `Hello ${name}, 
-
-    Welcome to ACLyze AI – your intelligent assistant for ACL injury analysis! 
-
-    We're excited to have you on board. With ACLyze AI, you can leverage advanced AI technology for accurate MRI-based diagnostics. 
-
-    Start exploring today and feel free to reach out if you need any assistance! 
-
-    Best,  
-    The ACLyze AI Team`,
-          `<h1>Welcome to ACLyze AI, ${name}! 🚀</h1>
-      <p>We're thrilled to have you join our platform. ACLyze AI is designed to assist you with cutting-edge AI-powered ACL injury diagnostics.</p>
-      <p>Start exploring today, and if you have any questions, we're here to help!</p>
-      <p>Best,<br>The ACLyze AI Team</p>`
     );
 
 
@@ -64,9 +49,14 @@ export const login = async (req, res) => {
     else{
       return res.status(400).json({ message: "Email or password is required" });
     }
+   
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
+    }
+    if (!user.canLoginWithPassword()) {
+      console.log('failed because google')
+      return res.status(400).json({ message: "Google account registered" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -83,7 +73,7 @@ export const login = async (req, res) => {
     
     res.status(200).json({ message: "User logged in successfully", token , user });
   } catch (error) {
-    res.status(500).json({ message: "Error logging in", error });
+    res.status(500).json({ message: "Error logging in", error:error.message });
   }
 };
 
@@ -96,36 +86,23 @@ export const googleLogin = async (req, res) => {
       idToken,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
-    const payload = ticket.getPayload();
+    const payload =await ticket.getPayload();
     if (!payload) return res.status(400).json({ message: 'Invalid Google token' });
     const email = payload.email.toLowerCase();
-    let user = await User.findOne({ email });
+    let user = await User.findOne({ email }).select('-password');
+    console.log('okkk he is neww');
     if (!user) {
+      const newName = payload.name || payload.email.split('@')[0]; // fallback
+
       user = new User({
-        name: payload.name,
+        name: newName,
         email,
         password: 'aclyzeAi', // You can set a default password here
-        role: 'user',
         isGoogleUser:true
       });
       await user.save();
       await sendEmail(
         email,
-        "Welcome to ACLyze AI! 🚀",
-        `Hello ${name}, 
-  
-      Welcome to ACLyze AI – your intelligent assistant for ACL injury analysis! 
-  
-      We're excited to have you on board. With ACLyze AI, you can leverage advanced AI technology for accurate MRI-based diagnostics. 
-  
-      Start exploring today and feel free to reach out if you need any assistance! 
-  
-      Best,  
-      The ACLyze AI Team`,
-            `<h1>Welcome to ACLyze AI, ${name}! 🚀</h1>
-        <p>We're thrilled to have you join our platform. ACLyze AI is designed to assist you with cutting-edge AI-powered ACL injury diagnostics.</p>
-        <p>Start exploring today, and if you have any questions, we're here to help!</p>
-        <p>Best,<br>The ACLyze AI Team</p>`
       );
     }
     const token = generateToken({ id: user._id});
