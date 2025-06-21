@@ -50,6 +50,8 @@
   gap: 1rem;
   width: 100%;
   margin: auto;
+  animation: fadeInDown .5s ease-in-out;
+
 }
 
 .card:nth-child(1){
@@ -113,6 +115,8 @@
   align-items: start;
   padding:1.5rem 2rem;
   height: fit-content;
+  animation: fadeInDown .5s ease-in-out;
+
   h2{
     font-size: var(--xlarge);
     color: var(--black-70);

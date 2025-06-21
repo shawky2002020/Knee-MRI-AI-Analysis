@@ -8,7 +8,9 @@
   justify-content: start;
   padding: 2rem 1rem;
   gap: 2rem;
+  animation: fadeInDown 0.5s ease-in-out;
 }
+
 .bg {
   position: absolute;
   inset: 0;

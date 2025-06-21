@@ -28,6 +28,7 @@
   gap: 1.2rem;
   border: 1px solid #a1c4fd55;
   box-shadow: 0 2px 12px #a1c4fd22;
+  animation: fadeIn .5s ease-in-out;
 }
 
 .info-icon {
@@ -112,6 +113,8 @@
   flex-flow: column nowrap;
   gap: 2rem;
   overflow: hidden;
+  animation: fadeIn .5s ease-in-out;
+
 }
 
 

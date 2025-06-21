@@ -27,6 +27,7 @@ export class DashboardComponent implements AfterViewInit,OnInit {
   @ViewChild('headerEl') header!: ElementRef;
   @ViewChild('recentEl') recent!: ElementRef;
   ngAfterViewInit(): void {
+    
    
   }
   getLastScans() {

@@ -35,6 +35,8 @@
   height: 300px;
   color: var(--black-70);
   font-size: var(--large);
+  animation: fadeInDown .5s ease-in-out;
+
 }
 .card-content {
   position: relative;
