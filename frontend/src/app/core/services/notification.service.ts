@@ -71,7 +71,7 @@ export class NotificationService {
       this.toast.error('Upload failed', 'Error');
     });
 
-    this.socket.on('access-disabeled', (data) => {
+    this.socket.on('accessOff', (data) => {
       // Handle access notification event
       this.notificationSubject.next([data, ...this.notificationSubject.value]);
       this.toast.error('Contact ACLyze AI for access', 'Access Blocked');
@@ -82,7 +82,7 @@ export class NotificationService {
       }, 2000);
 
     });
-    this.socket.on('access-enabeled', (data) => {
+    this.socket.on('accessOn', (data) => {
       // Handle access notification event
       const editedUser:User = {...this.user,aiAccess:true}
       localStorage.setItem(USER_KEY,JSON.stringify(editedUser))

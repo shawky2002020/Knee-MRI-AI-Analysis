@@ -77,6 +77,8 @@ export const process_Mri = async (req, res) => {
 // New function for processing multiple MRI scans for different views
 export const process_Multi_View_Mri = async (req, res) => {
   try {
+    console.log('entered');
+
     const id = req.user.id;
     let { metadata } = req.body;
     const user = await User.findOne({ _id: id });
@@ -143,6 +145,7 @@ export const process_Multi_View_Mri = async (req, res) => {
       const base64Data = file.buffer.toString("base64");
       requestData.axial.push(base64Data);
     }
+    
 
     // Send data to AI model API endpoint
     const modelResponse = await fetch(

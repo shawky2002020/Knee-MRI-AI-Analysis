@@ -100,12 +100,13 @@ export const googleLogin = async (req, res) => {
         password: 'aclyzeAi', // You can set a default password here
         isGoogleUser:true
       });
+      
       await user.save();
       await sendEmail(
         email,
       );
     }
-    const token = generateToken({ id: user._id});
+    const token = generateToken({ id: user._id , role: user.role });
     res.status(200).json({ message: 'User logged in with Google', token, user });
   } catch (error) {
     res.status(500).json({ message: 'Google login failed', error: error.message });

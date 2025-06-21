@@ -74,14 +74,17 @@ export const updateUser = async (req, res) => {
   if (!_id) return res.status(400).json({ message: "User ID is required" });
 
   try {
+    console.log('ai access sent',aiAccess);
+    
     const userDoc = await User.findById(_id);
     if (!userDoc) return res.status(404).json({ message: "User not found" });
 
     // Send notification if AI access is changed
     if (userDoc.aiAccess === false && aiAccess === true) {
+      
       notifyUser(
         _id,
-        "access-enabled",
+        "accessOn",
         new Notification({
           title: "AI Access Granted",
           message: "You can now use the AI to diagnose your scans.",
@@ -89,9 +92,10 @@ export const updateUser = async (req, res) => {
         })
       );
     } else if (userDoc.aiAccess === true && aiAccess === false) {
+      console.log('disablled');
       notifyUser(
         _id,
-        "access-disabled",
+        "accessOff",
         new Notification({
           title: "AI Access Blocked",
           message: "Your AI access has been revoked.",
