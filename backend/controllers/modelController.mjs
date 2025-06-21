@@ -149,7 +149,7 @@ export const process_Multi_View_Mri = async (req, res) => {
 
     // Send data to AI model API endpoint
     const modelResponse = await fetch(
-      `${process.env.BASE_AI_URL}/process_multiview_mri`,
+      `${process.env.LIVE_AI_URL}/process_multiview_mri`,
       {
         method: "POST",
         body: JSON.stringify(requestData),
