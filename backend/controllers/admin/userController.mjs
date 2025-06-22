@@ -3,6 +3,7 @@ import User from "../../models/User.mjs";
 import { getPaginationParams, getTimeFilter } from "../../utils/helper.mjs";
 import MriScan from "../../models/MriScan.mjs";
 import {notifyUser,Notification} from "../../services/notificationService.mjs";
+
 class usersResponse {
   constructor(success, message, Users, totalUsers, page, limit) {
     this.success = success;
@@ -14,6 +15,7 @@ class usersResponse {
     this.totalUsers = totalUsers;
   }
 }
+
 export const getAllUsers = async (req, res) => {
   try {
     const { page, limit, skip } = getPaginationParams(req.query);
@@ -26,11 +28,14 @@ export const getAllUsers = async (req, res) => {
     if (req.query.name && req.query.name.trim() !== "") {
       filter["name"] = { $regex: req.query.name, $options: "i" };
     }
+    
     const usersCount = await User.countDocuments(filter);
     const users = await User.find(filter)
       .select("-password")
+      .sort({ createdAt: -1 }) // Consistent sorting by creation date
       .limit(limit)
       .skip(skip);
+      
     res
       .status(200)
       .json(
@@ -62,26 +67,24 @@ export const getUser = async (req, res) => {
       .status(200)
       .json({ message: "User found successfully", user: userFound });
   } catch (error) {
-    res.status(400).json({ message: "error ocuured", error: error.message });
+    res.status(400).json({ message: "error occurred", error: error.message });
   }
 };
 
 // Update User
-
 export const updateUser = async (req, res) => {
   const { _id, name, password, email, role, aiAccess } = req.body;
 
   if (!_id) return res.status(400).json({ message: "User ID is required" });
 
   try {
-    console.log('ai access sent',aiAccess);
+    console.log('ai access sent', aiAccess);
     
     const userDoc = await User.findById(_id);
     if (!userDoc) return res.status(404).json({ message: "User not found" });
 
     // Send notification if AI access is changed
     if (userDoc.aiAccess === false && aiAccess === true) {
-      
       notifyUser(
         _id,
         "accessOn",
@@ -92,7 +95,7 @@ export const updateUser = async (req, res) => {
         })
       );
     } else if (userDoc.aiAccess === true && aiAccess === false) {
-      console.log('disablled');
+      console.log('disabled');
       notifyUser(
         _id,
         "accessOff",
@@ -120,7 +123,6 @@ export const updateUser = async (req, res) => {
   }
 };
 
-
 // Create User
 export const createUser = async (req, res) => {
   try {
@@ -135,10 +137,15 @@ export const createUser = async (req, res) => {
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
+    
+    // TODO: Complete user creation logic
+    // const newUser = new User({ name, email, password: hashedPassword });
+    // await newUser.save();
+    
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Error creating admin user", error: error.message });
+      .json({ message: "Error creating user", error: error.message });
   }
 };
 
@@ -169,6 +176,11 @@ export const getUserScanCounts = async (req, res) => {
         $limit: 5,
       },
     ]);
+    
+    res.status(200).json({ 
+      success: true, 
+      scanCounts 
+    });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -191,7 +203,7 @@ export const changeAccess = async (req, res) => {
   }
 };
 
-//Delete User
+// Delete User
 export const deleteUser = async (req, res) => {
   const id = req.params.id;
   try {
@@ -205,7 +217,7 @@ export const deleteUser = async (req, res) => {
       .status(200)
       .json({ message: "User deleted successfully", user: deletedUser });
   } catch (error) {
-    res.status(400).json({ message: "error ocuured", error: error.message });
+    res.status(400).json({ message: "error occurred", error: error.message });
   }
 };
 
@@ -243,11 +255,11 @@ export const createAdminUser = async (req, res) => {
   }
 };
 
-////
+// Fixed getUserStats with consistent results and most recent users
 export const getUserStats = async (req, res) => {
   try {
     // Get time range from query params (default to last 30 days)
-    const timeRange = req.query.timeRange || "24hours";
+    const timeRange = req.query.timeRange || "3days";
     const timeFilter = getTimeFilter(timeRange);
 
     // Get new users (users created within the time range)
@@ -263,10 +275,9 @@ export const getUserStats = async (req, res) => {
     // Get total users count
     const totalUsersCount = await User.countDocuments();
     console.log(totalUsersCount);
-    
 
-    // Get scan count for each user
-    const scanCounts = await MriScan.aggregate([
+    // Get most active users with scan counts using a single aggregation pipeline
+    const mostActiveUsersWithScans = await MriScan.aggregate([
       {
         $group: {
           _id: "$userId",
@@ -279,29 +290,64 @@ export const getUserStats = async (req, res) => {
       {
         $limit: 5,
       },
+      {
+        $lookup: {
+          from: "users", // Make sure this matches your User collection name
+          localField: "_id",
+          foreignField: "_id",
+          as: "userDetails"
+        }
+      },
+      {
+        $unwind: "$userDetails"
+      },
+      {
+        $project: {
+          _id: "$userDetails._id",
+          name: "$userDetails.name",
+          email: "$userDetails.email",
+          role: "$userDetails.role",
+          lastLogin: "$userDetails.lastLogin",
+          loginCount: "$userDetails.loginCount",
+          scanCount: 1
+        }
+      },
+      {
+        $sort: { scanCount: -1 } // Ensure consistent ordering
+      }
     ]);
 
-    // Get user details for the most active users based on scan count
-    const userIds = scanCounts.map((item) => item._id);
-    const mostActiveUsers = await User.find({
-      _id: { $in: userIds },
-    })
-      .select("name email role lastLogin loginCount")
+    // Get most recent users (last 5 registered users)
+    const mostRecentUsers = await User.find({})
+      .select("name email role createdAt lastLogin loginCount")
+      .sort({lastLogin : -1 }) // Sort by creation date, newest first
+      .limit(5)
       .lean();
 
-    // Combine user details with scan counts
-    const mostActiveUsersWithScans = mostActiveUsers.map((user) => {
-      const scanData = scanCounts.find(
-        (item) => item._id?.toString() === user._id?.toString()
+    // Add scan counts to recent users
+    const recentUserIds = mostRecentUsers.map(user => user._id);
+    const recentUsersScans = await MriScan.aggregate([
+      {
+        $match: { userId: { $in: recentUserIds } }
+      },
+      {
+        $group: {
+          _id: "$userId",
+          scanCount: { $sum: 1 }
+        }
+      }
+    ]);
+
+    // Combine recent users with their scan counts
+    const mostRecentUsersWithScans = mostRecentUsers.map(user => {
+      const scanData = recentUsersScans.find(
+        scan => scan._id?.toString() === user._id?.toString()
       );
       return {
         ...user,
-        scanCount: scanData ? scanData.scanCount : 0,
+        scanCount: scanData ? scanData.scanCount : 0
       };
     });
-
-    // Sort by scan count (highest first)
-    mostActiveUsersWithScans.sort((a, b) => b.scanCount - a.scanCount);
 
     res.status(200).json({
       success: true,
@@ -312,9 +358,10 @@ export const getUserStats = async (req, res) => {
         timeRange: timeRange,
       },
       mostActiveUsers: mostActiveUsersWithScans,
+      mostRecentUsers: mostRecentUsersWithScans, // Added most recent users
     });
   } catch (error) {
-    console.error("Error getting user stats:",error);
+    console.error("Error getting user stats:", error);
     res.status(500).json({
       success: false,
       message: "Failed to get user statistics",

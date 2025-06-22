@@ -45,7 +45,7 @@ export class AppLayoutComponent implements OnInit, AfterViewInit {
         console.log('checked');
         
         if (this.notifCount?.nativeElement) {
-          if (!this.notifCount.nativeElement.classList.contains('new-notif')) {
+          if (!this.notifCount.nativeElement.classList.contains('new-notif') && this.notificationCount > 0) {
             
             this.notifCount.nativeElement.classList.add('new-notif');
           }

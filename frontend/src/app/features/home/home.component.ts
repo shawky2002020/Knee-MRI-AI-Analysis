@@ -207,6 +207,7 @@ export class HomeComponent implements AfterViewInit {
     })
       .from('.features img', {
         x: 1000,
+        
         opacity: 0.6,
         duration: 2.5,
         ease: 'power3.out',
@@ -221,11 +222,8 @@ export class HomeComponent implements AfterViewInit {
     // Apply the infinite animation separately
     gsap.to('.features img', {
       opacity: 1,
-      scale:.9,
-      y:50,
+      y:-100,
       duration: 3,
-      repeat: -1,
-      yoyo: true,
       ease: 'power2.inOut',
     });
             video.play().catch(() => {

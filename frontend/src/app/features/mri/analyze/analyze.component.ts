@@ -6,15 +6,19 @@ import { MetaData } from '../../../core/models/mri-scan.model';
 @Component({
   selector: 'app-analyze',
   templateUrl: './analyze.component.html',
-  styleUrls: ['./analyze.component.css']
+  styleUrls: ['./analyze.component.css'],
 })
 export class AnalyzeComponent implements OnInit {
   userForm!: FormGroup;
   showUpload = false;
   metadata: MetaData = {} as MetaData;
   @Output() metadataChange = new EventEmitter<MetaData>();
-  constructor(private fb: FormBuilder,private toast:ToastrService) {
-    document.title = 'Analyze Page'
+  constructor(private fb: FormBuilder, private toast: ToastrService) {
+    document.title = 'Analyze Page';
+    const keys = Object.keys(localStorage).filter((key) =>
+      key.includes('.png')
+    );
+    keys.forEach((key) => localStorage.removeItem(key));
   }
 
   ngOnInit(): void {
@@ -25,13 +29,13 @@ export class AnalyzeComponent implements OnInit {
 
       age: ['', [Validators.required, Validators.min(0), Validators.max(120)]],
       gender: ['', Validators.required],
-      
     });
   }
 
-
   capitalizeName(name: string): string {
-    return name ? name.charAt(0).toUpperCase() + name.slice(1).toLowerCase() : '';
+    return name
+      ? name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
+      : '';
   }
 
   onSubmit() {
@@ -41,10 +45,10 @@ export class AnalyzeComponent implements OnInit {
       const familyName = this.capitalizeName(this.userForm.value.familyName);
       const fullName = `${firstName} ${middleName} ${familyName}`;
       this.metadata = {
-        name:fullName,
-        age:this.userForm.value.age,
-        gender:this.userForm.value.gender,
-      }
+        name: fullName,
+        age: this.userForm.value.age,
+        gender: this.userForm.value.gender,
+      };
       this.metadataChange.emit(this.metadata);
       this.showUpload = true;
     } else {

@@ -49,8 +49,9 @@ export class UploadComponent {
     private notificationService:NotificationService
   ){
     // Clear any previously stored MRI scans from localStorage
-    const keys = Object.keys(localStorage).filter(key => key.startsWith('mriscan_') || key.startsWith('scan_'));
+    const keys = Object.keys(localStorage).filter(key => key.includes('.png'));
     keys.forEach(key => localStorage.removeItem(key));
+    
   }
   ngOnInit(): void {
     
@@ -196,8 +197,7 @@ export class UploadComponent {
         scans.push(scan);
       }
     });
-    console.log(scans);
-    console.log(this.metadata);
+  
     
     
     return scans;

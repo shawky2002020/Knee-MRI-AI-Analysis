@@ -1,0 +1,243 @@
+openapi: 3.0.0
+info:
+  title: ACLyze AI API
+  version: 1.0.0
+  description: |
+    RESTful API for MRI scan management, AI-powered diagnostics, user management, notifications, and admin tools.
+servers:
+  - url: https://your-api-domain.com/v1
+tags:
+  - name: Auth
+    description: User authentication and registration
+  - name: MRI
+    description: MRI scan management and AI analysis
+  - name: Notifications
+    description: User notifications
+  - name: Reports
+    description: Diagnostic reports
+  - name: Admin
+    description: Admin features
+paths:
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+                email: { type: string }
+                password: { type: string }
+      responses:
+        '201':
+          description: User registered successfully
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string }
+                password: { type: string }
+      responses:
+        '200':
+          description: User logged in successfully
+  /auth/google-login:
+    post:
+      tags: [Auth]
+      summary: Login with Google OAuth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idToken: { type: string }
+      responses:
+        '200':
+          description: User logged in with Google
+  /mri/upload-multi-view:
+    post:
+      tags: [MRI]
+      summary: Upload multi-view MRI scans
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: MRI scans uploaded
+  /mri/scans:
+    get:
+      tags: [MRI]
+      summary: Get all MRI scans for the user
+      responses:
+        '200':
+          description: List of MRI scans
+  /mri/delete:
+    delete:
+      tags: [MRI]
+      summary: Delete an MRI scan
+      parameters:
+        - in: query
+          name: scanId
+          schema: { type: string }
+          required: true
+      responses:
+        '200':
+          description: MRI scan deleted
+  /notifications/all:
+    get:
+      tags: [Notifications]
+      summary: Get all notifications for the user
+      responses:
+        '200':
+          description: List of notifications
+  /notifications/add:
+    post:
+      tags: [Notifications]
+      summary: Add a new notification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message: { type: string }
+                type: { type: string }
+      responses:
+        '201':
+          description: Notification created
+  /notifications/delete:
+    delete:
+      tags: [Notifications]
+      summary: Delete a notification
+      parameters:
+        - in: query
+          name: id
+          schema: { type: string }
+          required: true
+      responses:
+        '200':
+          description: Notification deleted
+  /report/generate:
+    get:
+      tags: [Reports]
+      summary: Generate and fetch a diagnostic report
+      parameters:
+        - in: query
+          name: scanId
+          schema: { type: string }
+          required: true
+      responses:
+        '200':
+          description: Diagnostic report generated
+  /admin/users:
+    get:
+      tags: [Admin]
+      summary: List all users (admin only)
+      responses:
+        '200':
+          description: List of users
+  /admin/create:
+    post:
+      tags: [Admin]
+      summary: Create a new user (admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+                email: { type: string }
+                password: { type: string }
+      responses:
+        '201':
+          description: User created
+  /admin/editUser:
+    put:
+      tags: [Admin]
+      summary: Edit a user (admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                _id: { type: string }
+                name: { type: string }
+                email: { type: string }
+                role: { type: string }
+      responses:
+        '200':
+          description: User updated
+  /admin/deleteUser:
+    delete:
+      tags: [Admin]
+      summary: Delete a user (admin only)
+      parameters:
+        - in: query
+          name: id
+          schema: { type: string }
+          required: true
+      responses:
+        '200':
+          description: User deleted
+  /admin/reports:
+    get:
+      tags: [Admin]
+      summary: Get all reports (admin only)
+      responses:
+        '200':
+          description: List of reports
+  /admin/userstates:
+    get:
+      tags: [Admin]
+      summary: Get user statistics (admin only)
+      responses:
+        '200':
+          description: User statistics
+  /admin/userscans:
+    get:
+      tags: [Admin]
+      summary: Get scan statistics per user (admin only)
+      responses:
+        '200':
+          description: Scan statistics
+  /admin/DiagnosisDistribution:
+    get:
+      tags: [Admin]
+      summary: Get diagnosis distribution statistics (admin only)
+      responses:
+        '200':
+          description: Diagnosis distribution
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

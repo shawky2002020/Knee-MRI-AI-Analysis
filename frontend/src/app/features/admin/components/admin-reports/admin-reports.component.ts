@@ -22,6 +22,7 @@ export class AdminReportsComponent implements OnInit {
   scanDistribution! : DiagnosisDistributionResponse;
   usersScanCount! : UserScanDistributionResponse;
   mostActiveUsers! : User[];
+  mostRecentUsers! : User[];
   loading=true;
 
   loadAll() {
@@ -34,6 +35,7 @@ export class AdminReportsComponent implements OnInit {
         this.usersStats = results.stats;
         this.mostActiveUsers = results.stats.mostActiveUsers;
         this.scanDistribution = results.distribution;
+        this.mostRecentUsers = results.stats.mostRecentUsers;
         this.usersScanCount = results.scanCount;
         console.log('All data loaded');
         this.loading =false;

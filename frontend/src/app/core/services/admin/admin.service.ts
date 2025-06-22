@@ -30,21 +30,29 @@ export class AdminService {
               user.name.split(' ').map((name) => {
                 user.name_letters += name.charAt(0).toUpperCase();
               });
+           
+
+            });
+            res.mostRecentUsers.map((user) => {
+              user.name_letters = '';
+              user.name.split(' ').map((name) => {
+                user.name_letters += name.charAt(0).toUpperCase();
+              });
               const date = new Date(
                 user.lastLogin || user.createdAt || new Date()
               );
-
-              const readableDate = date.toLocaleString('en-GB', {
+              const readableDate = date.toLocaleString('en-US', {
+                formatMatcher: 'basic',
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
                 hour: '2-digit',
                 minute: '2-digit',
                 second: '2-digit',
+                hour12: true
               });
 
               user.lastLog = readableDate;
-            
             });
           },
         })

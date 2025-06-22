@@ -119,6 +119,12 @@ export const googleLogin = async (req, res) => {
       await user.save();
       await sendEmail(email);
     }
+    else {
+      // existing user
+      user.lastLogin = new Date();
+      user.loginCount = (user.loginCount || 0) + 1;
+      await user.save();
+    }
     const token = generateToken({ id: user._id, role: user.role });
     res
       .status(200)

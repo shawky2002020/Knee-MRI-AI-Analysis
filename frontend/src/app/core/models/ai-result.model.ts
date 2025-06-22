@@ -25,7 +25,7 @@ export interface ScanResponse {
   limit: number;
   totalPages: number;
   totalScans: number;
-  totalViewed: number;
+  viewedScans: number;
 }
   
   

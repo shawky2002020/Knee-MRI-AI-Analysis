@@ -19,5 +19,6 @@ export interface UsersStatsResponse {
   success: boolean;
   stats: UserStats;
   mostActiveUsers: User[];
+  mostRecentUsers:User[];
 }
     

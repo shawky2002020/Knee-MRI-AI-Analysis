@@ -13,8 +13,10 @@ export const getAllScans = async (req, res) => {
 
     // Build dynamic filter
     const filter = { userId: id, ...timeFilter };
-
-    // Name filter (partial match, case-insensitive)
+    const viewedScans = await MriScan.countDocuments({
+      userId:id,
+      "metadata.viewed": true,
+    });    // Name filter (partial match, case-insensitive)
     if (req.query.name && req.query.name.trim() !== "") {
       filter["metadata.name"] = { $regex: req.query.name, $options: "i" };
     }
@@ -37,6 +39,7 @@ export const getAllScans = async (req, res) => {
       limit,
       totalPages: Math.ceil(total / limit),
       totalScans: total,
+      viewedScans
     });
   } catch (error) {
     res

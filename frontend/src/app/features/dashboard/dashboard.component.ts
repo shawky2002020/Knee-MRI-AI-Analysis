@@ -38,7 +38,9 @@ export class DashboardComponent implements AfterViewInit,OnInit {
         this.totalScans = res.totalScans;
         this.loading = false;
         this.latestScans = res.scans;
-      },
+        this.totalViewed = res.viewedScans;
+        
+      }
     });
   }
 

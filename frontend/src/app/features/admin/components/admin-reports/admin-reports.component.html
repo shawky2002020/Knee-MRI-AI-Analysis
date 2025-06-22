@@ -212,6 +212,7 @@
           <thead>
             <tr>
               <th>User</th>
+              <th>Email</th>
               <th>Role</th>
               <th>Login Count</th>
               <th>Last Login</th>
@@ -219,9 +220,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of usersStats.mostActiveUsers">
+            <tr *ngFor="let user of usersStats.mostRecentUsers">
               <td class="user-name">
                 {{user.name}}
+              </td>
+              <td>
+                {{user.email}}
               </td>
               <td>
                 {{user.role}}
