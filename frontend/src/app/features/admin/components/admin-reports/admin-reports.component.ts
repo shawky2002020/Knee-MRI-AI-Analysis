@@ -3,6 +3,8 @@ import { DiagnosisDistributionResponse, UserScanDistributionResponse } from '../
 import { UsersStatsResponse } from '../../../../core/models/admin/users-result';
 import { User } from '../../../../core/models/user.model';
 import { AdminService } from '../../../../core/services/admin/admin.service';
+import { ToastrService } from 'ngx-toastr';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-admin-reports',
@@ -10,41 +12,47 @@ import { AdminService } from '../../../../core/services/admin/admin.service';
   styleUrl: './admin-reports.component.css'
 })
 export class AdminReportsComponent implements OnInit {
-  constructor(private adminService : AdminService){}
+  constructor(private adminService : AdminService ,private toast:ToastrService){}
   ngOnInit(): void {
-    this.getUsersStats();
-    this.getScanDistribution();
-    this.getUsersScanCount();
+    this.loadAll();
+    
   }
 
   usersStats! : UsersStatsResponse;
   scanDistribution! : DiagnosisDistributionResponse;
   usersScanCount! : UserScanDistributionResponse;
   mostActiveUsers! : User[];
+  loading=true;
 
-  getUsersStats(){
-    this.adminService.getUserStats().subscribe({
-      next : (res) => {
-        this.usersStats = res;
-        this.mostActiveUsers = this.usersStats.mostActiveUsers
+  loadAll() {
+    forkJoin({
+      stats: this.getUsersStats(),
+      distribution: this.getScanDistribution(),
+      scanCount: this.getUsersScanCount()
+    }).subscribe({
+      next: (results) => {
+        this.usersStats = results.stats;
+        this.mostActiveUsers = results.stats.mostActiveUsers;
+        this.scanDistribution = results.distribution;
+        this.usersScanCount = results.scanCount;
+        console.log('All data loaded');
+        this.loading =false;
+      },
+      error: (error) => {
+        this.toast.error('Error loading data',error.error)
       }
-    })
-  }
-  getScanDistribution(){
-    this.adminService.getDiagnosisDistribution().subscribe({
-      next : (res) => {
-        this.scanDistribution = res;
-          
-      }
-    })
-  }
-
-  getUsersScanCount(){
-    this.adminService.getUserScans().subscribe({
-      next : (res) => {
-        this.usersScanCount = res;
-      }
-    })
+    });
   }
   
-}
+  getUsersStats() {
+    return this.adminService.getUserStats();
+  }
+  
+  getScanDistribution() {
+    return this.adminService.getDiagnosisDistribution();
+  }
+  
+  getUsersScanCount() {
+    return this.adminService.getUserScans();
+  }
+}  

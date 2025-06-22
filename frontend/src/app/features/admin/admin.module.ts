@@ -14,6 +14,7 @@ import { AdminNotificationsComponent } from './components/admin-notifications/ad
 import { UserEditComponent } from './components/user-management/user-edit.component';
 import { SharedModule } from "../../shared/shared.module";
 import { FormsModule } from '@angular/forms';
+import { LoaderModule } from "../../shared/components/loader/loader.module";
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     AdminRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    LoaderModule
 ]
 })
 export class AdminModule { }

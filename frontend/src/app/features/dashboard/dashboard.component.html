@@ -1,7 +1,11 @@
 <div class="dashboard">
-    <div #headerEl>
-      <app-header [title]="'Dashboard'"></app-header>
+  <div class="head-container">
+    <div class="title">
+      <h1>Dashboard</h1>
     </div>
+    
+  </div>
+  
     <main *ngIf="!loading" class="content">
 
       <section class="stats" #cardcontainerEl>

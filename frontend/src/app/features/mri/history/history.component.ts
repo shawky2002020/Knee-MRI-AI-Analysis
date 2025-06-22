@@ -37,6 +37,10 @@ export class HistoryComponent implements OnInit {
     
   }
 
+  trackByScanId(index: number, scan: ScanResponse){
+    return index;
+
+  }
   confirmDelete(event:boolean){
     this.scansService.deleteScan(this.deleteId).subscribe({
       next: (res) => {

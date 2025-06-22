@@ -18,6 +18,7 @@ export class NotificationService {
   public notification$ = this.notificationSubject.asObservable();
   user!: User;
   constructor(private http: HttpClient, private userService: UserService,private toast : ToastrService) {
+    
     userService.userObservable.subscribe((newUser) => {
       this.user = newUser;
 

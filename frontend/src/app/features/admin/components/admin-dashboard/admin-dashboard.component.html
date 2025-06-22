@@ -1,54 +1,75 @@
-<div class="admin-dashboard">
-  
-    <div class="dashboard-cards">
-      <div class="dashboard-card">
-        <div class="card-icon users"><i class="fas fa-user-friends"></i></div>
-        <div class="card-content">
-          <div class="card-title">Total Patients</div>
-          <div class="card-value">2,489</div>
-          <div class="card-trend up">+12%</div>
-        </div>
+<app-loader *ngIf="loading" [fullShade]="true" [loader]="true"></app-loader>
+<div *ngIf="!loading" class="admin-dashboard">
+  <div class="dashboard-cards">
+    <div class="dashboard-card">
+      <div class="card-icon blue"><i class="fas fa-user-friends"></i></div>
+      <div class="card-content">
+        <div class="card-title">Total Users</div>
+        <div class="card-value">{{usersStats.stats.totalUsers}}</div>
       </div>
-      <div class="dashboard-card">
-        <div class="card-icon scans"><i class="fas fa-brain"></i></div>
-        <div class="card-content">
-          <div class="card-title">MRIs Processed</div>
-          <div class="card-value">4,127</div>
-          <div class="card-trend up">+8%</div>
-        </div>
-      </div>
-      <div class="dashboard-card">
-        <div class="card-icon pending"><i class="fas fa-hourglass-half"></i></div>
-        <div class="card-content">
-          <div class="card-title">Pending Scans</div>
-          <div class="card-value">156</div>
-          <div class="card-trend orange">23 today</div>
-        </div>
-      </div>
-      <div class="dashboard-card">
-        <div class="card-icon alert"><i class="fas fa-exclamation-triangle"></i></div>
-        <div class="card-content">
-          <div class="card-title">ACL Tears Detected</div>
-          <div class="card-value">342</div>
-          <div class="card-trend danger">+15%</div>
-        </div>
+    </div>
+    <div class="dashboard-card">
+      <div class="card-icon green"><i class="fas fa-brain"></i></div>
+      <div class="card-content">
+        <div class="card-title">MRIs Processed</div>
+        <div class="card-value">{{scanDistribution.counts.total}}</div>
       </div>
     </div>
   
-    <!-- <div class="dashboard-charts">
-      <div class="chart-card">
-        <div class="chart-title">Processing Time Trend</div>
-        <img src="assets/processing-time-chart.png" alt="Processing Time Trend" class="chart-img" />
+    <div class="dashboard-card stats-card">
+      <div class="card">
+        <div class="card-icon blue">
+          <i class="fas fa-dot-circle"></i>
+        </div>
+        <div class="card-content">
+          <div class="card-title">ACL Tears</div>
+          <div class="card-value">{{scanDistribution.counts.acl}}</div>
+        </div>
       </div>
-      <div class="chart-card">
-        <div class="chart-title">Detection Accuracy</div>
-        <img src="assets/detection-accuracy-chart.png" alt="Detection Accuracy" class="chart-img" />
+      <div class="card">
+        <div class="card-icon yellow">
+          <i class="fas fa-dot-circle"></i>
+        </div>
+        <div class="card-content">
+          <div class="card-title">Meniscus Tears</div>
+          <div class="card-value">{{scanDistribution.counts.meniscus}}</div>
+        </div>
       </div>
-    </div> -->
   
-    <div class="dashboard-actions-row">
-      <button  class="dashboard-action-btn"><i class="fas fa-file-medical"></i> Manage Scans<br /><span>Review and process pending scans</span></button>
-      <button routerLink="users" class="dashboard-action-btn"><i class="fas fa-users-cog"></i> User Management<br /><span>Add or modify user access</span></button>
-      <button routerLink="reports" class="dashboard-action-btn"><i class="fas fa-chart-line"></i> Analytics<br /><span>View detailed reports and trends</span></button>
+      <div class="card">
+        <div class="card-icon alert">
+          <i class="fas fa-dot-circle"></i>
+        </div>
+        <div class="card-content">
+          <div class="card-title">ACL & Meniscus Tears</div>
+          <div class="card-value">{{scanDistribution.counts['acl and meniscus']}}</div>
+        </div>
+      </div>
+  
+      <div class="card">
+        <div class="card-icon green">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="card-content">
+          <div class="card-title">Normal</div>
+          <div class="card-value">{{scanDistribution.counts.normal}}</div>
+        </div>
+      </div>
     </div>
+
   </div>
+
+  <div class="dashboard-actions-row">
+ 
+    <button routerLink="users" class="dashboard-action-btn">
+      <i class="fas fa-users-cog"></i> User Management<br /><span
+        >Add or modify user access</span
+      >
+    </button>
+    <button routerLink="reports" class="dashboard-action-btn">
+      <i class="fas fa-chart-line"></i> Analytics<br /><span
+        >View detailed reports and trends</span
+      >
+    </button>
+  </div>
+</div>

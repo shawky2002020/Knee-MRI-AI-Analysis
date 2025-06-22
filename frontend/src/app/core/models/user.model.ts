@@ -1,6 +1,7 @@
 export class User {
   _id!: string;
   name!: string;
+  name_letters?: string;
   gender!: string;
   email!: string;
   password!: string; // Hashed
@@ -8,6 +9,7 @@ export class User {
   token!: string;
   createdAt?: Date;
   lastLogin?: Date;
+  lastLog?: string;
   loginCount?: number;
   scanCount?: number;
   aiAccess?: boolean;

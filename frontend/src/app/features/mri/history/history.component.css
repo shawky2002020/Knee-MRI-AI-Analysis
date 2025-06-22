@@ -21,6 +21,7 @@
   justify-content: center;
   gap: 3rem 1.5rem;
   padding: 3rem 1rem;
+
 }
 
 .card {
@@ -32,7 +33,6 @@
   border-radius: 1rem;
   width: 100%;
   max-width: 350px;
-  height: 300px;
   color: var(--black-70);
   font-size: var(--large);
   animation: fadeInDown .5s ease-in-out;
@@ -45,8 +45,9 @@
   border-radius: 1rem;
   box-shadow: 0 2px 8px #0001;
   padding: 1.5rem 1.2rem;
-  display: grid;
-  grid-template-rows: 3fr 1fr 1fr 1fr;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
   gap: 1rem;
 }
 .card-header {
@@ -59,7 +60,6 @@
   font-weight: bold;
   font-size: var(--large);
   color: #222;
-  font-family: lora;
 }
 .scan-id {
   color: #888;
@@ -127,7 +127,7 @@
   justify-content: end;
   align-items: end;
   gap: 1.2rem;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 }
 .view-report {
@@ -138,6 +138,7 @@
   text-decoration: none;
   cursor: pointer;
   margin-right: auto;
+  margin-top: 10px;
   transition: text-decoration 0.2s ease-in-out;
 }
 .view-report:hover {

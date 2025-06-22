@@ -32,7 +32,7 @@
     <ul id="links-wrapper">
       <li
         [ngClass]="{ active: activeItem === 'dashboard' }"
-        (click)="setActiveItem('dashboard')"
+        (click)="setActiveFromURL()"
       >
         <a routerLink="/app/dashboard">
           <i class="fas fa-home nav-icon"></i>
@@ -41,7 +41,7 @@
       </li>
       <li
         [ngClass]="{ active: activeItem === 'analyze' }"
-        (click)="setActiveItem('analyze')"
+        (click)="setActiveFromURL()"
       >
         <a routerLink="/app/mri/analyze">
           <i class="fas fa-search-plus nav-icon"></i>
@@ -50,7 +50,7 @@
       </li>
       <li
         [ngClass]="{ active: activeItem === 'history' }"
-        (click)="setActiveItem('history')"
+        (click)="setActiveFromURL()"
       >
         <a routerLink="/app/mri/history">
           <i class="fas fa-file-medical nav-icon"></i>
@@ -60,7 +60,7 @@
       <li
         *ngIf="user.role === 'admin'"
         [ngClass]="{ active: activeItem === 'admin' }"
-        (click)="setActiveItem('admin')"
+        (click)="setActiveFromURL()"
       >
       <a href="/admin" target="_blank" rel="noopener">
         <i class="fas fa-user-shield nav-icon"></i>

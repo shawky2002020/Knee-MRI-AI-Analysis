@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../../../core/models/user.model';
 import { UserService } from '../../../../core/services/user.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   isExpanded = false
   user!:User;
   isLight !:boolean;
   activeItem!: string ; // Default active item
 
-  constructor(private router: Router, private userService: UserService) {
-    
+  constructor(private router: Router, private userService: UserService,private route: ActivatedRoute) {
+    this.isExpanded = false;
     userService.userObservable.subscribe((newUser)=>{
       this.user = newUser;
     });
@@ -23,17 +23,31 @@ export class SidebarComponent {
     //   this.isLight = newTheme === 'light';
 
     // })
-    this.activeItem = localStorage.getItem('activeItem') || 'dashboard'
     
   }
+  ngOnInit(): void {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.setActiveFromURL(); // Now safe to run
+      }
+    });  }
 
   logout(){
     this.userService.logout()  
   }
 
+  
+
+  setActiveFromURL(): void {
+    const fullPath = this.router.url; // e.g. /dashboard/reports/view
+    const lastSegment = fullPath.split('/').filter(Boolean).pop()|| ""; // 'view'
+    console.log('last path:', lastSegment);
+    
+    this.setActiveItem(lastSegment);
+  }
+
   setActiveItem(item: string): void {
     this.activeItem = item;
-    localStorage.setItem('activeItem', item);
   }
 
   toggleExpanded() {

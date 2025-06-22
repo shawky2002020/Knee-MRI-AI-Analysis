@@ -74,7 +74,7 @@ video {
   z-index: -1;
   filter: contrast(2);
   transform: scaleY(0.5);
-  mix-blend-mode: screen;
+  mix-blend-mode: lighten;
   @media screen and (max-width: 520px) {
     height: 100px;
     transform: scaleY(1);
@@ -204,7 +204,7 @@ section {
   }
 }
 
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 920px) {
   .desktop {
     display: none !important;
   }

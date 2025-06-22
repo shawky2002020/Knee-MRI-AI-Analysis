@@ -27,6 +27,8 @@ export const getDiagnosisDistribution = async (req, res) => {
         response[item._id.toLowerCase()] = item.count;
       }
       response.total += item.count;
+      console.log(response.total);
+      
     });
 
     // Calculate percentages

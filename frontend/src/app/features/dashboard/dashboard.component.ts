@@ -14,6 +14,7 @@ import { MriDiagnosticResponse } from '../../core/models/ai-result.model';
 export class DashboardComponent implements AfterViewInit,OnInit {
   latestScans: MriDiagnosticResponse[] = [];
   totalScans: number = 0;
+  totalViewed: number = 0;
   loading: boolean = false;
   constructor(private userService: UserService,private scansService:MriScanService) {
     // themeService.switchToLightTheme()

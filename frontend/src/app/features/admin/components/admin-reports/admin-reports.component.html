@@ -1,21 +1,21 @@
-<div class="admin-reports">
+<app-loader *ngIf="loading" [shade]="true" [loader]="true"></app-loader>
+<div *ngIf="!loading" class="admin-reports">
   <div class="reports-header">
     <h1><i class="fas fa-chart-line"></i> Analytics & Reports</h1>
-    <div class="time-filter">
+    <!-- <div class="time-filter">
       <button class="time-btn active">Weekly</button>
       <button class="time-btn">Monthly</button>
       <button class="time-btn">Quarterly</button>
       <button class="time-btn">Yearly</button>
-    </div>
+    </div> -->
   </div>
 
   <div class="reports-grid">
     <!-- Scan Activity Chart -->
-    <div class="report-card wide">
+    <!-- <div class="report-card wide">
       <div class="card-header">
         <h3><i class="fas fa-chart-area"></i> Scan Activity</h3>
         <div class="card-actions">
-          <button class="action-btn"><i class="fas fa-download"></i></button>
           <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
         </div>
       </div>
@@ -25,14 +25,13 @@
           <p>Activity trend visualization</p>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Diagnosis Distribution -->
     <div class="report-card">
       <div class="card-header">
         <h3><i class="fas fa-pie-chart"></i> Diagnosis Distribution</h3>
         <div class="card-actions">
-          <button class="action-btn"><i class="fas fa-download"></i></button>
         </div>
       </div>
       <div class="chart-container">
@@ -82,7 +81,6 @@
       <div class="card-header">
         <h3><i class="fas fa-clock"></i> Processing Time</h3>
         <div class="card-actions">
-          <button class="action-btn"><i class="fas fa-download"></i></button>
         </div>
       </div>
       <div class="metrics">
@@ -112,7 +110,6 @@
       <div class="card-header">
         <h3><i class="fas fa-users"></i> User Activity</h3>
         <div class="card-actions">
-          <button class="action-btn"><i class="fas fa-download"></i></button>
         </div>
       </div>
       <div class="metrics">
@@ -128,9 +125,9 @@
       <div class="user-activity-list">
         <div class="activity-item" *ngFor="let user of mostActiveUsers">
           <div class="activity-user">
-            <div class="user-avatar">SA</div>
+            <div class="user-avatar">{{user.name_letters}}</div>
             <div class="user-info">
-              <div class="user-name">  {{user.name}} </div>
+              <div class="user-name">  {{user.name }} </div>
               <div class="user-role"> {{user.role}} </div>
             </div>
           </div>
@@ -160,7 +157,7 @@
     </div>
 
     <!-- System Health -->
-    <div class="report-card">
+    <!-- <div class="report-card">
       <div class="card-header">
         <h3><i class="fas fa-server"></i> System Health</h3>
         <div class="card-actions">
@@ -200,7 +197,7 @@
       <div class="uptime">
         <i class="fas fa-clock"></i> Uptime: 24 days, 8 hours
       </div>
-    </div>
+    </div> -->
 
     <!-- Recent Activity -->
     <div class="report-card wide">
@@ -208,7 +205,6 @@
         <h3><i class="fas fa-history"></i> Recent Activity</h3>
         <div class="card-actions">
           <button class="action-btn"><i class="fas fa-filter"></i></button>
-          <button class="action-btn"><i class="fas fa-download"></i></button>
         </div>
       </div>
       <div class="activity-table-container">
@@ -216,54 +212,38 @@
           <thead>
             <tr>
               <th>User</th>
-              <th>Action</th>
-              <th>Patient</th>
-              <th>Diagnosis</th>
-              <th>Time</th>
+              <th>Role</th>
+              <th>Login Count</th>
+              <th>Last Login</th>
+              <th>Scans</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Dr. Smith</td>
-              <td>Uploaded Scan</td>
-              <td>John Doe</td>
-              <td><span class="status-badge normal">Normal</span></td>
-              <td>10 min ago</td>
+            <tr *ngFor="let user of usersStats.mostActiveUsers">
+              <td class="user-name">
+                {{user.name}}
+              </td>
+              <td>
+                {{user.role}}
+              </td>
+              <td>
+                {{user.loginCount == 0 ? 1 : user.loginCount}}
+              </td>
+              <td>
+                {{user.lastLog}}
+              </td>
+              <td>
+                {{user.scanCount}}
+              </td>
             </tr>
-            <tr>
-              <td>Dr. Johnson</td>
-              <td>Reviewed Scan</td>
-              <td>Alice Brown</td>
-              <td><span class="status-badge danger">ACL</span></td>
-              <td>25 min ago</td>
-            </tr>
-            <tr>
-              <td>Dr. Williams</td>
-              <td>Uploaded Scan</td>
-              <td>Robert Davis</td>
-              <td><span class="status-badge warning">Meniscus</span></td>
-              <td>45 min ago</td>
-            </tr>
-            <tr>
-              <td>Dr. Miller</td>
-              <td>Reviewed Scan</td>
-              <td>Sarah Wilson</td>
-              <td><span class="status-badge critical">ACL & Meniscus</span></td>
-              <td>1 hour ago</td>
-            </tr>
-            <tr>
-              <td>Dr. Taylor</td>
-              <td>Uploaded Scan</td>
-              <td>Michael Moore</td>
-              <td><span class="status-badge normal">Normal</span></td>
-              <td>2 hours ago</td>
-            </tr>
+         
+           
           </tbody>
         </table>
       </div>
-      <div class="view-all">
+      <!-- <div class="view-all">
         <a href="#"><i class="fas fa-eye"></i> View All Activity</a>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

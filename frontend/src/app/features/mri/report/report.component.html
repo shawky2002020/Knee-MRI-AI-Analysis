@@ -1,8 +1,12 @@
 <div class="report-page">
   <!-- Enhanced Header Section -->
-  <header class="page-header">
-    <app-header [title]="'Report'"></app-header>
-  </header>
+  <div class="head-container">
+    <div class="title">
+      <h1>Report</h1>
+    </div>
+    
+  </div>
+  
   <header class="report-header">
     <div class="title-section">
       <h1 class="gradient-text">{{ DiagnosticResult.metadata.name }}</h1>
@@ -80,12 +84,10 @@
             class="status-indicator"
             [ngClass]="{
               normal: status.toLowerCase().includes('normal'),
-              warning:
-                status.toLowerCase().includes('abnormal') ||
-                status.toLowerCase().includes('suspicious'),
+           
               critical:
-                status.toLowerCase().includes('tear') ||
-                status.toLowerCase().includes('rupture')
+                status.toLowerCase().includes('meniscus') ||
+                status.toLowerCase().includes('acl')
             }"
           >
             <span class="status-icon"></span>
@@ -97,29 +99,17 @@
               were made:
             </p>
             <ul>
-              <li *ngIf="acl_prob <= 20">
-                ACL appears normal with no significant abnormalities detected.
+              <li *ngIf="status.toLowerCase().includes('normal')">
+                Both ACL and Meniscus appear normal with no significant abnormalities detected.
               </li>
-              <li *ngIf="acl_prob > 20 && acl_prob < 60">
-                ACL shows some potential irregularities that may require further
-                evaluation.
+              <li *ngIf="status.toLowerCase().includes('acl') && !status.toLowerCase().includes('meniscus') ">
+                ACL shows significant abnormalities consistent with potential injury, while Meniscus appears normal.
               </li>
-              <li *ngIf="acl_prob >= 60">
-                ACL shows significant abnormalities consistent with potential
-                injury.
+              <li *ngIf="status.toLowerCase().includes('meniscus') && !status.toLowerCase().includes('acl')">
+                Meniscus shows significant abnormalities consistent with potential injury, while ACL appears normal.
               </li>
-
-              <li *ngIf="meniscus_prob <= 20">
-                Meniscus appears normal with no significant abnormalities
-                detected.
-              </li>
-              <li *ngIf="meniscus_prob > 20 && meniscus_prob < 60">
-                Meniscus shows some potential irregularities that may require
-                further evaluation.
-              </li>
-              <li *ngIf="meniscus_prob >= 60">
-                Meniscus shows significant abnormalities consistent with
-                potential injury.
+              <li *ngIf="status.toLowerCase().includes('acl') && status.toLowerCase().includes('meniscus')">
+                Both ACL and Meniscus show significant abnormalities consistent with potential injuries.
               </li>
             </ul>
           </div>
@@ -170,7 +160,7 @@
       </div>
 
       <!-- Risk Factors Card -->
-      <div class="analysis-card risk-factors">
+      <!-- <div class="analysis-card risk-factors">
         <div class="card-header">
           <h2><i class="fas fa-exclamation-triangle"></i> Risk Assessment</h2>
         </div>
@@ -239,7 +229,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Recommendations Card -->
       <div class="analysis-card recommendations">

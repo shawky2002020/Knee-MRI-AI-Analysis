@@ -7,11 +7,16 @@
 (confirmEmitter)="confirmDelete($event)"
 (closeEmitter)="cancelDelete($event)"
 ></app-popup>
+<div class="head-container">
+  <div class="title">
+    <h1>Previous Scans</h1>
+  </div>
+  
+</div>
 <div class="container">
-
+  
   <img src="/assets/holo/holo1.jpg" alt="" class="back" />
-
-  <app-header id="top" [title]="'Previous Scans'"></app-header>
+  
   <header>
     <app-scan-filter
       [searchTerm]="searchTerm"
@@ -59,10 +64,7 @@
           <button class="delete-btn" (click)="popUpShow(scan._id)" >
             <i class="fa-solid fa-trash"></i>
           </button>
-  
-          <button class="download-btn">
-            <i class="fa-solid fa-download"></i>
-          </button>
+        
         </div>
       </div>
     </div>

@@ -141,6 +141,7 @@ export const createUser = async (req, res) => {
       .json({ message: "Error creating admin user", error: error.message });
   }
 };
+
 export const addRole = async (req, res) => {
   const { userId, role } = req.body;
   try {
@@ -246,7 +247,7 @@ export const createAdminUser = async (req, res) => {
 export const getUserStats = async (req, res) => {
   try {
     // Get time range from query params (default to last 30 days)
-    const timeRange = req.query.timeRange || "30days";
+    const timeRange = req.query.timeRange || "24hours";
     const timeFilter = getTimeFilter(timeRange);
 
     // Get new users (users created within the time range)
@@ -261,6 +262,8 @@ export const getUserStats = async (req, res) => {
 
     // Get total users count
     const totalUsersCount = await User.countDocuments();
+    console.log(totalUsersCount);
+    
 
     // Get scan count for each user
     const scanCounts = await MriScan.aggregate([
@@ -311,7 +314,7 @@ export const getUserStats = async (req, res) => {
       mostActiveUsers: mostActiveUsersWithScans,
     });
   } catch (error) {
-    console.error("Error getting user stats:", error);
+    console.error("Error getting user stats:",error);
     res.status(500).json({
       success: false,
       message: "Failed to get user statistics",
