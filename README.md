@@ -68,8 +68,7 @@
 - `GET    /notifications` – Fetch notifications
 - `POST   /notifications/mark-read` – Mark as read
 - `GET    /admin/users` – List users
-- `POST   /admin/create-user` – Create user
-- `GET    /admin/system-logs` – System logs
+
 
 ---
 
