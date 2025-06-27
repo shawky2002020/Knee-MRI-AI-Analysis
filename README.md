@@ -11,7 +11,7 @@
 
 ### 🚀 *Empowering smarter, faster, and more accurate MRI diagnostics using cutting-edge AI technology*
 
-[🎯 Live Demo](#-live-demo) • [🔧 Quick Start](#-quick-start) • [📚 Documentation](#-documentation) • [🤝 Contributing](#-contributing)
+[🎯 Live Demo](https://aclyze.vercel.app/home) 
 
 </div>
 
@@ -151,8 +151,7 @@ graph TB
 
 | Role | Dashboard Features |
 |------|-------------------|
-| 🩺 **Radiologists** | MRI upload, AI analysis, report generation, patient management |
-| 👨‍⚕️ **Doctors** | View reports, patient history, download diagnostics |
+| 👨‍⚕️ **Doctors** | MRI upload, AI analysis, report generation, patient management, view reports |
 | 👨‍💼 **Admins** | User management, system logs, analytics, role assignment |
 
 </details>
@@ -220,7 +219,7 @@ interface User {
   name: string;
   email: string;
   password: string;        // Hashed with bcrypt
-  role: 'radiologist' | 'doctor' | 'admin';
+  role: 'doctor' | 'admin';
   avatar?: string;
   isActive: boolean;
   lastLogin?: Date;
@@ -240,28 +239,20 @@ interface MRIScan {
   uploadedAt: Date;
   status: 'uploaded' | 'processing' | 'analyzed' | 'failed';
   metadata?: {
-    dimensions: { width: number; height: number };
+    name:string;
+    gender:string;
+    age:number;
     scanType: string;
-    bodyPart: string;
   };
 }
 
 // 🤖 AI Analysis Results
 interface AIAnalysis {
-  _id: ObjectId;
+  user_id: ObjectId;
   scanId: ObjectId;
-  modelVersion: string;
-  detectedInjuries: Array<{
-    type: 'ACL' | 'Meniscus' | 'Cartilage' | 'Bone';
-    severity: 'mild' | 'moderate' | 'severe';
-    confidence: number;
-    location: { x: number; y: number; width: number; height: number };
-  }>;
-  overallConfidence: number;
-  processingTime: number;  // in milliseconds
-  gradCamUrl?: string;     // Heatmap visualization
-  rawPredictions: object;  // Full model output
-  createdAt: Date;
+  result: 'ACL' | 'Meniscus' | 'Acl and Meniscus' | 'Normal';
+  heatmapUrl : string;
+
 }
 
 // 📄 Medical Reports
@@ -277,7 +268,7 @@ interface MedicalReport {
   confidenceLevel: number;
   reportUrl: string;       // PDF download URL
   status: 'draft' | 'finalized' | 'sent';
-  reviewedBy?: ObjectId;   // Doctor/Radiologist ID
+  reviewedBy?: ObjectId;   // Doctor ID
   createdAt: Date;
   finalizedAt?: Date;
 }
@@ -286,10 +277,9 @@ interface MedicalReport {
 interface Notification {
   _id: ObjectId;
   userId: ObjectId;
-  type: 'analysis_complete' | 'report_ready' | 'system_alert' | 'user_action';
+  type: 'good' | 'bad' | 'info' | 'danger';
   title: string;
   message: string;
-  priority: 'low' | 'medium' | 'high' | 'urgent';
   isRead: boolean;
   actionUrl?: string;
   metadata?: object;
@@ -297,17 +287,7 @@ interface Notification {
   readAt?: Date;
 }
 
-// 📊 Admin Logs
-interface AdminLog {
-  _id: ObjectId;
-  action: string;
-  userId?: ObjectId;       // Who performed the action
-  targetUserId?: ObjectId; // Who was affected
-  details: object;
-  ipAddress: string;
-  userAgent: string;
-  timestamp: Date;
-}
+
 ```
 
 ---
@@ -330,8 +310,6 @@ interface AdminLog {
 | `POST` | `/api/v1/auth/google-login` | Google OAuth login | ❌ |
 | `POST` | `/api/v1/auth/refresh` | Refresh JWT token | ✅ |
 | `POST` | `/api/v1/auth/logout` | User logout | ✅ |
-| `GET` | `/api/v1/auth/profile` | Get user profile | ✅ |
-| `PUT` | `/api/v1/auth/profile` | Update user profile | ✅ |
 
 </details>
 
@@ -340,12 +318,12 @@ interface AdminLog {
 
 | Method | Endpoint | Description | Role Required |
 |--------|----------|-------------|---------------|
-| `POST` | `/api/v1/mri/upload` | Upload MRI scan | Radiologist |
+| `POST` | `/api/v1/mri/upload` | Upload MRI scan | Doctor |
 | `GET` | `/api/v1/mri/list` | Get user's MRI scans | Doctor+ |
 | `GET` | `/api/v1/mri/:id` | Get scan details | Doctor+ |
-| `POST` | `/api/v1/mri/:id/analyze` | Trigger AI analysis | Radiologist |
+| `POST` | `/api/v1/mri/:id/analyze` | Trigger AI analysis | Doctor |
 | `GET` | `/api/v1/mri/:id/analysis` | Get analysis results | Doctor+ |
-| `DELETE` | `/api/v1/mri/:id` | Delete MRI scan | Radiologist |
+| `DELETE` | `/api/v1/mri/:id` | Delete MRI scan | Doctor |
 
 </details>
 
@@ -354,11 +332,8 @@ interface AdminLog {
 
 | Method | Endpoint | Description | Role Required |
 |--------|----------|-------------|---------------|
-| `POST` | `/api/v1/reports/generate` | Generate medical report | Radiologist |
-| `GET` | `/api/v1/reports/list` | Get user's reports | Doctor+ |
-| `GET` | `/api/v1/reports/:id` | Get report details | Doctor+ |
-| `GET` | `/api/v1/reports/:id/download` | Download PDF report | Doctor+ |
-| `PUT` | `/api/v1/reports/:id/finalize` | Finalize report | Radiologist |
+| `POST` | `/api/v1/reports/generate` | Generate medical report | Doctor |
+
 
 </details>
 
@@ -367,12 +342,12 @@ interface AdminLog {
 
 | Method | Endpoint | Description | Role Required |
 |--------|----------|-------------|---------------|
-| `GET` | `/api/v1/notifications` | Get user notifications | Any |
-| `PUT` | `/api/v1/notifications/:id/read` | Mark as read | Any |
-| `DELETE` | `/api/v1/notifications/:id` | Delete notification | Any |
-| `GET` | `/api/v1/admin/users` | List all users | Admin |
-| `GET` | `/api/v1/admin/logs` | System logs | Admin |
-| `GET` | `/api/v1/admin/analytics` | Platform analytics | Admin |
+| `GET`  | `/api/v1/admin/users/stats`       | Get users stats and analytics         | Any       |
+| `GET`  | `/api/v1/admin/users`             | List all users                        | Admin     |
+| `GET`  | `/api/v1/admin/users/:id`         | Get a specific user's details         | Admin     |
+| `PUT`  | `/api/v1/admin/users/:id/role`    | Update user role (Doctor/Radiologist/Admin) | Admin |
+| `PATCH`| `/api/v1/admin/users/:id/status`  | Toggle user access (activate/deactivate) | Admin |
+| `DELETE`| `/api/v1/admin/users/:id`        | Delete a user account                 | Admin     |
 
 </details>
 
@@ -433,9 +408,8 @@ interface AdminLog {
 <tr>
 <td><b>☁️ Cloud & Storage</b></td>
 <td>
-  <img src="https://img.shields.io/badge/Cloudinary-3448C5?style=flat&logo=cloudinary&logoColor=white" alt="Cloudinary"/>
+  <img src="https://img.shields.io/badge/Render-46E3B7?style=flat&logo=render&logoColor=white" alt="Render"/>
   <img src="https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white" alt="Vercel"/>
-  <img src="https://img.shields.io/badge/Railway-0B0D0E?style=flat&logo=railway&logoColor=white" alt="Railway"/>
 </td>
 <td>File storage & deployment</td>
 </tr>
@@ -648,7 +622,7 @@ Once everything is running:
 
 **Registration Process:**
 1. Navigate to the registration page
-2. Choose your role: Radiologist, Doctor, or Admin
+2. Choose your role: Doctor or Admin
 3. Fill in required information
 4. Verify email (if email verification is enabled)
 5. Complete profile setup
@@ -663,13 +637,11 @@ Once everything is running:
 <details>
 <summary><b>2️⃣ Dashboard Overview</b></summary>
 
-**Radiologist Dashboard:**
+**Doctor Dashboard:**
 - 📊 Analysis overview and statistics
 - 📤 Quick MRI upload section
 - 📋 Recent scans and pending analyses
 - 📄 Generated reports summary
-
-**Doctor Dashboard:**
 - 👥 Patient reports overview
 - 🔍 Search and filter reports
 - 📥 Download diagnostic reports
@@ -737,61 +709,6 @@ Once everything is running:
 
 ---
 
-## 🧪 Testing
-
-### 🔬 Running Tests
-
-<details>
-<summary><b>Backend Testing</b></summary>
-
-```bash
-cd backend
-
-# Run all tests
-npm test
-
-# Run tests with coverage
-npm run test:coverage
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run specific test suite
-npm test -- --grep "Authentication"
-```
-
-</details>
-
-<details>
-<summary><b>Frontend Testing</b></summary>
-
-```bash
-cd frontend
-
-# Run unit tests
-npm test
-
-# Run tests with coverage
-npm run test:coverage
-
-# Run end-to-end tests
-npm run e2e
-
-# Run tests in headless mode
-npm run test:ci
-```
-
-</details>
-
-### 📊 Test Coverage
-
-Current test coverage metrics:
-- 🎯 **Backend**: 85%+ coverage
-- 🎨 **Frontend**: 80%+ coverage
-- 🧪 **Integration Tests**: 90%+ coverage
-- 🔄 **E2E Tests**: 75%+ coverage
-
----
 
 ## 🚀 Deployment
 
@@ -839,28 +756,33 @@ vercel --prod
 </details>
 
 <details>
-<summary><b>🚂 Railway (Backend)</b></summary>
+<summary><b>🌐 Render (Backend)</b></summary>
 
 ```bash
-# Install Railway CLI
-npm install -g @railway/cli
+# Create a new Render service
+# 1. Connect your GitHub repository
+# 2. Select "Web Service"
+# 3. Set build command: npm install
+# 4. Set start command: npm start
 
-# Deploy backend
-cd backend
-railway login
-railway init
-railway up
+# Environment Variables (Set in Render Dashboard):
+# MONGODB_URI, JWT_SECRET, etc.
 ```
 
-**Railway Configuration (`railway.toml`):**
-```toml
-[build]
-builder = "NIXPACKS"
-
-[deploy]
-healthcheckPath = "/health"
-healthcheckTimeout = 300
-restartPolicyType = "ON_FAILURE"
+**Render Configuration (`render.yaml`):**
+```yaml
+services:
+  - type: web
+    name: aclyze-ai-backend
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    healthCheckPath: /health
 ```
 
 </details>
