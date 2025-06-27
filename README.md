@@ -1,4 +1,5 @@
 # ACLyze AI: MRI Analysis Platform
+![Screenshot_27-6-2025_1825_aclyze vercel app](https://github.com/user-attachments/assets/59a77237-d918-45f2-a60f-a41ea1fe9e50)
 
 ## Overview
 
