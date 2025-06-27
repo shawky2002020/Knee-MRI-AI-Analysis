@@ -133,9 +133,6 @@ docker build -t aclzye-frontend ./frontend
 ## Contribution
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
-## License
-[MIT](LICENSE)
-
 ---
 
 > **ACLyze AI** – Empowering smarter, faster, and more accurate MRI diagnostics.
