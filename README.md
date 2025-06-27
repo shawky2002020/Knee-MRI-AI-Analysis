@@ -25,7 +25,7 @@
 
 ![ACLyze AI Dashboard Demo](https://github.com/user-attachments/assets/3b1b7344-c3e4-467b-8f47-28fe0a80aa3f)
 
-**[📺 Watch Full Demo Video](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)** | **[🌐 Try Live Demo](https://aclyze-ai-demo.vercel.app)**
+**[📺 Watch Full Demo Video](https://drive.google.com/file/d/11EW5Pg1qPY1VFzozEk9ZudoRi7A1duDX/view?usp=drive_link)** | **[🌐 Try Live Demo](https://aclyze-ai-demo.vercel.app)**
 
 </div>
 
