@@ -1,5 +1,12 @@
 import express from 'express';
-import mongoose from 'mongoose';
+import { initializeApp, cert } from 'firebase-admin/app';
+import { getDatabase } from 'firebase-admin/database';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -20,12 +27,42 @@ app.use(
   })
 );
 
-// MongoDB Connection
-const uri = process.env.MONGO_URL;
-mongoose
-  .connect(uri)
-  .then(() => console.log('MongoDB connected successfully 🐸'))
-  .catch((err) => console.error('MongoDB connection failed:', err));
+// Firebase Connection
+let appInstance;
+let serviceAccount;
+
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+  try {
+    serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+  } catch (err) {
+    console.error('Failed to parse FIREBASE_SERVICE_ACCOUNT env var:', err);
+  }
+} else {
+  const keyPath = path.join(__dirname, 'serviceAccountKey.json');
+  if (fs.existsSync(keyPath)) {
+    try {
+      serviceAccount = JSON.parse(fs.readFileSync(keyPath, 'utf8'));
+    } catch (err) {
+      console.error('Failed to read serviceAccountKey.json file:', err);
+    }
+  }
+}
+
+try {
+  if (serviceAccount) {
+    appInstance = initializeApp({
+      credential: cert(serviceAccount),
+      databaseURL: process.env.DATABASE_URL
+    });
+    console.log('Firebase Admin SDK connected successfully 🔥');
+  } else {
+    console.warn('Firebase Admin SDK initialization skipped: No credentials found.');
+  }
+} catch (err) {
+  console.error('Firebase Admin SDK connection failed:', err);
+}
+
+const db = getDatabase();
 
 // HTTP server and Socket.IO
 const httpServer = http.createServer(app);
@@ -56,4 +93,4 @@ httpServer.listen(port, () => {
   console.log(`Server is running on port ${port} 🚀`);
 });
 
-export { app, io, userSocketMap };
+export { app, io, db, userSocketMap };
