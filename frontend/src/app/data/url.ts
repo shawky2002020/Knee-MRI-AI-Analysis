@@ -1,5 +1,12 @@
 import * as ennviroment from "../enviroments/enviroment";
-export const BASEURL = ennviroment.production.apiUrl;
+
+const isLocalhost = typeof window !== 'undefined' && (
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1' ||
+  window.location.port === '4200'
+);
+
+export const BASEURL = isLocalhost ? ennviroment.development.apiUrl : ennviroment.production.apiUrl;
 
 //Users urls
 export const USERS_BASE = BASEURL + '/v1/auth';

@@ -8,7 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit, AfterViewInit   {
+export class AppComponent implements OnInit, AfterViewInit {
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -16,10 +16,10 @@ export class AppComponent implements OnInit, AfterViewInit   {
       }
     });
   }
-    ngAfterViewInit(): void {
-   
+  ngAfterViewInit(): void {
+
   }
-  
+
 
 
   ngOnInit() {

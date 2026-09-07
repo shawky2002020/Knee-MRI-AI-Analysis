@@ -231,8 +231,9 @@ export const viewScan = async (req, res) => {
         },
       }
     );
-    if (updatedScan.matchedCount > 0) {
-      res.status(200).json({ message: "Scan viewed successfully" });
+    if (updatedScan.matchedCount > 0 || updatedScan.nModified > 0 || updatedScan.modifiedCount > 0) {
+      const scan = await MriScan.findById(scanID);
+      res.status(200).json(scan || { message: "Scan viewed successfully" });
     } else {
       res.status(404).json({ message: "No scan found with the sent Id" });
     }

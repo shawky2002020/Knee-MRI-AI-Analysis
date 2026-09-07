@@ -13,7 +13,14 @@ import dotenv from 'dotenv';
 import { Server } from 'socket.io';
 import http from 'http';
 
-dotenv.config();
+const envDemoPath = path.join(__dirname, '../.env.demo');
+if (process.env.DEMO_MODE === 'true' || process.env.NODE_ENV === 'demo') {
+  if (fs.existsSync(envDemoPath)) {
+    dotenv.config({ path: envDemoPath, override: true });
+  }
+} else {
+  dotenv.config();
+}
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -27,42 +34,53 @@ app.use(
   })
 );
 
-// Firebase Connection
-let appInstance;
-let serviceAccount;
+import { localDb } from './localDbAdapter.mjs';
 
-if (process.env.FIREBASE_SERVICE_ACCOUNT) {
-  try {
-    serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-  } catch (err) {
-    console.error('Failed to parse FIREBASE_SERVICE_ACCOUNT env var:', err);
-  }
+// Database Connection (Local Demo vs Remote Firebase)
+let db;
+const useLocalDb = process.env.DEMO_MODE === 'true' || process.env.USE_LOCAL_DB === 'true' || process.env.NODE_ENV === 'demo';
+
+if (useLocalDb) {
+  console.log('Using Isolated Local Demo Database (zero latency, offline) 🛡️');
+  db = localDb;
 } else {
-  const keyPath = path.join(__dirname, 'serviceAccountKey.json');
-  if (fs.existsSync(keyPath)) {
+  let appInstance;
+  let serviceAccount;
+
+  if (process.env.FIREBASE_SERVICE_ACCOUNT) {
     try {
-      serviceAccount = JSON.parse(fs.readFileSync(keyPath, 'utf8'));
+      serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
     } catch (err) {
-      console.error('Failed to read serviceAccountKey.json file:', err);
+      console.error('Failed to parse FIREBASE_SERVICE_ACCOUNT env var:', err);
+    }
+  } else {
+    const keyPath = path.join(__dirname, 'serviceAccountKey.json');
+    if (fs.existsSync(keyPath)) {
+      try {
+        serviceAccount = JSON.parse(fs.readFileSync(keyPath, 'utf8'));
+      } catch (err) {
+        console.error('Failed to read serviceAccountKey.json file:', err);
+      }
     }
   }
-}
 
-try {
-  if (serviceAccount) {
-    appInstance = initializeApp({
-      credential: cert(serviceAccount),
-      databaseURL: process.env.DATABASE_URL
-    });
-    console.log('Firebase Admin SDK connected successfully 🔥');
-  } else {
-    console.warn('Firebase Admin SDK initialization skipped: No credentials found.');
+  try {
+    if (serviceAccount) {
+      appInstance = initializeApp({
+        credential: cert(serviceAccount),
+        databaseURL: process.env.DATABASE_URL
+      });
+      console.log('Firebase Admin SDK connected successfully 🔥');
+      db = getDatabase();
+    } else {
+      console.warn('Firebase Admin SDK initialization skipped: Using local database.');
+      db = localDb;
+    }
+  } catch (err) {
+    console.error('Firebase Admin SDK connection failed, falling back to local DB:', err.message);
+    db = localDb;
   }
-} catch (err) {
-  console.error('Firebase Admin SDK connection failed:', err);
 }
-
-const db = getDatabase();
 
 // HTTP server and Socket.IO
 const httpServer = http.createServer(app);

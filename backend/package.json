@@ -5,6 +5,9 @@
   "scripts": {
     "start": "node server.mjs",
     "dev": "nodemon server.mjs",
+    "demo": "node --env-file=.env.demo server.mjs",
+    "demo:seed": "node scripts/seedDemoData.mjs",
+    "demo:reset": "node scripts/resetDemoData.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

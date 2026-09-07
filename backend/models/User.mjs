@@ -63,9 +63,9 @@ class User {
         ...fields,
         updatedAt: new Date().toISOString()
       });
-      return { nModified: 1 };
+      return { nModified: 1, matchedCount: 1, modifiedCount: 1 };
     }
-    return { nModified: 0 };
+    return { nModified: 0, matchedCount: 0, modifiedCount: 0 };
   }
 
   static async countDocuments(filter = {}) {

@@ -68,12 +68,12 @@ export class NavbarComponent {
       })
       .fromTo(
         navItems,
-        {  opacity:0, duration: 0.2, ease: 'power1.out' },
+        { opacity: 0, duration: 0.2, ease: 'power1.out' },
         {
           opacity: 1,
           duration: 0.6,
           ease: 'power3.out',
-          delay:1,
+          delay: 1,
           stagger: {
             amount: 0.5,
             from: 'start',

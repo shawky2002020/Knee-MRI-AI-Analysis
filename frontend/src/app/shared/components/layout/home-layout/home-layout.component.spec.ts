@@ -10,8 +10,8 @@ describe('HomeLayoutComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [HomeLayoutComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(HomeLayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

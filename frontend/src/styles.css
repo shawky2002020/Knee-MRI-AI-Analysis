@@ -1,11 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Cairo+Play:wght@200..1000&family=Cairo:wght@200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+
 * {
   -webkit-tap-highlight-color: transparent;
 }
@@ -19,8 +21,8 @@ element {
   width: 0px;
 }
 
-a{
-  all: unset ;
+a {
+  all: unset;
   text-decoration: none !important;
 }
 
@@ -29,49 +31,55 @@ a{
   font-family: f;
   src: url(/assets/fonts/Designer.otf);
 }
+
 @font-face {
   font-family: lora;
   src: url(/assets/fonts/Lora-Bold.ttf);
 }
+
 @font-face {
   font-family: proto;
   src: url(/assets/fonts/Prototype.ttf);
 }
+
 @font-face {
   font-family: quantum;
   src: url(/assets/fonts/Quantum.otf);
 }
-.f{
+
+.f {
   font-family: f;
 }
 
-.lora{
+.lora {
   font-family: lora;
 }
-.proto{
+
+.proto {
   font-family: proto;
 }
-.quantum{
+
+.quantum {
   font-family: quantum;
 }
+
 /* GLOBAL STYLES */
 body {
   overflow-x: hidden;
   font-family: var(--font-family);
-  background: radial-gradient(
-    circle,
-    var(--purple-dark) 50%,
-    var(--black-light) 100%
-  );
+  background: radial-gradient(circle,
+      var(--purple-dark) 50%,
+      var(--black-light) 100%);
   background-size: 100% 100%;
 }
-.outside{
+
+.outside {
   position: fixed;
   top: 0;
   right: 0;
   height: 100vh;
   width: 100vw;
- z-index: 1;
+  z-index: 1;
 }
 
 /*ROOT VARS */
@@ -79,7 +87,7 @@ body {
   --black: #000;
   --black-light: #222;
   --black-50: #00000080;
-  
+
   --black-70: #000000b3;
   --black-grad: linear-gradient(135deg, #232526 0%, #414345 100%);
 
@@ -104,31 +112,25 @@ body {
   --holographic-primary: linear-gradient(45deg, #ff99ff, #99ffff, #ff99ff);
   --holographic-secondary: linear-gradient(135deg, #ff8ac5, #8ba6ed, #99ffff);
   --holographic-accent: linear-gradient(90deg, #ff99ff, #99ffff);
-  --holographic-rainbow: linear-gradient(
-    to right,
-    #ff0000,
-    #ff8000,
-    #ffff00,
-    #00ff00,
-    #00ffff,
-    #0000ff,
-    #8000ff,
-    #ff0080
-  );
-  --holographic-shimmer: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  --holographic-pearl: linear-gradient(
-    135deg,
-    #ffffff,
-    #ffe1e1,
-    #e1ffe1,
-    #e1e1ff,
-    #ffffff
-  );
+  --holographic-rainbow: linear-gradient(to right,
+      #ff0000,
+      #ff8000,
+      #ffff00,
+      #00ff00,
+      #00ffff,
+      #0000ff,
+      #8000ff,
+      #ff0080);
+  --holographic-shimmer: linear-gradient(90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.8) 50%,
+      rgba(255, 255, 255, 0) 100%);
+  --holographic-pearl: linear-gradient(135deg,
+      #ffffff,
+      #ffe1e1,
+      #e1ffe1,
+      #e1e1ff,
+      #ffffff);
 
   --pink-dark: #a40051;
   --pink: #faa;
@@ -153,7 +155,7 @@ body {
   --box-shadow: 0px 2px 12px rgba(255, 255, 255, 0.3);
 
   /* 🖋 Typography */
-  --font-family:"Poppins", "Inter", sans-serif;
+  --font-family: "Poppins", "Inter", sans-serif;
   --tiny: 0.3rem;
   --small: 0.5rem;
   --normal: 1rem;
@@ -203,13 +205,14 @@ body {
   height: 100px;
   border-radius: 1rem;
   z-index: auto;
-  h1{
+
+  h1 {
     font-size: var(--xlarge);
     padding: 0 2rem;
   }
-  
+
   @media screen and (max-width:787px) {
-    h1{
+    h1 {
       font-size: var(--large);
       padding: 0 1rem;
     }
@@ -233,7 +236,8 @@ body {
   /* 🔥 Fit content */
   display: inline-block;
   width: auto;
-  max-width: 90vw; /* Optional: prevent overflow on small screens */
+  max-width: 90vw;
+  /* Optional: prevent overflow on small screens */
   padding: 12px 16px;
   white-space: normal;
 }
@@ -244,7 +248,8 @@ body {
   padding: 0 16px;
   display: block;
   white-space: normal;
-  word-break: break-word; /* handle long strings */
+  word-break: break-word;
+  /* handle long strings */
 }
 
 
@@ -254,19 +259,23 @@ body {
 }
 
 #toast-container .toast-success {
-  border-left: 5px solid #28a745; /* Green accent for success */
+  border-left: 5px solid #28a745;
+  /* Green accent for success */
 }
 
 #toast-container .toast-error {
-  border-left: 5px solid #dc3545; /* Red accent for error */
+  border-left: 5px solid #dc3545;
+  /* Red accent for error */
 }
 
 #toast-container .toast-info {
-  border-left: 5px solid #17a2b8; /* Blue accent for info */
+  border-left: 5px solid #17a2b8;
+  /* Blue accent for info */
 }
 
 #toast-container .toast-warning {
-  border-left: 5px solid #ffc107; /* Yellow accent for warning */
+  border-left: 5px solid #ffc107;
+  /* Yellow accent for warning */
 }
 
 #toast-container .toast-title {
@@ -296,9 +305,10 @@ body {
 #toast-container .toast-progress {
   background-color: rgba(255, 255, 255, 0.3);
 }
+
 button {
   transition: filter 0.5s, box-shadow 0.3s, background 0.2s, color 0.2s,
-  transform 0.1s;
+    transform 0.1s;
   transition-timing-function: ease-in;
   cursor: pointer;
   border: none;
@@ -306,6 +316,7 @@ button {
   justify-self: center;
   justify-content: center;
   align-items: center;
+
   a {
     display: flex;
     align-items: center;
@@ -314,11 +325,13 @@ button {
     height: 100%;
   }
 }
-button.loading{
+
+button.loading {
   position: relative;
   pointer-events: none;
-  
+
 }
+
 button.loading::before {
   z-index: 1;
   content: "";
@@ -390,21 +403,22 @@ button.loading::after {
   from {
     transform: rotate(0turn);
   }
+
   to {
     transform: rotate(1turn);
   }
 }
+
 .special-btn {
   filter: brightness(2);
   box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.3);
-  background: linear-gradient(
-    to right,
-    var(--purple-dark),
-    var(--purple-light)
-  ) ;
+  background: linear-gradient(to right,
+      var(--purple-dark),
+      var(--purple-light));
   background-size: 200% auto;
   color: var(--white) !important;
 }
+
 .special-btn:hover {
   filter: brightness(1.5);
   box-shadow: 0px 6px 16px rgba(255, 255, 255, 0.4);
@@ -439,6 +453,7 @@ li {
   background-repeat: repeat-y;
   z-index: -1;
 }
+
 .bg {
   position: absolute;
   top: 0;
@@ -456,38 +471,43 @@ li {
 
 #logo {
   white-space: no-wrap;
+
   h1 {
     padding: 0 0.5rem;
-    background: linear-gradient(
-      to right,
-      var(--purple-dark) 10%,
-      var(--purple-light) 55%
-    );
+    background: linear-gradient(to right,
+        var(--purple-dark) 10%,
+        var(--purple-light) 55%);
     background-clip: text;
     color: transparent;
     font-size: var(--xlarge);
   }
-  font-family: f , 'Poppins';
+
+  font-family: f,
+  'Poppins';
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   color: var(--white-smoke);
 }
+
 #logo span {
   font-size: var(--xlarge);
   color: var(--white);
 }
-@media screen and (max-width: 480px) {
-  
-#logo {
-  white-space: nowrap;
-  
 
+@media screen and (max-width: 480px) {
+
+  #logo {
+    white-space: nowrap;
+
+
+  }
+
+  #logo span {
+    font-size: var(--large);
+  }
 }
-#logo span {
-  font-size: var(--large);
-}
-}
+
 #links-wrapper {
   display: flex;
   flex-flow: row nowrap;
@@ -502,7 +522,7 @@ footer {
   }
 }
 
-.overlay{
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -517,7 +537,8 @@ footer {
   opacity: 0;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
-.overlay.active{
+
+.overlay.active {
   opacity: 1;
   visibility: visible;
 }
@@ -526,6 +547,7 @@ footer {
 body.light {
   background: #ffffff00;
 }
+
 .light .main-page {
   display: flex;
   flex-flow: row nowrap;
@@ -537,6 +559,7 @@ body.light {
     opacity: 0;
     transform: translateY(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -548,6 +571,7 @@ body.light {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -558,6 +582,7 @@ body.light {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
